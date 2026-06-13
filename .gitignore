@@ -1,0 +1,4 @@
+# Ignore heavy data/sequence files
+*.tsv
+*.fa
+*.fasta
