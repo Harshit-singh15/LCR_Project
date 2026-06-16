@@ -10,7 +10,6 @@ df = pd.read_csv(
 
 def simplify_method(ec):
 
-    ec = str(ec).lower()
 
     # =================================================
     # NMR spectroscopy
