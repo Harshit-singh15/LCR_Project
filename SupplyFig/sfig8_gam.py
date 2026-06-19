@@ -150,10 +150,20 @@ for idx, kmin in enumerate(KMINS):
         )
     )
 
-    gam.fit(
-        X_train,
-        y_train
-    )
+    print(f"k={k}")
+    print("Samples:", len(y_train))
+    print("Positives:", np.sum(y_train))
+    print("Negatives:", len(y_train)-np.sum(y_train))
+
+    try : 
+        gam.fit(
+            X_train,
+            y_train
+        )
+    except Exception as e:
+        print(f"k={k} failed:", e)
+        continue
+
 
     # =====================================
     # ROC
@@ -263,7 +273,6 @@ for idx, kmin in enumerate(KMINS):
         label="P(LCR)"
     )
 
-    plt.tight_layout()
 
     plt.savefig(
         f"{OUTPUT_DIR}/k{kmin}.png",
@@ -304,24 +313,31 @@ for idx, kmin in enumerate(KMINS):
     )
 
 # =====================================
+# =====================================
 # COLORBAR
 # =====================================
 
+fig.subplots_adjust(
+    right=0.88,
+    wspace=0.30,
+    hspace=0.35
+)
+
+cbar_ax = fig.add_axes(
+    [0.90, 0.15, 0.02, 0.70]
+)
+
 cbar = fig.colorbar(
     last_cf,
-    ax=axes,
-    shrink=0.8
+    cax=cbar_ax
 )
 
-cbar.set_label(
-    "P(LCR)"
-)
-
-plt.tight_layout()
+cbar.set_label("P(LCR)")
 
 plt.savefig(
     f"{OUTPUT_DIR}/SupplFig8_combined.png",
-    dpi=300
+    dpi=300,
+    bbox_inches="tight"
 )
 
 plt.show()

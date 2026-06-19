@@ -156,7 +156,7 @@ def score_points(
 # COMBINED FIGURE
 # ===================================
 
-fig, axes = plt.subplots(
+fig_combined, axes = plt.subplots(
     2,
     3,
     figsize=(16,10)
@@ -293,7 +293,7 @@ for idx, kmin in enumerate(KMINS):
         yvals
     )
 
-    # ==================================
+        # ==================================
     # INDIVIDUAL PANEL
     # ==================================
 
@@ -348,7 +348,7 @@ for idx, kmin in enumerate(KMINS):
         dpi=300
     )
 
-    plt.close()
+    plt.close(fig_single)
 
     # ==================================
     # COMBINED PANEL
@@ -385,21 +385,61 @@ for idx, kmin in enumerate(KMINS):
 # COLORBAR
 # ===================================
 
-cbar = fig.colorbar(
+# ===================================
+# SHARED LABELS
+# ===================================
+# ===================================
+# SHARED LABELS
+# ===================================
+
+fig_combined.supxlabel(
+    "Mutation (%)",
+    fontsize=14
+)
+
+fig_combined.supylabel(
+    "Most frequent amino acid (%)",
+    fontsize=14
+)
+
+# ===================================
+# LAYOUT
+# ===================================
+
+fig_combined.subplots_adjust(
+    left=0.08,
+    right=0.88,
+    bottom=0.08,
+    top=0.92,
+    wspace=0.20,
+    hspace=0.25
+)
+
+# ===================================
+# COLORBAR
+# ===================================
+
+cax = fig_combined.add_axes(
+    [0.90, 0.15, 0.02, 0.70]
+)
+
+cbar = fig_combined.colorbar(
     last_cf,
-    ax=axes,
-    shrink=0.8
+    cax=cax
 )
 
 cbar.set_label(
     "P(LCR|bin)"
 )
 
-plt.tight_layout()
+# ===================================
+# SAVE
+# ===================================
 
 plt.savefig(
     f"{OUTPUT_DIR}/SupplFig5_combined.png",
-    dpi=300
+    dpi=300,
+    bbox_inches="tight"
 )
 
-plt.show()
+plt.close(fig_combined)
