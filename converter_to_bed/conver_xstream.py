@@ -2,7 +2,7 @@ import re
 
 # ==========================
 input_html = r"outputs\output_m5XSTREAM__i0.7_g3_m5_e2.0_out_2.html"
-output_bed = r"bed_files\xstream.bed"
+output_bed = r"SupplyFig\SupplFig9\xstream_m1.bed"
 # ==========================
 
 with open(input_html, "r", encoding="utf-8", errors="ignore") as f:
