@@ -1,130 +1,171 @@
-import pandas as pd
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
+from matplotlib.colors import LogNorm
 from pathlib import Path
 
-INPUT_DIR = Path("Fig5/02_metrics")
-OUTPUT_DIR = Path("Fig5/03_plots")
+# ======================================================
+# Input / Output
+# ======================================================
+
+INPUT_DIR = Path("celegans\\dataforFig5\\02_metrics")
+OUTPUT_DIR = Path("celegans\\Fig_outputs\\Fig5")
 
 OUTPUT_DIR.mkdir(
     parents=True,
     exist_ok=True
 )
 
-files = sorted(
-    INPUT_DIR.glob("*_metrics.tsv")
-)
+# ======================================================
+# Clean method name
+# ======================================================
 
-n = len(files)
+organisms = [
+    "_mouse",
+    "_celegans",
+    "_arabidopsis",
+    "_ecoli"
+]
 
-cols = 4
-rows = int(np.ceil(n / cols))
+def clean_name(name):
 
-fig, axes = plt.subplots(
-    rows,
-    cols,
-    figsize=(16, 12)
-)
+    name = name.replace("_metrics", "")
 
-axes = axes.flatten()
+    for org in organisms:
+        name = name.replace(org, "")
 
-for ax, file in zip(axes, files):
+    return name
 
-    method = (
-        file.stem
-        .replace("_metrics", "")
-    )
+# ======================================================
+# Plot every tool
+# ======================================================
+
+for file in sorted(INPUT_DIR.glob("*_metrics.tsv")):
+
+    method = clean_name(file.stem)
+
+    print(f"Processing {method}")
 
     df = pd.read_csv(
         file,
         sep="\t"
     )
 
-    # 10 x 10 bins
-    heatmap, xedges, yedges = np.histogram2d(
-        df["Mutation_Percent"],
-        df["Most_Frequent_AA_Percent"],
-        bins=10,
-        range=[
-            [0,100],
-            [0,100]
-        ]
+    # ------------------------------------------
+    # Bin values exactly like paper
+    # ------------------------------------------
+
+    df["MutBin"] = (
+        df["Mutation_Percent"] / 10
+    ).round().astype(int)
+
+    df["FreqBin"] = (
+        df["Most_Common_AA_Percent"] / 10
+    ).round().astype(int)
+
+    # Keep within plotting range
+
+    df["MutBin"] = df["MutBin"].clip(0,10)
+
+    df["FreqBin"] = df["FreqBin"].clip(0,10)
+
+    # ------------------------------------------
+    # Count frequencies
+    # ------------------------------------------
+
+    heatmap = np.zeros((11,11))
+
+    for _, row in df.iterrows():
+
+        heatmap[
+            row["FreqBin"],
+            row["MutBin"]
+        ] += 1
+
+    # ------------------------------------------
+    # Plot
+    # ------------------------------------------
+
+    fig, ax = plt.subplots(
+        figsize=(7,6)
     )
 
-    heatmap = np.log10(
-        heatmap + 1
+    vmax = max(
+        1,
+        heatmap.max()
     )
 
     im = ax.imshow(
-        heatmap.T,
+
+        heatmap,
+
         origin="lower",
-        aspect="auto",
-        extent=[
-            0,100,
-            0,100
-        ]
+
+        cmap="Reds",
+
+        norm=LogNorm(
+            vmin=1,
+            vmax=vmax
+        ),
+
+        aspect="auto"
+
+    )
+
+    # ------------------------------------------
+
+    ax.set_xticks(range(11))
+    ax.set_yticks(range(11))
+
+    ax.set_xticklabels(
+        [f"{i*10}" for i in range(11)],
+        rotation=45
+    )
+
+    ax.set_yticklabels(
+        [f"{i*10}" for i in range(11)]
+    )
+
+    ax.set_xlabel(
+        "Mutation Percentage"
+    )
+
+    ax.set_ylabel(
+        "Most Frequent AA Percentage"
     )
 
     ax.set_title(
-        method,
-        fontsize=11,
-        fontweight="bold"
-    )
-
-    ax.set_xticks(
-        np.arange(
-            10,
-            101,
-            10
-        )
-    )
-
-    ax.set_yticks(
-        np.arange(
-            10,
-            101,
-            10
-        )
+        method
     )
 
     cbar = plt.colorbar(
         im,
-        ax=ax,
-        fraction=0.046,
-        pad=0.04
+        ax=ax
     )
 
     cbar.set_label(
-        "Count"
+        "Number of LCRs"
     )
 
-# remove unused panels
+    plt.tight_layout()
 
-for i in range(
-    len(files),
-    len(axes)
-):
-    fig.delaxes(
-        axes[i]
+    # ------------------------------------------
+    # Save
+    # ------------------------------------------
+
+    plt.savefig(
+        OUTPUT_DIR /
+        f"{method}_Fig5.png",
+        dpi=600,
+        bbox_inches="tight"
     )
 
-fig.supxlabel(
-    "Mutation Percent",
-    fontsize=18
-)
+    plt.savefig(
+        OUTPUT_DIR /
+        f"{method}_Fig5.pdf",
+        bbox_inches="tight"
+    )
 
-fig.supylabel(
-    "Most Frequent AA Percent",
-    fontsize=18
-)
+    plt.close()
 
-plt.tight_layout()
-
-plt.savefig(
-    OUTPUT_DIR /
-    "Fig5_mutation_vs_composition.png",
-    dpi=600,
-    bbox_inches="tight"
-)
-
-plt.show()
+print("Done.")

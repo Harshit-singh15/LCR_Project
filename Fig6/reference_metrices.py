@@ -6,11 +6,11 @@ from Bio import SeqIO
 
 # ===== EDIT THESE =====
 
-reference_bed = r"Fig6\mouse_real.bed"
+reference_bed = r"celegans\dataforFig6\celegans_windows_real.bed"
 
-proteome_fasta = r"outputs\mouse_proteome.fasta"
+proteome_fasta = r"celegans\celegans_cleaned.fasta"
 
-output_file = r"Fig6\reference_metrics.tsv"
+output_file = r"Celegans\\dataforFig6\reference_metrics.tsv"
 
 # ======================
 

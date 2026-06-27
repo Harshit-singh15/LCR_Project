@@ -4,7 +4,7 @@ import numpy as np
 from pathlib import Path
 
 INPUT_DIR = Path(
-    "Fig3/02_metrics"
+    "celegans\\dataforFig3\\02_metrics"
 )
 
 thresholds = np.arange(
@@ -21,10 +21,16 @@ for file in INPUT_DIR.glob(
     "*_purity.tsv"
 ):
 
-    method = (
-        file.stem
-        .replace("_purity","")
-    )
+    method = file.stem.replace("_purity", "")
+
+# Remove organism suffix
+    for organism in [
+        "_celegans",
+        "_mouse",
+        "_arabidopsis",
+        "_ecoli"
+    ]:
+        method = method.replace(organism, "")
 
     df = pd.read_csv(
         file,
@@ -64,7 +70,7 @@ plt.ylabel(
 )
 
 plt.title(
-    "Purity distribution across LCR detection methods"
+    "C. elegans :Purity distribution across LCR detection methods"
 )
 
 plt.legend(
@@ -79,7 +85,7 @@ plt.grid(
 plt.tight_layout()
 
 plt.savefig(
-    "Fig3/03_plots/Fig3_purity_distribution.png",
+    "celegans\\Fig_outputs\\Fig3\\Fig3_purity_distribution.png",
     dpi=600,
     bbox_inches="tight"
 )

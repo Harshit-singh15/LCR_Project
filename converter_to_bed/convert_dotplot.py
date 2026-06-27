@@ -1,20 +1,27 @@
 import pandas as pd
 import re
+import os
 
 # ==========================
 # INPUT FILES
 # ==========================
 
-lcr_tsv = r"outputs\5_01_mouse_UP000000589_10090_21990_lcrbylcr.tsv"          # Zenodo TSV
-proteome_fasta = r"outputs\mouse_proteome.fasta"
+lcr_tsv = r"celegans\5_04_celegans_UP000001940_6239_19816_lcrbylcr.tsv"
+proteome_fasta = r"celegans\celegans.fasta"
 
 # ==========================
 # OUTPUT FILES
 # ==========================
 
-bed_out = "bed_filesuse_reference_lcr.bed"
-ambiguous_out = "ambiguous_lcrs.tsv"
-unmapped_out = "unmapped_lcrs.tsv"
+bed_out = r"celegans\bed_celegans\dotplot_celegans.bed"
+unmapped_out = r"celegans\xstrafiles\unmapped_lcrs_celegans.tsv"
+
+# ==========================
+# CREATE OUTPUT DIRECTORIES
+# ==========================
+
+os.makedirs(os.path.dirname(bed_out), exist_ok=True)
+os.makedirs(os.path.dirname(unmapped_out), exist_ok=True)
 
 # ==========================
 # LOAD PROTEOME
@@ -22,34 +29,68 @@ unmapped_out = "unmapped_lcrs.tsv"
 
 proteins = {}
 
-current_id = None
+current_header = None
 seq_parts = []
 
 with open(proteome_fasta) as f:
+
     for line in f:
 
         if line.startswith(">"):
 
-            if current_id is not None:
-                proteins[current_id] = "".join(seq_parts)
+            if current_header is not None:
 
-            # >tr|A0A1D5RM95|A0A1D5RM95_MOUSE ...
-            fields = line.split("|")
+                seq = "".join(seq_parts)
 
-            if len(fields) >= 2:
-                current_id = fields[1]
-            else:
-                current_id = line[1:].split()[0]
+                fields = current_header.split("|")
 
+                if len(fields) >= 3:
+
+                    accession = fields[1]
+                    entry_name = fields[2].split()[0]
+
+                    proteins[accession] = seq
+                    proteins[entry_name] = seq
+
+                    # SRA17_CAEEL -> SRA17
+                    short_name = entry_name.split("_")[0]
+                    proteins[short_name] = seq
+
+                else:
+
+                    protein_id = current_header[1:].split()[0]
+                    proteins[protein_id] = seq
+
+            current_header = line.strip()
             seq_parts = []
 
         else:
             seq_parts.append(line.strip())
 
-    if current_id is not None:
-        proteins[current_id] = "".join(seq_parts)
+    # last sequence
+    if current_header is not None:
 
-print(f"Loaded {len(proteins)} proteins")
+        seq = "".join(seq_parts)
+
+        fields = current_header.split("|")
+
+        if len(fields) >= 3:
+
+            accession = fields[1]
+            entry_name = fields[2].split()[0]
+
+            proteins[accession] = seq
+            proteins[entry_name] = seq
+
+            short_name = entry_name.split("_")[0]
+            proteins[short_name] = seq
+
+        else:
+
+            protein_id = current_header[1:].split()[0]
+            proteins[protein_id] = seq
+
+print(f"Loaded {len(proteins)} identifiers")
 
 # ==========================
 # LOAD LCR DATA
@@ -57,15 +98,7 @@ print(f"Loaded {len(proteins)} proteins")
 
 df = pd.read_csv(lcr_tsv, sep="\t", index_col=0)
 
-# Expected columns:
-# parent
-# sequence
-# length
-# LCR
-# Species
-
 bed_records = []
-ambiguous_records = []
 unmapped_records = []
 
 # ==========================
@@ -94,20 +127,16 @@ for lcr_id, row in df.iterrows():
         )
     ]
 
-    if len(matches) == 1:
+    if len(matches) > 0:
 
-        start = matches[0] + 1      # 1-based
-        end = start + len(lcr_seq) - 1
+        for pos in matches:
 
-        bed_records.append(
-            [parent, start, end, lcr_id]
-        )
+            start = pos + 1      # 1-based
+            end = start + len(lcr_seq) - 1
 
-    elif len(matches) > 1:
-
-        ambiguous_records.append(
-            [lcr_id, parent, len(matches)]
-        )
+            bed_records.append(
+                [parent, start, end]
+            )
 
     else:
 
@@ -116,26 +145,22 @@ for lcr_id, row in df.iterrows():
         )
 
 # ==========================
-# WRITE OUTPUTS
+# WRITE BED
 # ==========================
 
 pd.DataFrame(
     bed_records,
-    columns=["Protein_ID", "Start", "End", "LCR_ID"]
+    columns=["Protein_ID", "Start", "End"]
 ).to_csv(
     bed_out,
     sep="\t",
-    index=False
+    index=False,
+    header=False
 )
 
-pd.DataFrame(
-    ambiguous_records,
-    columns=["LCR_ID", "Parent", "Num_Matches"]
-).to_csv(
-    ambiguous_out,
-    sep="\t",
-    index=False
-)
+# ==========================
+# WRITE UNMAPPED
+# ==========================
 
 pd.DataFrame(
     unmapped_records,
@@ -146,7 +171,6 @@ pd.DataFrame(
     index=False
 )
 
-print("\nFinished.")
-print("BED:", len(bed_records))
-print("Ambiguous:", len(ambiguous_records))
+print("\nFinished")
+print("BED entries:", len(bed_records))
 print("Unmapped:", len(unmapped_records))

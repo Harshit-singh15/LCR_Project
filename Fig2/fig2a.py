@@ -1,150 +1,212 @@
-import pandas as pd
-import matplotlib.pyplot as plt
+import re
 from pathlib import Path
 
-# =====================================================
-# DIRECTORIES
-# =====================================================
+import pandas as pd
+import matplotlib.pyplot as plt
 
-INPUT_DIR = Path(
-    "Fig2/04_metrics/peptide_counts"
+# ======================================================
+# Input / Output
+# ======================================================
+
+INPUT_DIR = Path("celegans/dataforFig2/06_peptide_counts")
+OUTPUT_DIR = Path("celegans/Fig_outputs/Fig2")
+
+OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+
+# ======================================================
+# Read all consensus files
+# ======================================================
+
+files = sorted(
+    INPUT_DIR.glob("consensus_*_peptide_counts.tsv"),
+    key=lambda x: int(re.search(r"consensus_(\d+)", x.name).group(1))
 )
 
-OUTPUT_DIR = Path(
-    "Fig2/05_plots"
-)
+plot_rows = []
 
-OUTPUT_DIR.mkdir(
-    parents=True,
-    exist_ok=True
-)
+for file in files:
 
-# =====================================================
-# TOP MOTIFS
-# =====================================================
-
-TOP_MOTIFS = [
-
-    "L","S","P","E","A",
-    "G","K","R","V","T",
-    "Q","D","I","C","F",
-    "H","N","SS","LL","Y"
-
-]
-
-# =====================================================
-# BUILD DATAFRAME
-# =====================================================
-
-rows = []
-
-for consensus in range(1,14):
-
-    file = (
-        INPUT_DIR /
-        f"consensus_{consensus}_peptide_counts.tsv"
+    consensus = int(
+        re.search(
+            r"consensus_(\d+)",
+            file.name
+        ).group(1)
     )
 
-    df = pd.read_csv(
-        file,
-        sep="\t"
+    df = pd.read_csv(file, sep="\t")
+
+    df = df.sort_values(
+        "Count",
+        ascending=False
     )
 
-    row_dict = {
-        motif:0
-        for motif in TOP_MOTIFS
-    }
+    top20 = df.head(20).copy()
 
-    other = 0
+    others = df.iloc[20:]
 
-    for _, r in df.iterrows():
+    if not others.empty:
 
-        motif = r["Best-Peptide"]
-        prop = r["Proportion"]
+        top20.loc[len(top20)] = {
+            "Best-Peptide": "Others",
+            "Best-Type": "Other",
+            "Count": others["Count"].sum(),
+            "Proportion": others["Proportion"].sum()
+        }
 
-        if motif in TOP_MOTIFS:
+    top20["Consensus"] = consensus
 
-            row_dict[motif] += prop
+    plot_rows.append(
+        top20[
+            [
+                "Consensus",
+                "Best-Peptide",
+                "Best-Type",
+                "Proportion"
+            ]
+        ]
+    )
 
-        else:
+plot_df = pd.concat(
+    plot_rows,
+    ignore_index=True
+)
 
-            other += prop
+# ======================================================
+# Store motif type
+# ======================================================
 
-    row_dict["Other"] = other
-    row_dict["Consensus"] = consensus
-
-    rows.append(row_dict)
-
-plot_df = pd.DataFrame(rows)
-
-plot_df = (
+motif_type = (
     plot_df
-    .fillna(0)
-    .set_index("Consensus")
+    .drop_duplicates("Best-Peptide")
+    .set_index("Best-Peptide")["Best-Type"]
+    .to_dict()
 )
 
-# =====================================================
-# COLORS
-# =====================================================
+# ======================================================
+# Pivot
+# ======================================================
 
-colors = plt.cm.tab20.colors[:20]
+pivot = plot_df.pivot(
+    index="Consensus",
+    columns="Best-Peptide",
+    values="Proportion"
+).fillna(0)
 
-plot_colors = list(colors)
-plot_colors.append("lightgray")
+# Sort motifs by total abundance
 
-# =====================================================
-# PLOT
-# =====================================================
+totals = pivot.sum(axis=0).sort_values(
+    ascending=False
+)
+
+cols = list(totals.index)
+
+if "Others" in cols:
+    cols.remove("Others")
+    cols.append("Others")
+
+pivot = pivot[cols]
+
+# ======================================================
+# Hatch patterns
+# ======================================================
+
+hatches = {
+    "Mono": "",
+    "Di": "///",
+    "Tri": "xxx",
+    "Other": "..."
+}
+
+# ======================================================
+# Plot
+# ======================================================
 
 fig, ax = plt.subplots(
-    figsize=(14,8)
+    figsize=(12,7)
 )
 
-plot_df[
-    TOP_MOTIFS + ["Other"]
-].plot(
+bottom = None
 
-    kind="bar",
+for peptide in pivot.columns:
 
-    stacked=True,
+    ptype = motif_type.get(
+        peptide,
+        "Other"
+    )
 
-    ax=ax,
+    hatch = hatches.get(
+        ptype,
+        ""
+    )
 
-    color=plot_colors,
+    ax.bar(
+        pivot.index.astype(str),
+        pivot[peptide],
+        bottom=bottom,
+        label=peptide,
+        hatch=hatch,
+        edgecolor="black",
+        linewidth=0.25
+    )
 
-    width=0.85
-)
+    if bottom is None:
+        bottom = pivot[peptide].values.copy()
+    else:
+        bottom += pivot[peptide].values
+
+# ======================================================
+# Formatting
+# ======================================================
 
 ax.set_xlabel(
-    "Consensus level"
+    "Consensus Level",
+    fontsize=13
 )
 
 ax.set_ylabel(
-    "Proportion of LCRs"
+    "Proportion",
+    fontsize=13
 )
 
 ax.set_title(
-    "Motif composition across consensus levels"
+    "C. elegans: Top peptide motifs across consensus levels",
+    fontsize=15
 )
 
+ax.set_ylim(0,1)
+
+ax.set_xticks(range(len(pivot.index)))
+ax.set_xticklabels(
+    pivot.index.astype(str)
+)
+
+# ======================================================
+# Legend
+# ======================================================
+
 ax.legend(
-
     title="Motif",
-
     bbox_to_anchor=(1.02,1),
-
     loc="upper left",
-
-    fontsize=8
+    ncol=2,
+    fontsize=8,
+    title_fontsize=9,
+    frameon=False
 )
 
 plt.tight_layout()
 
 plt.savefig(
-    OUTPUT_DIR /
-    "Fig2A_motif_composition.png",
+    OUTPUT_DIR/"Motif_Fig2A.png",
     dpi=600,
     bbox_inches="tight"
 )
 
-plt.show()
+plt.savefig(
+    OUTPUT_DIR/"Motif_Fig2A.pdf",
+    bbox_inches="tight"
+)
+
+plt.close()
+
+print("Done.")

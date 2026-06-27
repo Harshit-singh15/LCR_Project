@@ -6,13 +6,13 @@ from Bio import SeqIO
 # EDIT PATHS
 # =====================================================
 
-proteome_fasta = r"outputs\mouse_proteome.fasta"
+proteome_fasta = r"celegans\celegans_cleaned.fasta"
 
-reference_bed = r"Fig6\mouse_real.bed"
+reference_bed = r"celegans\dataforFig6\celegans_windows_real.bed"
 
-tool_folder = r"Fig6\bed_files - Copy"
+tool_folder = r"celegans\bed_bedtools"
 
-output_file = r"Fig6\protein_confusion.tsv"
+output_file = r"Celegans\\dataforFig6\protein_confusion.tsv"
 
 # =====================================================
 

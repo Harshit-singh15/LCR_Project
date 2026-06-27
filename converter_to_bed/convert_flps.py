@@ -1,47 +1,66 @@
-import re
+import os
 
-input_fasta = r"outputs\flps_strict_masked.fa"
-output_bed = r"bed_files\flps_strict_masked_mouse.bed"
+# ==================================
+input_file = r"celegans\lcrbytools_celegans\celegans_flps2_strict.out"
+output_bed = r"celegans\bed_celegans\flps2_strict_celegans.bed"
+# ==================================
+
+os.makedirs(
+    os.path.dirname(output_bed),
+    exist_ok=True
+)
+
+written = 0
+skipped = 0
 
 with open(output_bed, "w") as out:
 
-    seq_id = None
-    seq = []
+    with open(input_file, "r") as f:
 
-    with open(input_fasta) as f:
         for line in f:
 
-            if line.startswith(">"):
+            line = line.strip()
 
-                if seq_id is not None:
+            if not line:
+                continue
 
-                    sequence = "".join(seq)
+            fields = line.split()
 
-                    for match in re.finditer(r"[a-z]+|X+", sequence):
-                        start = match.start() + 1
-                        end = match.end()
+            # skip malformed lines
+            if len(fields) < 5:
+                skipped += 1
+                continue
 
-                        out.write(
-                             f"{seq_id}\t{start}\t{end}\n"
-                        )
+            try:
 
-                seq_id = line[1:].strip().split()[0]
-                seq = []
+                protein_field = fields[0]
 
-            else:
-                seq.append(line.strip())
+                # UniProt accession
+                #
+                # tr|A0A067XG43|A0A067XG43_CAEEL
+                #
+                # -> A0A067XG43
 
-        # process last sequence
-        if seq_id is not None:
+                parts = protein_field.split("|")
 
-            sequence = "".join(seq)
+                if len(parts) >= 3:
+                    protein_id = parts[1]
+                else:
+                    protein_id = protein_field
 
-            for match in re.finditer(r"[a-z]+|X+", sequence):
-                start = match.start() + 1
-                end = match.end()
+                start = int(fields[3])
+                end   = int(fields[4])
 
                 out.write(
-                    f"{seq_id}\t{start}\t{end}\n"
+                    f"{protein_id}\t{start}\t{end}\n"
                 )
 
-print("BED file written:", output_bed)
+                written += 1
+
+            except Exception:
+                skipped += 1
+
+print("Finished")
+print("Regions written:", written)
+print("Skipped lines:", skipped)
+print("Output:", output_bed)

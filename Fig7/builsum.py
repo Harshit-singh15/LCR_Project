@@ -1,8 +1,8 @@
 import pandas as pd
 from pathlib import Path
 
-input_dir = Path("Fig6/plot_tables")
-output_dir = Path("Fig7")
+input_dir = Path("celegans\\dataforFig6\\plot_tables")
+output_dir = Path("celegans\\dataforFig7")
 
 output_dir.mkdir(exist_ok=True)
 

@@ -2,11 +2,11 @@
 
 from PIL import Image
 
-A = Image.open("Fig_outputs/Figure1A_Length_Heatmap.png")
-B = Image.open("Fig_outputs/Figure1B_Coverage_Heatmap.png")
-C = Image.open("Fig_outputs/Figure1C_CountDistribution.png")
-D = Image.open("Fig_outputs/Figure1D_AminoAcidComposition.png")
-E = Image.open("Fig_outputs/Figure1E_Entropy_Boxplot.png")
+A = Image.open("Celegans\\Fig_outputs\\Figure1A_Length_Heatmap.png")
+B = Image.open("Celegans\\Fig_outputs\\Figure1B_Coverage_Heatmap.png")
+C = Image.open("Celegans\\Fig_outputs\\Figure1C_CountDistribution.png")
+D = Image.open("Celegans\\Fig_outputs\\Figure1D_AminoAcidComposition.png")
+E = Image.open("Celegans\\Fig_outputs\\Figure1E_Entropy_Boxplot.png")
 
 # resize all top row images to same height
 top_height = 700
@@ -33,6 +33,5 @@ canvas.paste(C, (A.width + B.width, 0))
 canvas.paste(D, (0, top_height))
 canvas.paste(E, (D.width, top_height))
 
-canvas.save("Fig_outputs/Figure1_Final.png")
-canvas.save("Fig_outputs/Figure1_Final.pdf")
+canvas.save("Celegans\\Fig_outputs\\Figure1_Final.png")
 print("Saved Figure1_Final.png")
