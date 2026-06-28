@@ -5,11 +5,11 @@ import csv
 # INPUT FILES
 # ==========================================================
 
-proteome_fasta = r"zebrafish\zebrafish_cleaned.fasta"
+proteome_fasta = r"fruitfly\fruitfly_cleaned.fasta"
 
 sifts_file = r"celegans\dataforFig8\uniprot_segments_observed.tsv"
 
-output_file = r"zebrafish\dataforFig8\zebrafish_sifts_observed.tsv"
+output_file = r"fruitfly\dataforFig8\fruitfly_sifts_observed.tsv"
 
 # ==========================================================
 

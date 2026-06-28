@@ -9,11 +9,11 @@ import matplotlib.pyplot as plt
 # ======================================================
 
 INPUT_DIR = Path(
-    r"zebrafish\dataforFig7"
+    r"fruitfly\dataforFig7"
 )
 
 OUTPUT_DIR = Path(
-    r"zebrafish\Fig_outputs\Fig7"
+    r"fruitfly\Fig_outputs\Fig7"
 )
 
 OUTPUT_DIR.mkdir(
@@ -109,6 +109,7 @@ for ax, (filename, title) in zip(
         "mouse",
         "zebrafish",
         "celegans",
+        "Fruitfly",
         "arabidopsis",
         "ecoli",
         "yeast"

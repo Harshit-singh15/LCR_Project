@@ -5,8 +5,8 @@ import pandas as pd
 # INPUT / OUTPUT 
 # ==========================================================
 
-INPUT_DIR = Path(r"zebrafish\bed_zebrafish")      # original BED files
-OUTPUT_DIR = Path(r"zebrafish\bed_zf_bedtools")     # BEDTools compatible files
+INPUT_DIR = Path(r"fruitfly\bed_Fruitfly")      # original BED files
+OUTPUT_DIR = Path(r"fruitfly\bed_bedtools_Fruitfly")     # BEDTools compatible files
 
 OUTPUT_DIR.mkdir(exist_ok=True)
 

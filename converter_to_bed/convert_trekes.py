@@ -2,8 +2,8 @@ import os
 import pandas as pd
 
 # ==================================
-input_tsv = r"zebrafish\lcrbytools_zebrafish\treks_combined.tsv"
-output_bed = r"zebrafish\bed_zebrafish\treks_combined_zebrafish.bed"
+input_tsv = r"fruitfly\lcrbytools_fruitfly\treks_clustalw_Fruitfly.tsv"
+output_bed = r"fruitfly\bed_Fruitfly\treks_clustalw_Fruitfly.bed"
 # ==================================
 
 os.makedirs(

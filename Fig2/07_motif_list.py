@@ -7,11 +7,11 @@ import re
 # ==========================================================
 
 INPUT_DIR = Path(
-    r"zebrafish\dataforFig2\06_peptide_counts"
+    r"fruitfly\dataforFig2\06_peptide_counts"
 )
 
 OUTPUT_DIR = Path(
-    r"zebrafish\dataforFig2\07_motif_list"
+    r"fruitfly\dataforFig2\07_motif_list"
 )
 
 OUTPUT_DIR.mkdir(

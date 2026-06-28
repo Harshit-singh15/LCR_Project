@@ -6,11 +6,11 @@ from Bio import SeqIO
 
 # ===== EDIT THESE =====
 
-reference_bed = r"zebrafish\dataforFig6\zebrafish_windows_real.bed"
+reference_bed = r"fruitfly\dataforFig6\fruitfly_windows_real.bed"
 
-proteome_fasta = r"zebrafish\zebrafish_cleaned.fasta"
+proteome_fasta = r"fruitfly\fruitfly_cleaned.fasta"
 
-output_file = r"zebrafish\dataforFig6\reference_metrics.tsv"
+output_file = r"fruitfly\dataforFig6\reference_metrics.tsv"
 
 # ======================
 

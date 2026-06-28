@@ -2,8 +2,8 @@ import os
 import re
 
 # ===== EDIT THESE =====
-input_fasta = r"zebrafish\lcrbytools_zebrafish\zebrafish_seg_intermediate.fa"
-output_bed  = r"zebrafish\bed_zebrafish\zebrafish_seg_intermediate.bed"
+input_fasta = r"fruitfly\lcrbytools_fruitfly\seg_strict_Fruitfly.fa"
+output_bed  = r"fruitfly\bed_Fruitfly\seg_strict_Fruitfly.bed"
 # ======================
 
 # Create output directory if needed

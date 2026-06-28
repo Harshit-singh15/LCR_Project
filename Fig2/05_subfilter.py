@@ -5,9 +5,9 @@ import pandas as pd
 # Directories
 # ==========================================================
 
-INPUT_DIR = Path(r"zebrafish\dataforFig2\04_substring_motifs")
+INPUT_DIR = Path(r"fruitfly\dataforFig2\04_substring_motifs")
 
-OUTPUT_DIR = Path(r"zebrafish\dataforFig2\05_filtered")
+OUTPUT_DIR = Path(r"fruitfly\dataforFig2\05_filtered")
 
 OUTPUT_DIR.mkdir(
     parents=True,

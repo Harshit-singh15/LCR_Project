@@ -9,9 +9,9 @@ import matplotlib.pyplot as plt
 # CONFIG
 # =====================================================
 
-INPUT_DIR = r"zebrafish\dataforFig1\LCR_Count"
+INPUT_DIR = r"fruitfly\dataforFig1\LCR_Count"
 
-OUTPUT_DIR = r"zebrafish\Fig_outputs\Fig1"
+OUTPUT_DIR = r"fruitfly\Fig_outputs\Fig1"
 
 Path(OUTPUT_DIR).mkdir(
     parents=True,

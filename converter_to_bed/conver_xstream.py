@@ -2,14 +2,15 @@ import os
 import re
 
 # ==========================
-input_html = r"zebrafish\lcrbytools_zebrafish\xstream_m1_zebrafish.html"
-output_bed = r"zebrafish\bed_zebrafish\xstream_m1_zebrafish.bed"
+input_html = r"fruitfly\lcrbytools_fruitfly\xstream_m1_fruitfly.html"
+output_bed = r"fruitfly\bed_Fruitfly\xstream_m1_Fruitfly.bed"
 # ==========================
 
 os.makedirs(
     os.path.dirname(output_bed),
     exist_ok=True
 )
+
 
 with open(
     input_html,

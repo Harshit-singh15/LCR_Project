@@ -7,9 +7,9 @@ import matplotlib.pyplot as plt
 # Directories
 # =====================================================
 
-INPUT_DIR = Path(r"zebrafish\Fig_outputs\Fig5")
+INPUT_DIR = Path(r"fruitfly\Fig_outputs\Fig5")
 
-OUTPUT_DIR = Path(r"zebrafish\Fig_outputs\Fig5")
+OUTPUT_DIR = Path(r"fruitfly\Fig_outputs\Fig5")
 
 # =====================================================
 # Read all PNG heatmaps

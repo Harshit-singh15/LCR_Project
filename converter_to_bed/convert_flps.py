@@ -1,8 +1,8 @@
 import os
 
 # ==================================
-input_file = r"zebrafish\lcrbytools_zebrafish\zebrafish_flps2_default.out"
-output_bed = r"zebrafish\bed_zebrafish\zebrafish_flps2_default.bed"
+input_file = r"fruitfly\lcrbytools_fruitfly\flps2_strict_Fruitfly.out"
+output_bed = r"fruitfly\bed_Fruitfly\flps2_strict_Fruitfly.bed"
 # ==================================
 
 os.makedirs(

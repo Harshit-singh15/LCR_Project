@@ -5,11 +5,11 @@ from collections import Counter
 # INPUT / OUTPUT
 # =====================================================
 
-input_file = r"zebrafish\dataforFig8\Disprot_zebrafish.tsv"
+input_file = r"fruitfly\dataforFig8\Disprot_fruitfly.tsv"
 
-output_file = r"zebrafish\dataforFig8\fig8A_disprot_complexity.tsv"
+output_file = r"fruitfly\dataforFig8\fig8A_disprot_complexity.tsv"
 
-log_file = r"zebrafish\dataforFig8\fig8A_disprot_complexity.log"
+log_file = r"fruitfly\dataforFig8\fig8A_disprot_complexity.log"
 
 # =====================================================
 

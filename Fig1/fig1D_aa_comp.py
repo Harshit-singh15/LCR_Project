@@ -9,9 +9,9 @@ import matplotlib.pyplot as plt
 # CONFIG
 # =====================================================
 
-INPUT_DIR = r"zebrafish\dataforFig1\Amino_acid"
+INPUT_DIR = r"fruitfly\dataforFig1\Amino_acid"
 
-OUTPUT_DIR = r"zebrafish\Fig_outputs\Fig1"
+OUTPUT_DIR = r"fruitfly\Fig_outputs\Fig1"
 
 Path(OUTPUT_DIR).mkdir(
     parents=True,
@@ -34,7 +34,7 @@ tool_order = [
     "seg",
     "seg_intermediate",
     "seg_strict",
-    "treks_combined",
+    "treks_clustalw",
     "xstream_m1"
 ]
 
@@ -50,7 +50,7 @@ tool_labels = {
     "seg":"SEG",
     "seg_intermediate":"SEG Intermediate",
     "seg_strict":"SEG Strict",
-    "treks_combined":"T-REKS",
+    "treks_clustalw":"T-REKS",
     "xstream_m1":"XSTREAM"
 }
 
@@ -74,6 +74,7 @@ organisms = [
     "zebrafish",
     "celegans",
     "arabidopsis",
+    "Fruitfly",
     "ecoli",
     "yeast"
 ]

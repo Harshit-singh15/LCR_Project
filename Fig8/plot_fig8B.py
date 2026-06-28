@@ -8,9 +8,9 @@ from pathlib import Path
 # INPUT / OUTPUT
 # ==========================================================
 
-input_file = r"zebrafish\dataforFig8\fig8B_missing_residue_complexity.tsv"
+input_file = r"fruitfly\dataforFig8\fig8B_missing_residue_complexity.tsv"
 
-output_dir = Path(r"zebrafish\Fig_outputs\Fig8")
+output_dir = Path(r"fruitfly\Fig_outputs\Fig8")
 output_dir.mkdir(
     parents=True,
     exist_ok=True

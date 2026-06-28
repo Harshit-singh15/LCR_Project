@@ -9,11 +9,11 @@ from pathlib import Path
 # ======================================================
 
 INPUT_FILE = Path(
-    r"zebrafish\dataforFig4\jaccard_matrix.tsv"
+    r"fruitfly\dataforFig4\jaccard_matrix.tsv"
 )
 
 OUTPUT_DIR = Path(
-    r"zebrafish\Fig_outputs\Fig4"
+    r"fruitfly\Fig_outputs\Fig4"
 )
 
 OUTPUT_DIR.mkdir(
@@ -40,6 +40,7 @@ organisms = [
     "_mouse",
     "_zebrafish",
     "_human",
+    "_Fruitfly",
     "_yeast",
     "_arabidopsis",
     "_ecoli"
@@ -108,7 +109,7 @@ sns.heatmap(
 )
 
 plt.title(
-    "Zebrafish : Fig 4: Pairwise overlap among LCR detection methods",
+    "Fruit Fly : Fig 4: Pairwise overlap among LCR detection methods",
     fontsize=14
 )
 

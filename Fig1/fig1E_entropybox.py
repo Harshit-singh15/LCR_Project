@@ -10,9 +10,9 @@ import matplotlib.pyplot as plt
 # CONFIG
 # =====================================================
 
-INPUT_DIR = r"zebrafish\dataforFig1\ShanonEntropy"
+INPUT_DIR = r"fruitfly\dataforFig1\ShanonEntropy"
 
-OUTPUT_DIR = r"zebrafish\Fig_outputs\Fig1"
+OUTPUT_DIR = r"fruitfly\Fig_outputs\Fig1"
 
 Path(OUTPUT_DIR).mkdir(
     parents=True,
@@ -84,6 +84,7 @@ for file in files:
     "arabidopsis",
     "celegans",
     "ecoli",
+    "Fruitfly",
     "yeast"
     }
 
@@ -204,7 +205,8 @@ pretty_name = {
     "mouse": "Mouse",
     "human": "Human",
     "zebrafish": "Zebrafish",
-    "arabidopsis": "Arabidopsis"
+    "arabidopsis": "Arabidopsis",
+    "Fruitfly": "Fruit Fly"
 }.get(
     organism,
     organism.capitalize()

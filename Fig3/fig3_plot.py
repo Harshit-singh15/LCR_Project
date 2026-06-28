@@ -4,7 +4,7 @@ import numpy as np
 from pathlib import Path
 
 INPUT_DIR = Path(
-    r"zebrafish\dataforFig3\02_metrics"
+    r"fruitfly\dataforFig3\02_metrics"
 )
 
 thresholds = np.arange(
@@ -29,7 +29,8 @@ for file in INPUT_DIR.glob(
         "_mouse",
         "_zebrafish",
         "_human",
-        "_yeast"
+        "_yeast",
+        "_Fruitfly",
         "_arabidopsis",
         "_ecoli"
     ]:
@@ -73,7 +74,7 @@ plt.ylabel(
 )
 
 plt.title(
-    "Fig 3: Zebrafish : Purity distribution across LCR detection methods"
+    "Fig 3: Fruit Fly : Purity distribution across LCR detection methods"
 )
 
 plt.legend(
@@ -87,8 +88,11 @@ plt.grid(
 
 plt.tight_layout()
 
+output_path = Path(r"fruitfly\Fig_outputs\Fig3\Fig3_purity_distribution.png")
+output_path.parent.mkdir(parents=True, exist_ok=True)
+
 plt.savefig(
-    r"zebrafish\Fig_outputs\Fig3\Fig3_purity_distribution.png",
+    output_path,
     dpi=600,
     bbox_inches="tight"
 )

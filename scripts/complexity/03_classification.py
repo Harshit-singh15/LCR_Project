@@ -1,8 +1,8 @@
 import pandas as pd
 
-input_file = r"zebrafish\dataforFig6\zebrafish_windows_out.tsv"
+input_file = r"fruitfly\dataforFig6\fruitfly_windows_out.tsv"
 
-output_file = r"zebrafish\dataforFig6\zebrafish_windows_classified.tsv"
+output_file = r"fruitfly\dataforFig6\fruitfly_windows_classified.tsv"
 
 
 

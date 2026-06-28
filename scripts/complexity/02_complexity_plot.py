@@ -4,11 +4,11 @@ from Bio import SeqIO
 
 # ===== EDIT THESE =====
 
-fasta_file = r"zebrafish\zebrafish_cleaned.fasta"
+fasta_file = r"fruitfly\fruitfly_cleaned.fasta"
 
-bed_file = r"zebrafish\dataforFig6\zebrafish_windows.bed"
+bed_file = r"fruitfly\dataforFig6\fruitfly_windows.bed"
 
-output_file = r"zebrafish\dataforFig6\zebrafish_windows_out.tsv"
+output_file = r"fruitfly\dataforFig6\fruitfly_windows_out.tsv"
 
 # ======================
 

@@ -6,15 +6,15 @@ import os
 # INPUT FILES
 # ==========================
 
-lcr_tsv = r"zebrafish\5_02_zebrafish_UP000000437_7955_25705_lcrbylcr.tsv"
-proteome_fasta = r"zebrafish\zebrafish.fasta"
+lcr_tsv = r"fruitfly\5_03_fruitfly_UP000000803_7227_13821_lcrbylcr.tsv"
+proteome_fasta = r"fruitfly\fruitfly.fasta"
 
 # ==========================
 # OUTPUT FILES
 # ==========================
 
-bed_out = r"zebrafish\bed_zebrafish\zebrafish_dotplot.bed"
-unmapped_out = r"zebrafish\unmapped_lcrs_zebrafish.tsv"
+bed_out = r"fruitfly\bed_Fruitfly\fruitfly_dotplot.bed"
+unmapped_out = r"fruitfly\unmapped_lcrs_Fruitfly.tsv"
 
 # ==========================
 # CREATE OUTPUT DIRECTORIES
