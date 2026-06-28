@@ -20,9 +20,9 @@ import pandas as pd
 # INPUT / OUTPUT
 # ==========================================================
 
-INPUT_FILE = Path(r"fruitfly\multiinter.tsv")
+INPUT_FILE = Path(r"arabidopsis\multiinter.tsv")
 
-OUTPUT_DIR = Path(r"fruitfly\dataforFig2\02_consensus_beds")
+OUTPUT_DIR = Path(r"arabidopsis\dataforFig2\02_consensus_beds")
 
 OUTPUT_DIR.mkdir(
     parents=True,

@@ -6,15 +6,15 @@ import os
 # INPUT FILES
 # ==========================
 
-lcr_tsv = r"fruitfly\5_03_fruitfly_UP000000803_7227_13821_lcrbylcr.tsv"
-proteome_fasta = r"fruitfly\fruitfly.fasta"
+lcr_tsv = r"arabidopsis\5_05_arabidopsis_UP000006548_3702_27468_lcrbylcr.tsv"
+proteome_fasta = r"arabidopsis\arabidopsis.fasta"
 
 # ==========================
 # OUTPUT FILES
 # ==========================
 
-bed_out = r"fruitfly\bed_Fruitfly\fruitfly_dotplot.bed"
-unmapped_out = r"fruitfly\unmapped_lcrs_Fruitfly.tsv"
+bed_out = r"arabidopsis\bed_arabidopsis\arabidopsis_dotplot.bed"
+unmapped_out = r"arabidopsis\unmapped_lcrs_Arabidopsis.tsv"
 
 # ==========================
 # CREATE OUTPUT DIRECTORIES

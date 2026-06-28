@@ -6,13 +6,13 @@ from Bio import SeqIO
 # EDIT PATHS
 # =====================================================
 
-proteome_fasta = r"fruitfly\fruitfly_cleaned.fasta"
+proteome_fasta = r"arabidopsis\arabidopsis_cleaned.fasta"
 
-reference_bed = r"fruitfly\dataforFig6\fruitfly_windows_real.bed"
+reference_bed = r"arabidopsis\dataforFig6\arabidopsis_windows_real.bed"
 
-tool_folder = r"fruitfly\bed_bedtools_Fruitfly"
+tool_folder = r"arabidopsis\bed_bedtools_arabidopsis"
 
-output_file = r"fruitfly\dataforFig6\protein_confusion.tsv"
+output_file = r"arabidopsis\dataforFig6\protein_confusion.tsv"
 
 # =====================================================
 

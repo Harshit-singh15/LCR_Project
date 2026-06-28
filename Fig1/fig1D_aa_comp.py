@@ -9,9 +9,9 @@ import matplotlib.pyplot as plt
 # CONFIG
 # =====================================================
 
-INPUT_DIR = r"fruitfly\dataforFig1\Amino_acid"
+INPUT_DIR = r"arabidopsis\dataforFig1\Amino_acid"
 
-OUTPUT_DIR = r"fruitfly\Fig_outputs\Fig1"
+OUTPUT_DIR = r"arabidopsis\Fig_outputs\Fig1"
 
 Path(OUTPUT_DIR).mkdir(
     parents=True,
@@ -183,7 +183,7 @@ ax = plot_df.plot(
 organism = Path(INPUT_DIR).parent.parent.name
 
 plt.title(
-    f"{organism.capitalize()} Figure 1D: Amino Acid Composition"
+    f"{organism.capitalize()} Fig 1D: Amino Acid Composition"
 )
 
 plt.xlabel(

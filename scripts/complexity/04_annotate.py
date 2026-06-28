@@ -1,101 +1,152 @@
 import pandas as pd
 
-# ===== EDIT THESE =====
+# ======================================================
+# EDIT THESE
+# ======================================================
 
-input_file = r"fruitfly\dataforFig6\fruitfly_windows_classified.tsv"
+input_file = r"arabidopsis\dataforFig6\arabidopsis_windows_classified.tsv"
 
-# ======================
+output_file = r"arabidopsis\dataforFig6\arabidopsis_windows_real.bed"
+
+# ======================================================
+
+PRIORITY = {
+    "Unknown": -1,
+    "HCR": 0,
+    "CBR": 1,
+    "LCR": 2
+}
 
 
-def resolve_overlaps():
+def merge_intervals(windows):
 
-    print("Reading classified windows...")
+    boundaries = set()
+
+    for s, e, _ in windows:
+        boundaries.add(s)
+        boundaries.add(e + 1)
+
+    boundaries = sorted(boundaries)
+
+    merged = []
+
+    for i in range(len(boundaries) - 1):
+
+        seg_start = boundaries[i]
+        seg_end = boundaries[i + 1] - 1
+
+        best = None
+        best_priority = -1
+
+        for w_start, w_end, cls in windows:
+
+            if w_start <= seg_start and w_end >= seg_end:
+
+                p = PRIORITY[cls]
+
+                if p > best_priority:
+                    best_priority = p
+                    best = cls
+
+        if best is None:
+            continue
+
+        if (
+            merged
+            and merged[-1][2] == best
+            and merged[-1][1] + 1 == seg_start
+        ):
+            merged[-1][1] = seg_end
+        else:
+            merged.append(
+                [seg_start, seg_end, best]
+            )
+
+    return merged
+
+
+def main():
+
+    print("Reading file...")
 
     df = pd.read_csv(
         input_file,
         sep="\t"
     )
 
-    position_annotations = {}
-
-    print("Expanding windows to positions...")
-
-    for _, row in df.iterrows():
-
-        protein = row["Protein_ID"]
-
-        start = int(row["Start"])
-
-        end = int(row["End"])
-
-        classification = row["Classification"]
-
-        for pos in range(start, end + 1):
-
-            key = (protein, pos)
-
-            if key not in position_annotations:
-                position_annotations[key] = set()
-
-            position_annotations[key].add(
-                classification
-            )
-
-    print("Resolving overlaps...")
-
-    resolved_annotations = {}
-
-    for key, classifications in position_annotations.items():
-
-        if "LCR" in classifications:
-
-            resolved_annotations[key] = "LCR"
-
-        elif "CBR" in classifications:
-
-            resolved_annotations[key] = "CBR"
-
-        else:
-
-            resolved_annotations[key] = "HCR"
-
-    rows = []
-
-    for (protein, pos), classification in resolved_annotations.items():
-
-        rows.append(
-            [
-                protein,
-                pos,
-                classification
-            ]
-        )
-
-    resolved_df = pd.DataFrame(
-        rows,
-        columns=[
+    df = df.sort_values(
+        [
             "Protein_ID",
-            "Position",
-            "Classification"
+            "Start",
+            "End"
         ]
     )
 
-    resolved_df = resolved_df.sort_values(
-        ["Protein_ID", "Position"]
-    )
+    total_proteins = df["Protein_ID"].nunique()
 
-    resolved_df.to_csv(
-        input_file,
-        sep="\t",
-        index=False
-    )
+    print(f"Proteins : {total_proteins}")
 
-    print(f"\nUpdated: {input_file}")
+    with open(output_file, "w") as out:
 
-    print(
-        f"Total positions: {len(resolved_df):,}"
-    )
+        out.write(
+            "Protein_ID\tStart_Position\tEnd_Position\tClassification\n"
+        )
+
+        current_protein = None
+        windows = []
+
+        processed = 0
+
+        for row in df.itertuples(index=False):
+
+            protein = row.Protein_ID
+
+            if current_protein is None:
+                current_protein = protein
+
+            if protein != current_protein:
+
+                merged = merge_intervals(windows)
+
+                for start, end, cls in merged:
+                    out.write(
+                        f"{current_protein}\t{start}\t{end}\t{cls}\n"
+                    )
+
+                processed += 1
+
+                if processed % 500 == 0 or processed == total_proteins:
+                    print(f"{processed}/{total_proteins}")
+
+                windows = []
+
+                current_protein = protein
+
+            windows.append(
+                (
+                    int(row.Start),
+                    int(row.End),
+                    row.Classification
+                )
+            )
+
+        if windows:
+
+            merged = merge_intervals(windows)
+
+            for start, end, cls in merged:
+                out.write(
+                    f"{current_protein}\t{start}\t{end}\t{cls}\n"
+                )
+
+            processed += 1
+
+            print(f"{processed}/{total_proteins}")
+
+    print()
+    print("Done.")
+    print("Saved:", output_file)
 
 
 if __name__ == "__main__":
-    resolve_overlaps()
+    main()

@@ -6,10 +6,10 @@ from Bio import SeqIO
 # CONFIG
 # =====================================================
 
-EXTRACT_DIR = r"fruitfly\dataforFig1\extracted_sequences"
-PROTEIN_LENGTHS = r"fruitfly\dataforFig1\protein_lengths.tsv"
-OUTPUT_DIR = r"fruitfly\dataforFig1\LCR_Coverage"
-FASTA_FILE = r"fruitfly\fruitfly_cleaned.fasta"
+EXTRACT_DIR = r"arabidopsis\dataforFig1\extracted_sequences"
+PROTEIN_LENGTHS = r"arabidopsis\dataforFig1\protein_lengths.tsv"
+OUTPUT_DIR = r"arabidopsis\dataforFig1\LCR_Coverage"
+FASTA_FILE = r"arabidopsis\arabidopsis_cleaned.fasta"
 
 TOTAL_PROTEINS = len(pd.read_csv(PROTEIN_LENGTHS, sep="\t"))
 

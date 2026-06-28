@@ -9,11 +9,11 @@ from pathlib import Path
 # ======================================================
 
 INPUT_FILE = Path(
-    r"fruitfly\dataforFig4\jaccard_matrix.tsv"
+    r"arabidopsis\dataforFig4\jaccard_matrix.tsv"
 )
 
 OUTPUT_DIR = Path(
-    r"fruitfly\Fig_outputs\Fig4"
+    r"arabidopsis\Fig_outputs\Fig4"
 )
 
 OUTPUT_DIR.mkdir(
@@ -109,7 +109,7 @@ sns.heatmap(
 )
 
 plt.title(
-    "Fruit Fly : Fig 4: Pairwise overlap among LCR detection methods",
+    "Arabidopsis : Fig 4: Pairwise overlap among LCR detection methods",
     fontsize=14
 )
 

@@ -6,11 +6,11 @@ import pandas as pd
 # CONFIG
 # =====================================================
 
-FASTA_FILE = r"fruitfly\fruitfly.fasta"
+FASTA_FILE = r"arabidopsis\arabidopsis_cleaned.fasta"
 
-BED_FOLDER = r"fruitfly\bed_bedtools_Fruitfly"
+BED_FOLDER = r"arabidopsis\bed_bedtools_arabidopsis"
 
-OUTPUT_DIR = r"fruitfly\dataforFig1"
+OUTPUT_DIR = r"arabidopsis\dataforFig1"
 
 # =====================================================
 # CREATE OUTPUT DIRECTORIES

@@ -4,14 +4,14 @@ import seaborn as sns
 from pathlib import Path
 
 # Create output directory
-Path(r"fruitfly\Fig_outputs\Fig2").mkdir(
+Path(r"arabidopsis\Fig_outputs\Fig2").mkdir(
     parents=True,
     exist_ok=True
 )
 
 # Read data
 df = pd.read_csv(
-    r"fruitfly\dataforFig2\entropy\entropy.tsv",
+    r"arabidopsis\dataforFig2\entropy\entropy.tsv",
     sep="\t"
 )
 
@@ -55,13 +55,13 @@ ax.set_xticks(range(len(labels)))
 ax.set_xticklabels(labels)
 
 plt.title(
-    "Fruit Fly : Shannon entropy distribution across consensus levels"
+    "Arabidopsis : Shannon entropy distribution across consensus levels"
 )
 
 plt.tight_layout()
 
 plt.savefig(
-    r"fruitfly\Fig_outputs\Fig2\Fig2B_entropy.png",
+    r"arabidopsis\Fig_outputs\Fig2\Fig2B_entropy.png",
     dpi=600,
     bbox_inches="tight"
 )

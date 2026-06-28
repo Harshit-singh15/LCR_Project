@@ -9,9 +9,9 @@ import matplotlib.pyplot as plt
 # CONFIG
 # =====================================================
 
-INPUT_DIR = r"fruitfly\dataforFig1\LCR_Count"
+INPUT_DIR = r"arabidopsis\dataforFig1\LCR_Count"
 
-OUTPUT_DIR = r"fruitfly\Fig_outputs\Fig1"
+OUTPUT_DIR = r"arabidopsis\Fig_outputs\Fig1"
 
 Path(OUTPUT_DIR).mkdir(
     parents=True,
@@ -38,7 +38,7 @@ tool_order = [
     "seg",
     "seg_intermediate",
     "seg_strict",
-    "treks_combined",
+    "treks_clustalw",
     "xstream_m1"
 ]
 
@@ -54,7 +54,7 @@ tool_labels = {
     "seg": "SEG",
     "seg_intermediate": "SEG Intermediate",
     "seg_strict": "SEG Strict",
-    "treks_combined": "T-REKS",
+    "treks_clustalw": "T-REKS",
     "xstream_m1": "XSTREAM"
 }
 
@@ -170,7 +170,7 @@ ax = plot_df.plot(
 organism = files[0].stem.split("_")[-2]
 
 plt.title(
-    f"{organism.capitalize()} Figure 1C: No. of LCRs per Protein"
+    f"{organism.capitalize()} Fig 1C: No. of LCRs per Protein"
 )
 
 

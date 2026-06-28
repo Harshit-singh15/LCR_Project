@@ -8,8 +8,8 @@ from pathlib import Path
 # Input / Output
 # ======================================================
 
-INPUT_DIR = Path(r"fruitfly\dataforFig5\02_metrics")
-OUTPUT_DIR = Path(r"fruitfly\Fig_outputs\Fig5")
+INPUT_DIR = Path(r"arabidopsis\dataforFig5\02_metrics")
+OUTPUT_DIR = Path(r"arabidopsis\Fig_outputs\Fig5")
 
 OUTPUT_DIR.mkdir(
     parents=True,

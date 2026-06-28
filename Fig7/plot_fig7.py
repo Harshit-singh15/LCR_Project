@@ -9,11 +9,11 @@ import matplotlib.pyplot as plt
 # ======================================================
 
 INPUT_DIR = Path(
-    r"fruitfly\dataforFig7"
+    r"arabidopsis\dataforFig7"
 )
 
 OUTPUT_DIR = Path(
-    r"fruitfly\Fig_outputs\Fig7"
+    r"arabidopsis\Fig_outputs\Fig7"
 )
 
 OUTPUT_DIR.mkdir(

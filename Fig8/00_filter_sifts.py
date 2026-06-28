@@ -1,3 +1,4 @@
+import os
 from Bio import SeqIO
 import csv
 
@@ -5,13 +6,12 @@ import csv
 # INPUT FILES
 # ==========================================================
 
-proteome_fasta = r"fruitfly\fruitfly_cleaned.fasta"
+proteome_fasta = r"arabidopsis\arabidopsis_cleaned.fasta"
 
 sifts_file = r"celegans\dataforFig8\uniprot_segments_observed.tsv"
 
-output_file = r"fruitfly\dataforFig8\fruitfly_sifts_observed.tsv"
+output_file = r"arabidopsis\dataforFig8\arabidopsis_sifts_observed.tsv"
 
-# ==========================================================
 
 
 def get_accession(record_id):

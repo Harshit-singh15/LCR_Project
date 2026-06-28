@@ -2,8 +2,8 @@ import os
 import pandas as pd
 
 # ==================================
-input_tsv = r"fruitfly\lcrbytools_fruitfly\treks_clustalw_Fruitfly.tsv"
-output_bed = r"fruitfly\bed_Fruitfly\treks_clustalw_Fruitfly.bed"
+input_tsv = r"arabidopsis\lcrbytools\treks_clustalw_arabidopsis.tsv"
+output_bed = r"arabidopsis\bed_arabidopsis\treks_clustalw_arabidopsis.bed"
 # ==================================
 
 os.makedirs(

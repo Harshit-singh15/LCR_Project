@@ -10,9 +10,9 @@ import matplotlib.pyplot as plt
 # CONFIG
 # =====================================================
 
-INPUT_DIR = r"fruitfly\dataforFig1\ShanonEntropy"
+INPUT_DIR = r"arabidopsis\dataforFig1\ShanonEntropy"
 
-OUTPUT_DIR = r"fruitfly\Fig_outputs\Fig1"
+OUTPUT_DIR = r"arabidopsis\Fig_outputs\Fig1"
 
 Path(OUTPUT_DIR).mkdir(
     parents=True,
@@ -31,7 +31,7 @@ tool_order = [
     "seg",
     "seg_intermediate",
     "seg_strict",
-    "treks_combined",
+    "treks_clustalw",
     "xstream_m1"
 ]
 
@@ -47,7 +47,7 @@ tool_labels = {
     "seg": "SEG",
     "seg_intermediate": "SEG Intermediate",
     "seg_strict": "SEG Strict",
-    "treks_combined": "T-REKS",
+    "treks_clustalw": "T-REKS",
     "xstream_m1": "XSTREAM"
 }
 
@@ -213,7 +213,7 @@ pretty_name = {
 )
 
 plt.title(
-    f"{pretty_name} Figure 1E: Shannon Entropy Distribution"
+    f"{pretty_name} Fig 1E: Shannon Entropy Distribution"
 )
 
 plt.xlabel(

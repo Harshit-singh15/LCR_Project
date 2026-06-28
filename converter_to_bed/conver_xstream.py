@@ -2,8 +2,8 @@ import os
 import re
 
 # ==========================
-input_html = r"fruitfly\lcrbytools_fruitfly\xstream_m1_fruitfly.html"
-output_bed = r"fruitfly\bed_Fruitfly\xstream_m1_Fruitfly.bed"
+input_html = r"arabidopsis\lcrbytools\xstream_m1_arabidopsis.html"
+output_bed = r"arabidopsis\bed_arabidopsis\xstream_m1_arabidopsis.bed"
 # ==========================
 
 os.makedirs(

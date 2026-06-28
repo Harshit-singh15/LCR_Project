@@ -4,7 +4,7 @@ import numpy as np
 from pathlib import Path
 
 INPUT_DIR = Path(
-    r"fruitfly\dataforFig3\02_metrics"
+    r"arabidopsis\dataforFig3\02_metrics"
 )
 
 thresholds = np.arange(
@@ -74,7 +74,7 @@ plt.ylabel(
 )
 
 plt.title(
-    "Fig 3: Fruit Fly : Purity distribution across LCR detection methods"
+    "Fig 3: Arabidopsis : Purity distribution across LCR detection methods"
 )
 
 plt.legend(
@@ -88,7 +88,7 @@ plt.grid(
 
 plt.tight_layout()
 
-output_path = Path(r"fruitfly\Fig_outputs\Fig3\Fig3_purity_distribution.png")
+output_path = Path(r"arabidopsis\Fig_outputs\Fig3\Fig3_purity_distribution.png")
 output_path.parent.mkdir(parents=True, exist_ok=True)
 
 plt.savefig(

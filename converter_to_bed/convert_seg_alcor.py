@@ -2,8 +2,8 @@ import os
 import re
 
 # ===== EDIT THESE =====
-input_fasta = r"fruitfly\lcrbytools_fruitfly\seg_strict_Fruitfly.fa"
-output_bed  = r"fruitfly\bed_Fruitfly\seg_strict_Fruitfly.bed"
+input_fasta = r"arabidopsis\lcrbytools\seg_strict_arabidopsis.fa"
+output_bed  = r"arabidopsis\bed_arabidopsis\seg_strict_arabidopsis.bed"
 # ======================
 
 # Create output directory if needed

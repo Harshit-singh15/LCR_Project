@@ -1,8 +1,8 @@
 import os
 
 # ==================================
-input_file = r"fruitfly\lcrbytools_fruitfly\flps2_strict_Fruitfly.out"
-output_bed = r"fruitfly\bed_Fruitfly\flps2_strict_Fruitfly.bed"
+input_file = r"arabidopsis\lcrbytools\flps2_default_arabidopsis.out"
+output_bed = r"arabidopsis\bed_arabidopsis\flps2_default_arabidopsis.bed"
 # ==================================
 
 os.makedirs(

@@ -9,8 +9,8 @@ import re
 # Configuration
 # ======================================================
 
-INPUT_DIR = Path(r"fruitfly\dataforFig3\01_fastas")
-OUTPUT_DIR = Path(r"fruitfly\dataforFig5\02_metrics")
+INPUT_DIR = Path(r"arabidopsis\dataforFig3\01_fastas")
+OUTPUT_DIR = Path(r"arabidopsis\dataforFig5\02_metrics")
 
 # Maximum repeat unit length to test
 MAX_K = 6

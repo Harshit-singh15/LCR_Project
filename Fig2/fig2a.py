@@ -8,8 +8,8 @@ import matplotlib.pyplot as plt
 # Input / Output
 # ======================================================
 
-INPUT_DIR = Path(r"fruitfly\dataforFig2\06_peptide_counts")
-OUTPUT_DIR = Path(r"fruitfly\Fig_outputs\Fig2")
+INPUT_DIR = Path(r"arabidopsis\dataforFig2\06_peptide_counts")
+OUTPUT_DIR = Path(r"arabidopsis\Fig_outputs\Fig2")
 
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -169,7 +169,7 @@ ax.set_ylabel(
 )
 
 ax.set_title(
-    "Fruit Fly: Top peptide motifs across consensus levels",
+    "Arabidopsis: Top peptide motifs across consensus levels",
     fontsize=15
 )
 

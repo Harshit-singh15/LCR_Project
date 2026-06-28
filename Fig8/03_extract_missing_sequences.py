@@ -4,11 +4,11 @@ from Bio import SeqIO
 # INPUT FILES
 # ==========================================================
 
-fasta_file = r"fruitfly\fruitfly_cleaned.fasta"
+fasta_file = r"arabidopsis\arabidopsis_cleaned.fasta"
 
-bed_file = r"fruitfly\dataforFig8\fruitfly_missing_residues.bed"
+bed_file = r"arabidopsis\dataforFig8\arabidopsis_missing_residues.bed"
 
-output_fasta = r"fruitfly\dataforFig8\fruitfly_missing_residues.fa"
+output_fasta = r"arabidopsis\dataforFig8\arabidopsis_missing_residues.fa"
 
 log_file = r"fruitfly\dataforFig8\extract_missing_sequences.log"
 
