@@ -5,11 +5,11 @@ import pandas as pd
 # INPUT FILES
 # ==========================================================
 
-protein_lengths = r"celegans\dataforFig1\protein_lengths.tsv"
+protein_lengths = r"zebrafish\dataforFig1\protein_lengths.tsv"
 
-observed_file = r"celegans\dataforFig8\celegans_sifts_observed.tsv"
+observed_file = r"zebrafish\dataforFig8\zebrafish_sifts_observed.tsv"
 
-output_bed = r"celegans\dataforFig8\celegans_missing_residues.bed"
+output_bed = r"zebrafish\dataforFig8\zebrafish_missing_residues.bed"
 
 minimum_gap = 10
 

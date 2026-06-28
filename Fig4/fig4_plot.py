@@ -9,11 +9,11 @@ from pathlib import Path
 # ======================================================
 
 INPUT_FILE = Path(
-    "celegans/dataforFig4/jaccard_matrix.tsv"
+    r"zebrafish\dataforFig4\jaccard_matrix.tsv"
 )
 
 OUTPUT_DIR = Path(
-    "celegans/Fig_outputs/Fig4"
+    r"zebrafish\Fig_outputs\Fig4"
 )
 
 OUTPUT_DIR.mkdir(
@@ -38,6 +38,9 @@ df = pd.read_csv(
 organisms = [
     "_celegans",
     "_mouse",
+    "_zebrafish",
+    "_human",
+    "_yeast",
     "_arabidopsis",
     "_ecoli"
 ]
@@ -105,7 +108,7 @@ sns.heatmap(
 )
 
 plt.title(
-    "Pairwise overlap among LCR detection methods",
+    "Zebrafish : Fig 4: Pairwise overlap among LCR detection methods",
     fontsize=14
 )
 

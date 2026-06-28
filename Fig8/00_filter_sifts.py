@@ -5,11 +5,11 @@ import csv
 # INPUT FILES
 # ==========================================================
 
-proteome_fasta = r"celegans\celegans_cleaned.fasta"
+proteome_fasta = r"zebrafish\zebrafish_cleaned.fasta"
 
 sifts_file = r"celegans\dataforFig8\uniprot_segments_observed.tsv"
 
-output_file = r"celegans\dataforFig8\celegans_sifts_observed.tsv"
+output_file = r"zebrafish\dataforFig8\zebrafish_sifts_observed.tsv"
 
 # ==========================================================
 
@@ -32,7 +32,7 @@ def get_accession(record_id):
     return record_id
 
 
-print("Loading C. elegans proteome...")
+print("Loading  proteome...")
 
 proteins = set()
 

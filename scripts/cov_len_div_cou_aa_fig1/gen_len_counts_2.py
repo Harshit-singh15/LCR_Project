@@ -5,10 +5,10 @@ import pandas as pd
 # INPUT / OUTPUT
 # ==========================================
 
-INPUT_DIR = "celegans\\outputs_prerequisite\\extracted_sequences"
+INPUT_DIR = r"zebrafish\dataforFig1\extracted_sequences"
 
-LENGTH_DIR = "celegans\\outputs_prerequisite\\LCR_Length"
-COUNT_DIR  = "celegans\\outputs_prerequisite\\LCR_Count"
+LENGTH_DIR = r"zebrafish\dataforFig1\LCR_Length"
+COUNT_DIR  = r"zebrafish\dataforFig1\LCR_Count"
 
 Path(LENGTH_DIR).mkdir(parents=True, exist_ok=True)
 Path(COUNT_DIR).mkdir(parents=True, exist_ok=True)
@@ -18,7 +18,7 @@ Path(COUNT_DIR).mkdir(parents=True, exist_ok=True)
 # ==========================================
 
 protein_lengths = pd.read_csv(
-    "celegans\\outputs_prerequisite\\protein_lengths.tsv",
+    r"zebrafish\dataforFig1\protein_lengths.tsv",
     sep="\t"
 )
 

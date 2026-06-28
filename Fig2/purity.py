@@ -8,11 +8,11 @@ import pandas as pd
 # ==========================================================
 
 INPUT_DIR = Path(
-    "celegans\\dataforFig2\\03_consensus_fastas"
+    r"zebrafish\dataforFig2\03_consensus_fastas"
 )
 
 OUTPUT_DIR = Path(
-    "celegans\\dataforFig2\\purity"
+    r"zebrafish\dataforFig2\purity"
 )
 
 OUTPUT_DIR.mkdir(

@@ -1,9 +1,9 @@
 from pathlib import Path
 
 # ==========================================
-INPUT_FASTA = "celegans\\celegans.fasta"
+INPUT_FASTA = r"zebrafish\zebrafish.fasta"
 
-OUTPUT_FASTA = "celegans\\celegans_cleaned.fasta"
+OUTPUT_FASTA = r"zebrafish\zebrafish_cleaned.fasta"
 # ==========================================
 
 converted = 0

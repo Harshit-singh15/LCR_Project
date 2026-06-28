@@ -6,13 +6,13 @@ from Bio import SeqIO
 # EDIT PATHS
 # =====================================================
 
-proteome_fasta = r"celegans\celegans_cleaned.fasta"
+proteome_fasta = r"zebrafish\zebrafish_cleaned.fasta"
 
-reference_bed = r"celegans\dataforFig6\celegans_windows_real.bed"
+reference_bed = r"zebrafish\dataforFig6\zebrafish_windows_real.bed"
 
-tool_folder = r"celegans\bed_bedtools"
+tool_folder = r"zebrafish\bed_zf_bedtools"
 
-output_file = r"Celegans\\dataforFig6\protein_confusion.tsv"
+output_file = r"zebrafish\dataforFig6\protein_confusion.tsv"
 
 # =====================================================
 

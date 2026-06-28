@@ -4,14 +4,14 @@ import seaborn as sns
 from pathlib import Path
 
 # Create output directory
-Path("celegans/Fig_outputs/Fig2").mkdir(
+Path(r"zebrafish\Fig_outputs\Fig2").mkdir(
     parents=True,
     exist_ok=True
 )
 
 # Read data
 df = pd.read_csv(
-    r"celegans\dataforFig2\entropy\entropy.tsv",
+    r"zebrafish\dataforFig2\entropy\entropy.tsv",
     sep="\t"
 )
 
@@ -55,13 +55,13 @@ ax.set_xticks(range(len(labels)))
 ax.set_xticklabels(labels)
 
 plt.title(
-    "C elegans : Sequence complexity across consensus levels"
+    "Zebrafish : Sequence complexity across consensus levels"
 )
 
 plt.tight_layout()
 
 plt.savefig(
-    "celegans/Fig_outputs/Fig2/Fig2B_entropy.png",
+    r"zebrafish\Fig_outputs\Fig2\Fig2B_entropy.png",
     dpi=600,
     bbox_inches="tight"
 )

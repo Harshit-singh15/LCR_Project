@@ -4,13 +4,13 @@ from Bio import SeqIO
 # INPUT FILES
 # ==========================================================
 
-fasta_file = r"celegans\celegans_cleaned.fasta"
+fasta_file = r"zebrafish\zebrafish_cleaned.fasta"
 
-bed_file = r"celegans\dataforFig8\celegans_missing_residues.bed"
+bed_file = r"zebrafish\dataforFig8\zebrafish_missing_residues.bed"
 
-output_fasta = r"celegans\dataforFig8\celegans_missing_residues.fa"
+output_fasta = r"zebrafish\dataforFig8\zebrafish_missing_residues.fa"
 
-log_file = r"celegans\dataforFig8\extract_missing_sequences.log"
+log_file = r"zebrafish\dataforFig8\extract_missing_sequences.log"
 
 # ==========================================================
 

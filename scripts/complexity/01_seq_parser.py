@@ -1,12 +1,12 @@
 from Bio import SeqIO
 
 
-input_fasta = r"celegans\celegans_cleaned.fasta"
+input_fasta = r"zebrafish\zebrafish.fasta"
 
 window_size = 20
 step_size = 10
 
-output_bed = r"celegans\dataforFig6\celegans_windows.bed"
+output_bed = r"zebrafish\dataforFig6\zebrafish_windows.bed"
 
 # ======================
 
@@ -22,7 +22,11 @@ def main():
 
         for record in SeqIO.parse(input_fasta, "fasta"):
 
-            protein_id = record.id
+            protein_id = (
+                record.id.split("|")[1]
+                if "|" in record.id
+                else record.id
+            )
             seq_len = len(record.seq)
 
             for start in range(0, seq_len, step_size):

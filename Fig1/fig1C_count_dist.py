@@ -9,9 +9,9 @@ import matplotlib.pyplot as plt
 # CONFIG
 # =====================================================
 
-INPUT_DIR = "Celegans/outputs_prerequisite/LCR_Count"
+INPUT_DIR = r"zebrafish\dataforFig1\LCR_Count"
 
-OUTPUT_DIR = "Celegans/Fig_outputs"
+OUTPUT_DIR = r"zebrafish\Fig_outputs\Fig1"
 
 Path(OUTPUT_DIR).mkdir(
     parents=True,
@@ -27,35 +27,35 @@ count_order = [
 ]
 
 tool_order = [
-    "alcor_mode1_masked_celegans",
-    "alcor_mode2_masked_celegans",
-    "dotplot_celegans",
-    "flps_default_celegans",
-    "flps_strict_celegans",
-    "flps2_default_celegans",
-    "flps2_strict_celegans",
-    "lcrfinder_celegans",
-    "seg_celegans",
-    "seg_intermediate_celegans",
-    "seg_strict_celegans",
-    "treks_combined_celegans",
-    "xstream_m1_celegans"
+    "alcor_mode1_masked",
+    "alcor_mode2_masked",
+    "dotplot",
+    "flps_default",
+    "flps_strict",
+    "flps2_default",
+    "flps2_strict",
+    "lcrfinder",
+    "seg",
+    "seg_intermediate",
+    "seg_strict",
+    "treks_combined",
+    "xstream_m1"
 ]
 
 tool_labels = {
-    "alcor_mode1_masked_celegans": "AlcoR M1",
-    "alcor_mode2_masked_celegans": "AlcoR M2",
-    "dotplot_celegans": "Dotplot",
-    "flps_default_celegans": "fLPS",
-    "flps_strict_celegans": "fLPS Strict",
-    "flps2_default_celegans": "fLPS 2.0",
-    "flps2_strict_celegans": "fLPS 2.0 Strict",
-    "lcrfinder_celegans": "LCRFinder",
-    "seg_celegans": "SEG",
-    "seg_intermediate_celegans": "SEG Intermediate",
-    "seg_strict_celegans": "SEG Strict",
-    "treks_combined_celegans": "T-REKS",
-    "xstream_m1_celegans": "XSTREAM"
+    "alcor_mode1_masked": "AlcoR M1",
+    "alcor_mode2_masked": "AlcoR M2",
+    "dotplot": "Dotplot",
+    "flps_default": "fLPS",
+    "flps_strict": "fLPS Strict",
+    "flps2_default": "fLPS 2.0",
+    "flps2_strict": "fLPS 2.0 Strict",
+    "lcrfinder": "LCRFinder",
+    "seg": "SEG",
+    "seg_intermediate": "SEG Intermediate",
+    "seg_strict": "SEG Strict",
+    "treks_combined": "T-REKS",
+    "xstream_m1": "XSTREAM"
 }
 
 # =====================================================
@@ -96,10 +96,17 @@ for file in files:
         )
         continue
 
-    tool = file.stem.replace(
-        "_categorized",
-        ""
-    )
+    tool = file.stem.replace("_categorized", "")
+
+    # remove organism suffix automatically
+    parts = tool.split("_")
+
+    for i in range(len(parts), 0, -1):
+        candidate = "_".join(parts[:i])
+        if candidate in tool_order:
+            tool = candidate
+            break
+
 
     df["Tool"] = tool
 
@@ -160,9 +167,12 @@ ax = plot_df.plot(
     figsize=(12, 8)
 )
 
+organism = files[0].stem.split("_")[-2]
+
 plt.title(
-    "C. elegans Figure 1C: Number of LCRs per Protein"
+    f"{organism.capitalize()} Figure 1C: No. of LCRs per Protein"
 )
+
 
 plt.xlabel(
     "LCR Detection Tool"

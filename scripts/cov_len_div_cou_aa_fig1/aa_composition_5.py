@@ -6,8 +6,8 @@ import pandas as pd
 # CONFIG
 # =====================================================
 
-INPUT_DIR = "celegans\\outputs_prerequisite\\extracted_sequences"
-OUTPUT_DIR = "celegans\\outputs_prerequisite\\Amino_acid"
+INPUT_DIR = r"zebrafish\dataforFig1\extracted_sequences"
+OUTPUT_DIR = r"zebrafish\dataforFig1\Amino_acid"
 
 Path(OUTPUT_DIR).mkdir(
     parents=True,

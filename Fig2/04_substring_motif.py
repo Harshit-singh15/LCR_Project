@@ -5,9 +5,9 @@ from collections import Counter
 # Directories
 # ==========================================================
 
-INPUT_DIR = Path("celegans\\dataforFig2\\03_consensus_fastas")
+INPUT_DIR = Path(r"zebrafish\dataforFig2\03_consensus_fastas")
 
-OUTPUT_DIR = Path("celegans\\dataforFig2\\04_substring_motifs")
+OUTPUT_DIR = Path(r"zebrafish\dataforFig2\04_substring_motifs")
 
 OUTPUT_DIR.mkdir(
     parents=True,

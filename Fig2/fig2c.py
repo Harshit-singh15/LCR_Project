@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 df = pd.read_csv(
-    r"celegans\dataforFig2\purity\purity.tsv",
+    r"zebrafish\dataforFig2\purity\purity.tsv",
     sep="\t"
 )
 
@@ -45,13 +45,13 @@ ax.set_xticks(range(len(labels)))
 ax.set_xticklabels(labels)
 
 plt.title(
-    "C elegans : Compositional purity across consensus levels"
+    "Fig 2C: Zebrafish : Compositional purity across consensus levels"
 )
 
 plt.tight_layout()
 
 plt.savefig(
-    "celegans/Fig_outputs/Fig2/Fig2C_purity.png",
+    r"zebrafish\Fig_outputs\Fig2\Fig2C_purity.png",
     dpi=600,
     bbox_inches="tight"
 )

@@ -2,9 +2,9 @@ import pandas as pd
 
 # ===== EDIT THESE =====
 
-input_file = r"celegans\dataforFig6\celegans_windows_classified.tsv"
+input_file = r"zebrafish\dataforFig6\zebrafish_windows_classified.tsv"
 
-output_file = r"celegans\dataforFig6\celegans_windows_real.bed"
+output_file = r"zebrafish\dataforFig6\zebrafish_windows_real.bed"
 
 # ======================
 

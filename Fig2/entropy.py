@@ -9,11 +9,11 @@ import pandas as pd
 # ==========================================================
 
 INPUT_DIR = Path(
-    "celegans\\dataforFig2\\03_consensus_fastas"
+    r"zebrafish\dataforFig2\03_consensus_fastas"
 )
 
 OUTPUT_DIR = Path(
-    "celegans\\dataforFig2\\entropy"
+    r"zebrafish\dataforFig2\entropy"
 )
 
 OUTPUT_DIR.mkdir(

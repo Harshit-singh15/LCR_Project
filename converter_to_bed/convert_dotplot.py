@@ -13,7 +13,7 @@ proteome_fasta = r"zebrafish\zebrafish.fasta"
 # OUTPUT FILES
 # ==========================
 
-bed_out = r"zebrafish\bed_zebrafish\lcrfinder_zebrafish.bed"
+bed_out = r"zebrafish\bed_zebrafish\zebrafish_dotplot.bed"
 unmapped_out = r"zebrafish\unmapped_lcrs_zebrafish.tsv"
 
 # ==========================

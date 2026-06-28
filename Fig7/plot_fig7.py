@@ -9,11 +9,11 @@ import matplotlib.pyplot as plt
 # ======================================================
 
 INPUT_DIR = Path(
-    "celegans/dataforFig7"
+    r"zebrafish\dataforFig7"
 )
 
 OUTPUT_DIR = Path(
-    "celegans/Fig_outputs/Fig7"
+    r"zebrafish\Fig_outputs\Fig7"
 )
 
 OUTPUT_DIR.mkdir(
@@ -85,61 +85,79 @@ for ax, (filename, title) in zip(
     )
 
     # ----------------------------------------
-    # Clean tool names
+    # Clean tool names (organism-independent)
     # ----------------------------------------
 
-    df["Tool"] = (
+    tool_labels = {
+        "alcor_mode1_masked": "AlcoR M1",
+        "alcor_mode2_masked": "AlcoR M2",
+        "dotplot": "Dotplot",
+        "flps_default": "fLPS",
+        "flps_strict": "fLPS Strict",
+        "flps2_default": "fLPS 2.0",
+        "flps2_strict": "fLPS 2.0 Strict",
+        "lcrfinder": "LCRFinder",
+        "seg": "SEG",
+        "seg_intermediate": "SEG Intermediate",
+        "seg_strict": "SEG Strict",
+        "treks_combined": "T-REKS",
+        "xstream_m1": "XSTREAM"
+    }
 
-        df["Tool"]
+    organisms = {
+        "human",
+        "mouse",
+        "zebrafish",
+        "celegans",
+        "arabidopsis",
+        "ecoli",
+        "yeast"
+    }
 
-        .str.replace("_sorted","",regex=False)
+    clean_names = []
 
-        .str.replace("_mouse","",regex=False)
+    for tool in df["Tool"]:
 
-        .str.replace("_celegans","",regex=False)
+        tool = tool.replace(".bed", "")
+        tool = tool.replace("_sorted", "")
 
-        .str.replace("_human","",regex=False)
+        for org in organisms:
+            suffix = "_" + org
+            if tool.endswith(suffix):
+                tool = tool[:-len(suffix)]
+                break
 
-        .str.replace(".bed","",regex=False)
+        clean_names.append(
+            tool_labels.get(tool, tool)
+        )
 
-    )
+    df["Tool"] = clean_names
+
+    # ----------------------------------------
+    # Plot bars
+    # ----------------------------------------
 
     x = range(len(df))
-
     width = 0.38
 
     b1 = ax.bar(
-
-        [i-width/2 for i in x],
-
+        [i - width/2 for i in x],
         df["TPR"],
-
         width,
-
         color="#4C72B0",
-
         label="TPR"
-
     )
 
     b2 = ax.bar(
-
-        [i+width/2 for i in x],
-
+        [i + width/2 for i in x],
         df["FPR"],
-
         width,
-
         color="#DD8452",
-
         label="FPR"
-
     )
 
     if legend_handles is None:
-
         legend_handles = [b1, b2]
-
         legend_labels = ["TPR", "FPR"]
 
     ax.set_title(
@@ -147,34 +165,30 @@ for ax, (filename, title) in zip(
         fontsize=13
     )
 
-    ax.set_ylim(
-        0,
-        1
-    )
+    ax.set_ylim(0, 1)
 
-    ax.set_ylabel(
-        "Rate"
-    )
+    ax.set_ylabel("Rate")
 
     ax.set_xticks(list(x))
 
     ax.set_xticklabels(
-
         df["Tool"],
-
         rotation=45,
-
         ha="right"
-
     )
 
     ax.grid(
-
         axis="y",
-
         alpha=0.3
-
     )
+    
+ax.grid(
+
+    axis="y",
+
+    alpha=0.3
+
+)
 
 # ======================================================
 # Common Legend

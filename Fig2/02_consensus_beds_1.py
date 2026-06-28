@@ -20,9 +20,9 @@ import pandas as pd
 # INPUT / OUTPUT
 # ==========================================================
 
-INPUT_FILE = Path("celegans\\multiinter.tsv")
+INPUT_FILE = Path(r"zebrafish\multiinter.tsv")
 
-OUTPUT_DIR = Path("celegans\\dataforFig2\\_consensus_beds")
+OUTPUT_DIR = Path(r"zebrafish\dataforFig2\02_consensus_beds")
 
 OUTPUT_DIR.mkdir(
     parents=True,
@@ -123,7 +123,7 @@ summary_df = pd.DataFrame(
 
 summary_file = (
     OUTPUT_DIR /
-    "Celegans\\dataforFig2\\consensus_summary.tsv"
+    r"consensus_summary.tsv"
 )
 
 summary_df.to_csv(

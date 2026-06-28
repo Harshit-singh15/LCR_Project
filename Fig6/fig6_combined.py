@@ -6,8 +6,8 @@ from pathlib import Path
 # =====================================================
 # INPUT AND OUTPUT DIRECTORIES
 # =====================================================
-input_dir = Path("celegans\\dataforFig6\\plot_tables")
-output_dir = Path("celegans\\Fig_outputs\\Fig6")
+input_dir = Path(r"zebrafish\dataforFig6\plot_tables")
+output_dir = Path(r"zebrafish\Fig_outputs\Fig6")
 
 # Ensure the output directory exists
 output_dir.mkdir(parents=True, exist_ok=True)
@@ -138,4 +138,4 @@ fig.legend(
 plt.savefig(output_dir / "Figure6_Combined.png", dpi=300, bbox_inches="tight")
 
 plt.close()
-print("Success! Master 4x2 grid saved as 'Figure6_Combined.png' and 'Figure6_Combined.pdf'.")
+print("Success! Master 4x2 grid saved as 'Figure6_Combined.png")

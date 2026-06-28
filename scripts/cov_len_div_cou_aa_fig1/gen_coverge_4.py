@@ -6,10 +6,10 @@ from Bio import SeqIO
 # CONFIG
 # =====================================================
 
-EXTRACT_DIR = "celegans\\outputs_prerequisite\\extracted_sequences"
-PROTEIN_LENGTHS = "celegans\\outputs_prerequisite\\protein_lengths.tsv"
-OUTPUT_DIR = "celegans\\outputs_prerequisite\\LCR_Coverage"
-FASTA_FILE = "celegans\\celegans.fasta"
+EXTRACT_DIR = r"zebrafish\dataforFig1\extracted_sequences"
+PROTEIN_LENGTHS = r"zebrafish\dataforFig1\protein_lengths.tsv"
+OUTPUT_DIR = r"zebrafish\dataforFig1\LCR_Coverage"
+FASTA_FILE = r"zebrafish\zebrafish.fasta"
 
 TOTAL_PROTEINS = len(pd.read_csv(PROTEIN_LENGTHS, sep="\t"))
 

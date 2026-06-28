@@ -2,8 +2,8 @@ import os
 import re
 
 # ===== EDIT THESE =====
-input_fasta = r"celegans\lcrbytools_celegans\celegans_alcor_mode2_masked.fa"
-output_bed  = r"celegans\bed_celegans\alcor_mode2_masked_celegans.bed"
+input_fasta = r"zebrafish\lcrbytools_zebrafish\zebrafish_seg_intermediate.fa"
+output_bed  = r"zebrafish\bed_zebrafish\zebrafish_seg_intermediate.bed"
 # ======================
 
 # Create output directory if needed

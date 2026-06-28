@@ -8,8 +8,8 @@ from pathlib import Path
 # Input / Output
 # ======================================================
 
-INPUT_DIR = Path("celegans\\dataforFig5\\02_metrics")
-OUTPUT_DIR = Path("celegans\\Fig_outputs\\Fig5")
+INPUT_DIR = Path(r"zebrafish\dataforFig5\02_metrics")
+OUTPUT_DIR = Path(r"zebrafish\Fig_outputs\Fig5")
 
 OUTPUT_DIR.mkdir(
     parents=True,
@@ -22,6 +22,9 @@ OUTPUT_DIR.mkdir(
 
 organisms = [
     "_mouse",
+    "zebrafish",
+    "_human",
+    "_yeast",
     "_celegans",
     "_arabidopsis",
     "_ecoli"

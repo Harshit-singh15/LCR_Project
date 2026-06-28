@@ -8,8 +8,8 @@ import matplotlib.pyplot as plt
 # Input / Output
 # ======================================================
 
-INPUT_DIR = Path("celegans/dataforFig2/06_peptide_counts")
-OUTPUT_DIR = Path("celegans/Fig_outputs/Fig2")
+INPUT_DIR = Path(r"zebrafish\dataforFig2\06_peptide_counts")
+OUTPUT_DIR = Path(r"zebrafish\Fig_outputs\Fig2")
 
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -169,7 +169,7 @@ ax.set_ylabel(
 )
 
 ax.set_title(
-    "C. elegans: Top peptide motifs across consensus levels",
+    "Zebrafish: Top peptide motifs across consensus levels",
     fontsize=15
 )
 
@@ -197,7 +197,7 @@ ax.legend(
 plt.tight_layout()
 
 plt.savefig(
-    OUTPUT_DIR/"Motif_Fig2A.png",
+    OUTPUT_DIR/"Fig2A.png",
     dpi=600,
     bbox_inches="tight"
 )

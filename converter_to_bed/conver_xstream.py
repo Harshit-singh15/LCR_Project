@@ -2,8 +2,8 @@ import os
 import re
 
 # ==========================
-input_html = r"celegans\lcrbytools_celegans\xstream_m1_celegans.html"
-output_bed = r"celegans\bed_celegans\xstream_m1_celegans.bed"
+input_html = r"zebrafish\lcrbytools_zebrafish\xstream_m1_zebrafish.html"
+output_bed = r"zebrafish\bed_zebrafish\xstream_m1_zebrafish.bed"
 # ==========================
 
 os.makedirs(

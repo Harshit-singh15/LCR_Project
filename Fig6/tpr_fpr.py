@@ -5,11 +5,11 @@ import pandas as pd
 # INPUTS
 # =====================================================
 
-metrics_file = r"celegans\dataforFig6\reference_metrics.tsv"
+metrics_file = r"zebrafish\dataforFig6\reference_metrics.tsv"
 
-confusion_file = r"celegans\dataforFig6\protein_confusion.tsv"
+confusion_file = r"zebrafish\dataforFig6\protein_confusion.tsv"
 
-output_dir = r"celegans\dataforFig6\plot_tables"
+output_dir = r"zebrafish\dataforFig6\plot_tables"
 
 # =====================================================
 

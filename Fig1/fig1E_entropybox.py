@@ -10,9 +10,9 @@ import matplotlib.pyplot as plt
 # CONFIG
 # =====================================================
 
-INPUT_DIR = "Celegans\\outputs_prerequisite\\ShanonEntropy"
+INPUT_DIR = r"zebrafish\dataforFig1\ShanonEntropy"
 
-OUTPUT_DIR = "Celegans\\Fig_outputs"
+OUTPUT_DIR = r"zebrafish\Fig_outputs\Fig1"
 
 Path(OUTPUT_DIR).mkdir(
     parents=True,
@@ -20,35 +20,35 @@ Path(OUTPUT_DIR).mkdir(
 )
 
 tool_order = [
-    "alcor_mode1_masked_celegans",
-    "alcor_mode2_masked_celegans",
-    "dotplot_celegans",
-    "flps_default_celegans",
-    "flps_strict_celegans",
-    "flps2_default_celegans",
-    "flps2_strict_celegans",
-    "lcrfinder_celegans",
-    "seg_celegans",
-    "seg_intermediate_celegans",
-    "seg_strict_celegans",
-    "treks_combined_celegans",
-    "xstream_m1_celegans"
+    "alcor_mode1_masked",
+    "alcor_mode2_masked",
+    "dotplot",
+    "flps_default",
+    "flps_strict",
+    "flps2_default",
+    "flps2_strict",
+    "lcrfinder",
+    "seg",
+    "seg_intermediate",
+    "seg_strict",
+    "treks_combined",
+    "xstream_m1"
 ]
 
 tool_labels = {
-    "alcor_mode1_masked_celegans": "AlcoR M1",
-    "alcor_mode2_masked_celegans": "AlcoR M2",
-    "dotplot_celegans": "Dotplot",
-    "flps_default_celegans": "fLPS",
-    "flps_strict_celegans": "fLPS Strict",
-    "flps2_default_celegans": "fLPS 2.0",
-    "flps2_strict_celegans": "fLPS 2.0 Strict",
-    "lcrfinder_celegans": "LCRFinder",
-    "seg_celegans": "SEG",
-    "seg_intermediate_celegans": "SEG Intermediate",
-    "seg_strict_celegans": "SEG Strict",
-    "treks_combined_celegans": "T-REKS",
-    "xstream_m1_celegans": "XSTREAM"
+    "alcor_mode1_masked": "AlcoR M1",
+    "alcor_mode2_masked": "AlcoR M2",
+    "dotplot": "Dotplot",
+    "flps_default": "fLPS",
+    "flps_strict": "fLPS Strict",
+    "flps2_default": "fLPS 2.0",
+    "flps2_strict": "fLPS 2.0 Strict",
+    "lcrfinder": "LCRFinder",
+    "seg": "SEG",
+    "seg_intermediate": "SEG Intermediate",
+    "seg_strict": "SEG Strict",
+    "treks_combined": "T-REKS",
+    "xstream_m1": "XSTREAM"
 }
 
 # =====================================================
@@ -71,13 +71,29 @@ for file in files:
 
     print(f"Loading {file.name}")
 
-    tool = file.name.replace(
-        "_SNS.tsv",
-        ""
-    ).replace(
-        "_SNS",
-        ""
-    )
+    # -------------------------------------------------
+# Robust tool name extraction
+# -------------------------------------------------
+
+    tool = file.stem.replace("_SNS", "")
+
+    organisms = {
+    "human",
+    "mouse",
+    "zebrafish",
+    "arabidopsis",
+    "celegans",
+    "ecoli",
+    "yeast"
+    }
+
+    for org in organisms:
+        suffix = "_" + org
+        if tool.endswith(suffix):
+            tool = tool[:-len(suffix)]
+            break
+
+    print(f"Detected tool : {tool}")
 
     try:
 
@@ -124,11 +140,25 @@ combined = pd.concat(
 
 # keep only tools present
 
+available = set(combined["Tool"].unique())
+
 tool_order_present = [
-    tool
-    for tool in tool_order
-    if tool in combined["Tool"].unique()
+    t for t in tool_order
+    if t in available
 ]
+
+missing = sorted(
+    set(tool_order) - available
+)
+
+if missing:
+    print("\nMissing tools:")
+    print(", ".join(missing))
+
+if len(tool_order_present) == 0:
+    raise ValueError(
+        "No recognised tools found."
+    )
 
 combined["Tool"] = pd.Categorical(
     combined["Tool"],
@@ -167,8 +197,21 @@ sns.boxplot(
     legend=False
 )
 
+organism = Path(INPUT_DIR).parent.parent.name
+
+pretty_name = {
+    "celegans": "C. elegans",
+    "mouse": "Mouse",
+    "human": "Human",
+    "zebrafish": "Zebrafish",
+    "arabidopsis": "Arabidopsis"
+}.get(
+    organism,
+    organism.capitalize()
+)
+
 plt.title(
-    "C. elegans Figure 1E: Shannon Entropy Distribution"
+    f"{pretty_name} Figure 1E: Shannon Entropy Distribution"
 )
 
 plt.xlabel(
