@@ -193,12 +193,6 @@ plt.savefig(
     bbox_inches="tight"
 )
 
-plt.savefig(
-    Path(OUTPUT_DIR) /
-    "Figure1E_Entropy_Boxplot.pdf",
-    bbox_inches="tight"
-)
-
 print(
     "\nSaved Figure1E_Entropy_Boxplot.png"
 )

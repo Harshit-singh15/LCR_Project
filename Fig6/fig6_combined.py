@@ -136,7 +136,6 @@ fig.legend(
 # SAVE FILES
 # =====================================================
 plt.savefig(output_dir / "Figure6_Combined.png", dpi=300, bbox_inches="tight")
-plt.savefig(output_dir / "Figure6_Combined.pdf", bbox_inches="tight")
 
 plt.close()
 print("Success! Master 4x2 grid saved as 'Figure6_Combined.png' and 'Figure6_Combined.pdf'.")

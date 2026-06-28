@@ -202,10 +202,6 @@ plt.savefig(
     bbox_inches="tight"
 )
 
-plt.savefig(
-    OUTPUT_DIR/"Motif_Fig2A.pdf",
-    bbox_inches="tight"
-)
 
 plt.close()
 

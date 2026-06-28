@@ -93,11 +93,6 @@ plt.savefig(
     bbox_inches="tight"
 )
 
-plt.savefig(
-    OUTPUT_DIR/"Fig5_combined.pdf",
-    bbox_inches="tight"
-)
-
 plt.close()
 
 print("Combined figure saved.")

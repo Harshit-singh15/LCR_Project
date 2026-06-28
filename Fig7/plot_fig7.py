@@ -216,13 +216,6 @@ plt.savefig(
 
 )
 
-plt.savefig(
-
-    OUTPUT_DIR/"Fig7.pdf",
-
-    bbox_inches="tight"
-
-)
 
 plt.close()
 

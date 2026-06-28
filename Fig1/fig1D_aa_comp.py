@@ -172,10 +172,6 @@ plt.savefig(
     bbox_inches="tight"
 )
 
-plt.savefig(
-    Path(OUTPUT_DIR) /
-    "Figure1D_AminoAcidComposition.pdf",
-    bbox_inches="tight"
-)
+
 
 plt.show()

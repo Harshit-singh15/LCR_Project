@@ -160,11 +160,6 @@ for file in sorted(INPUT_DIR.glob("*_metrics.tsv")):
         bbox_inches="tight"
     )
 
-    plt.savefig(
-        OUTPUT_DIR /
-        f"{method}_Fig5.pdf",
-        bbox_inches="tight"
-    )
 
     plt.close()
 
