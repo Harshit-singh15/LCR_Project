@@ -6,11 +6,11 @@ from Bio import SeqIO
 
 # ===== EDIT THESE =====
 
-reference_bed = r"arabidopsis\dataforFig6\arabidopsis_windows_real.bed"
+reference_bed = r"ecoli\dataforFig6\ecoli_windows_real.bed"
 
-proteome_fasta = r"arabidopsis\arabidopsis_cleaned.fasta"
+proteome_fasta = r"ecoli\ecoli_cleaned.fasta"
 
-output_file = r"arabidopsis\dataforFig6\reference_metrics.tsv"
+output_file = r"ecoli\dataforFig6\reference_metrics.tsv"
 
 # ======================
 

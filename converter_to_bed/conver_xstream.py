@@ -2,8 +2,8 @@ import os
 import re
 
 # ==========================
-input_html = r"arabidopsis\lcrbytools\xstream_m1_arabidopsis.html"
-output_bed = r"arabidopsis\bed_arabidopsis\xstream_m1_arabidopsis.bed"
+input_html = r"ecoli\lcrbytools\xstream_m1_ecoli.html"
+output_bed = r"ecoli\bed_ecoli\xstream_m1_ecoli.bed"
 # ==========================
 
 os.makedirs(

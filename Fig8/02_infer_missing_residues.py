@@ -5,11 +5,11 @@ import pandas as pd
 # INPUT FILES
 # ==========================================================
 
-protein_lengths = r"arabidopsis\dataforFig1\protein_lengths.tsv"
+protein_lengths = r"ecoli\dataforFig1\protein_lengths.tsv"
 
-observed_file = r"arabidopsis\dataforFig8\arabidopsis_sifts_observed.tsv"
+observed_file = r"ecoli\dataforFig8\ecoli_sifts_observed.tsv"
 
-output_bed = r"arabidopsis\dataforFig8\arabidopsis_missing_residues.bed"
+output_bed = r"ecoli\dataforFig8\ecoli_missing_residues.bed"
 
 minimum_gap = 10
 

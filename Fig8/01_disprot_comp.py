@@ -5,11 +5,11 @@ from collections import Counter
 # INPUT / OUTPUT
 # =====================================================
 
-input_file = r"arabidopsis\dataforFig8\Disprot_arabidopsis.tsv"
+input_file = r"ecoli\dataforFig8\Disprot_ecoli.tsv"
 
-output_file = r"arabidopsis\dataforFig8\fig8A_disprot_complexity.tsv"
+output_file = r"ecoli\dataforFig8\fig8A_disprot_complexity.tsv"
 
-log_file = r"arabidopsis\dataforFig8\fig8A_disprot_complexity.log"
+log_file = r"ecoli\dataforFig8\fig8A_disprot_complexity.log"
 
 # =====================================================
 

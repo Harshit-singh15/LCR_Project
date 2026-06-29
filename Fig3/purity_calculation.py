@@ -8,8 +8,8 @@ import re
 # Directories
 # ==========================================
 
-INPUT_DIR = Path(r"arabidopsis\dataforFig3\01_fastas")
-OUTPUT_DIR = Path(r"arabidopsis\dataforFig3\02_metrics")
+INPUT_DIR = Path(r"ecoli\dataforFig3\01_fastas")
+OUTPUT_DIR = Path(r"ecoli\dataforFig3\02_metrics")
 
 OUTPUT_DIR.mkdir(
     parents=True,

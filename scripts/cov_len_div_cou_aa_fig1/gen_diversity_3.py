@@ -3,8 +3,8 @@ from collections import Counter
 import pandas as pd
 import math
 
-INPUT_DIR = r"arabidopsis\dataforFig1\extracted_sequences"
-OUTPUT_DIR = r"arabidopsis\dataforFig1\ShanonEntropy"
+INPUT_DIR = r"ecoli\dataforFig1\extracted_sequences"
+OUTPUT_DIR = r"ecoli\dataforFig1\ShanonEntropy"
 
 Path(OUTPUT_DIR).mkdir(parents=True, exist_ok=True)
 

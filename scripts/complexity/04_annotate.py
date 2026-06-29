@@ -4,9 +4,9 @@ import pandas as pd
 # EDIT THESE
 # ======================================================
 
-input_file = r"arabidopsis\dataforFig6\arabidopsis_windows_classified.tsv"
+input_file = r"ecoli\dataforFig6\ecoli_windows_classified.tsv"
 
-output_file = r"arabidopsis\dataforFig6\arabidopsis_windows_real.bed"
+output_file = r"ecoli\dataforFig6\ecoli_windows_real.bed"
 
 # ======================================================
 

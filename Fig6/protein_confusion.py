@@ -6,13 +6,13 @@ from Bio import SeqIO
 # EDIT PATHS
 # =====================================================
 
-proteome_fasta = r"arabidopsis\arabidopsis_cleaned.fasta"
+proteome_fasta = r"ecoli\ecoli_cleaned.fasta"
 
-reference_bed = r"arabidopsis\dataforFig6\arabidopsis_windows_real.bed"
+reference_bed = r"ecoli\dataforFig6\ecoli_windows_real.bed"
 
-tool_folder = r"arabidopsis\bed_bedtools_arabidopsis"
+tool_folder = r"ecoli\bed_bedtools_Ecoli"
 
-output_file = r"arabidopsis\dataforFig6\protein_confusion.tsv"
+output_file = r"ecoli\dataforFig6\protein_confusion.tsv"
 
 # =====================================================
 

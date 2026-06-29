@@ -8,8 +8,8 @@ import matplotlib.pyplot as plt
 # Input / Output
 # ======================================================
 
-INPUT_DIR = Path(r"arabidopsis\dataforFig2\06_peptide_counts")
-OUTPUT_DIR = Path(r"arabidopsis\Fig_outputs\Fig2")
+INPUT_DIR = Path(r"ecoli\dataforFig2\06_peptide_counts")
+OUTPUT_DIR = Path(r"ecoli\Fig_outputs\Fig2")
 
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -169,10 +169,10 @@ ax.set_ylabel(
 )
 
 ax.set_title(
-    "Arabidopsis: Top peptide motifs across consensus levels",
+    "E. coli: Top peptide motifs across consensus levels",
     fontsize=15
 )
-
+        
 ax.set_ylim(0,1)
 
 ax.set_xticks(range(len(pivot.index)))

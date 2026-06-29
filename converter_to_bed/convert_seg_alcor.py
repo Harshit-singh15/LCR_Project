@@ -2,8 +2,8 @@ import os
 import re
 
 # ===== EDIT THESE =====
-input_fasta = r"arabidopsis\lcrbytools\seg_strict_arabidopsis.fa"
-output_bed  = r"arabidopsis\bed_arabidopsis\seg_strict_arabidopsis.bed"
+input_fasta = r"ecoli\lcrbytools\seg_strict_ecoli.fa"
+output_bed  = r"ecoli\bed_ecoli\seg_strict_ecoli.bed"
 # ======================
 
 # Create output directory if needed

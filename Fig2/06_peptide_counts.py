@@ -6,11 +6,11 @@ import pandas as pd
 # ==========================================================
 
 INPUT_DIR = Path(
-    r"arabidopsis\dataforFig2\05_filtered"
+    r"ecoli\dataforFig2\05_filtered"
 )
 
 OUTPUT_DIR = Path(
-    r"arabidopsis\dataforFig2\06_peptide_counts"
+    r"ecoli\dataforFig2\06_peptide_counts"
 )
 
 OUTPUT_DIR.mkdir(

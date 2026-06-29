@@ -9,9 +9,9 @@ import matplotlib.pyplot as plt
 # CONFIG
 # =====================================================
 
-INPUT_DIR = r"arabidopsis\dataforFig1\LCR_Coverage"
+INPUT_DIR = r"ecoli\dataforFig1\LCR_Coverage"
 
-OUTPUT_DIR = r"arabidopsis\Fig_outputs\Fig1"
+OUTPUT_DIR = r"ecoli\Fig_outputs\Fig1"
 
 Path(OUTPUT_DIR).mkdir(
     parents=True,

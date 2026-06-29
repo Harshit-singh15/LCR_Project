@@ -6,15 +6,15 @@ import os
 # INPUT FILES
 # ==========================
 
-lcr_tsv = r"arabidopsis\5_05_arabidopsis_UP000006548_3702_27468_lcrbylcr.tsv"
-proteome_fasta = r"arabidopsis\arabidopsis.fasta"
+lcr_tsv = r"ecoli\5_07_ecoli_UP000000625_83333_4391_lcrbylcr.tsv"
+proteome_fasta = r"ecoli\ecoli.fasta"
 
 # ==========================
 # OUTPUT FILES
 # ==========================
 
-bed_out = r"arabidopsis\bed_arabidopsis\arabidopsis_dotplot.bed"
-unmapped_out = r"arabidopsis\unmapped_lcrs_Arabidopsis.tsv"
+bed_out = r"ecoli\bed_ecoli\ecoli_dotplot.bed"
+unmapped_out = r"ecoli\unmapped_lcrs_Ecoli.tsv"
 
 # ==========================
 # CREATE OUTPUT DIRECTORIES

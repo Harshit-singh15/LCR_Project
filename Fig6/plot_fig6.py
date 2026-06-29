@@ -7,8 +7,8 @@ import numpy as np
 # =====================================================
 # INPUT AND OUTPUT DIRECTORIES
 # =====================================================
-input_dir = Path(r"arabidopsis\dataforFig6\plot_tables")
-output_dir = Path(r"arabidopsis\Fig_outputs\Fig6")
+input_dir = Path(r"ecoli\dataforFig6\plot_tables")
+output_dir = Path(r"ecoli\Fig_outputs\Fig6")
 
 # Ensure the output directory exists so saving doesn't fail
 output_dir.mkdir(parents=True, exist_ok=True)

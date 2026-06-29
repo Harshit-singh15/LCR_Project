@@ -9,11 +9,11 @@ from pathlib import Path
 # ======================================================
 
 INPUT_FILE = Path(
-    r"arabidopsis\dataforFig4\jaccard_matrix.tsv"
+    r"ecoli\dataforFig4\jaccard_matrix.tsv"
 )
 
 OUTPUT_DIR = Path(
-    r"arabidopsis\Fig_outputs\Fig4"
+    r"ecoli\Fig_outputs\Fig4"
 )
 
 OUTPUT_DIR.mkdir(

@@ -6,11 +6,11 @@ import pandas as pd
 # INPUT / OUTPUT
 # =====================================================
 
-input_fasta = r"arabidopsis\dataforFig8\arabidopsis_missing_residues.fa"
+input_fasta = r"ecoli\dataforFig8\ecoli_missing_residues.fa"
 
-output_file = r"arabidopsis\dataforFig8\fig8B_missing_residue_complexity.tsv"
+output_file = r"ecoli\dataforFig8\fig8B_missing_residue_complexity.tsv"
 
-log_file = r"arabidopsis\dataforFig8\fig8B_missing_complexity.log"
+log_file = r"ecoli\dataforFig8\fig8B_missing_complexity.log"
 
 # =====================================================
 

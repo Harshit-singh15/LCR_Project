@@ -6,11 +6,11 @@ import pandas as pd
 # CONFIG
 # =====================================================
 
-FASTA_FILE = r"arabidopsis\arabidopsis_cleaned.fasta"
+FASTA_FILE = r"ecoli\ecoli.fasta"
 
-BED_FOLDER = r"arabidopsis\bed_bedtools_arabidopsis"
+BED_FOLDER = r"ecoli\bed_ecoli"
 
-OUTPUT_DIR = r"arabidopsis\dataforFig1"
+OUTPUT_DIR = r"ecoli\dataforFig1"
 
 # =====================================================
 # CREATE OUTPUT DIRECTORIES
@@ -197,7 +197,7 @@ for bed_file in bed_files:
         # 0-based 
         # ----------------------------------------
 
-        lcr_seq = protein_seq[start :end]
+        lcr_seq = protein_seq[start -1 :end]
 
         extracted.append(
             [

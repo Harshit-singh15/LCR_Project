@@ -7,11 +7,11 @@ import re
 # ==========================================================
 
 INPUT_DIR = Path(
-    r"arabidopsis\dataforFig2\06_peptide_counts"
+    r"ecoli\dataforFig2\06_peptide_counts"
 )
 
 OUTPUT_DIR = Path(
-    r"arabidopsis\dataforFig2\07_motif_list"
+    r"ecoli\dataforFig2\07_motif_list"
 )
 
 OUTPUT_DIR.mkdir(

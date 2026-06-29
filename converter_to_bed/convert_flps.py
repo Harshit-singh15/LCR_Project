@@ -1,8 +1,8 @@
 import os
 
 # ==================================
-input_file = r"arabidopsis\lcrbytools\flps2_default_arabidopsis.out"
-output_bed = r"arabidopsis\bed_arabidopsis\flps2_default_arabidopsis.bed"
+input_file = r"ecoli\lcrbytools\flps2_default_ecoli.out"
+output_bed = r"ecoli\bed_ecoli\flps2_default_ecoli.bed"
 # ==================================
 
 os.makedirs(

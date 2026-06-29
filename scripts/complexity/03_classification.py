@@ -1,8 +1,8 @@
 import pandas as pd
 
-input_file = r"arabidopsis\dataforFig6\arabidopsis_windows_out.tsv"
+input_file = r"ecoli\dataforFig6\ecoli_windows_out.tsv"
 
-output_file = r"arabidopsis\dataforFig6\arabidopsis_windows_classified.tsv"
+output_file = r"ecoli\dataforFig6\ecoli_windows_classified.tsv"
 
 
 

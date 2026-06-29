@@ -2,11 +2,11 @@
 
 from PIL import Image
 
-A = Image.open(r"fruitfly\Fig_outputs\Fig1\Figure1A_Length_Heatmap.png")
-B = Image.open(r"fruitfly\Fig_outputs\Fig1\Figure1B_Coverage_Heatmap.png")
-C = Image.open(r"fruitfly\Fig_outputs\Fig1\Figure1C_CountDistribution.png")
-D = Image.open(r"fruitfly\Fig_outputs\Fig1\Figure1D_AminoAcidComposition.png")
-E = Image.open(r"fruitfly\Fig_outputs\Fig1\Figure1E_Entropy_Boxplot.png")
+A = Image.open(r"ecoli\Fig_outputs\Fig1\Figure1A_Length_Heatmap.png")
+B = Image.open(r"ecoli\Fig_outputs\Fig1\Figure1B_Coverage_Heatmap.png")
+C = Image.open(r"ecoli\Fig_outputs\Fig1\Figure1C_CountDistribution.png")
+D = Image.open(r"ecoli\Fig_outputs\Fig1\Figure1D_AminoAcidComposition.png")
+E = Image.open(r"ecoli\Fig_outputs\Fig1\Figure1E_Entropy_Boxplot.png")
 
 # resize all top row images to same height
 top_height = 700
@@ -33,5 +33,5 @@ canvas.paste(C, (A.width + B.width, 0))
 canvas.paste(D, (0, top_height))
 canvas.paste(E, (D.width, top_height))
 
-canvas.save(r"fruitfly\Fig_outputs\Figure1_Final.png")
+canvas.save(r"ecoli\Fig_outputs\Figure1_Final.png")
 print("Saved Figure1_Final.png")

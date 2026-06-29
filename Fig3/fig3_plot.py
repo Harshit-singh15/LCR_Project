@@ -4,7 +4,7 @@ import numpy as np
 from pathlib import Path
 
 INPUT_DIR = Path(
-    r"arabidopsis\dataforFig3\02_metrics"
+    r"ecoli\dataforFig3\02_metrics"
 )
 
 thresholds = np.arange(
@@ -36,10 +36,15 @@ for file in INPUT_DIR.glob(
     ]:
         method = method.replace(organism, "")
 
-    df = pd.read_csv(
-        file,
-        sep="\t"
-    )
+    if file.stat().st_size == 0:
+        print(f"Skipping empty file: {file.name}")
+        continue
+
+    try:
+        df = pd.read_csv(file, sep="\t")
+    except pd.errors.EmptyDataError:
+        print(f"Skipping empty file: {file.name}")
+        continue
 
     purity = (
         df["Purity"]
@@ -74,7 +79,7 @@ plt.ylabel(
 )
 
 plt.title(
-    "Fig 3: Arabidopsis : Purity distribution across LCR detection methods"
+    "Fig 3: E. coli : Purity distribution across LCR detection methods"
 )
 
 plt.legend(
@@ -88,7 +93,7 @@ plt.grid(
 
 plt.tight_layout()
 
-output_path = Path(r"arabidopsis\Fig_outputs\Fig3\Fig3_purity_distribution.png")
+output_path = Path(r"ecoli\Fig_outputs\Fig3\Fig3_purity_distribution.png")
 output_path.parent.mkdir(parents=True, exist_ok=True)
 
 plt.savefig(

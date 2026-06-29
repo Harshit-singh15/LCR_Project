@@ -6,8 +6,8 @@ import pandas as pd
 # CONFIG
 # =====================================================
 
-INPUT_DIR = r"arabidopsis\dataforFig1\extracted_sequences"
-OUTPUT_DIR = r"arabidopsis\dataforFig1\Amino_acid"
+INPUT_DIR = r"ecoli\dataforFig1\extracted_sequences"
+OUTPUT_DIR = r"ecoli\dataforFig1\Amino_acid"
 
 Path(OUTPUT_DIR).mkdir(
     parents=True,

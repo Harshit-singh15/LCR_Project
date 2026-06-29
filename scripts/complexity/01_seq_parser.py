@@ -3,16 +3,16 @@ import os
 from Bio import SeqIO
 
 
-input_fasta = r"arabidopsis\arabidopsis_cleaned.fasta"
+input_fasta = r"ecoli\ecoli_cleaned.fasta"
 
 window_size = 20
 step_size = 10
 
-output_bed = r"arabidopsis\dataforFig6\arabidopsis_windows.bed"
+output_bed = r"ecoli\dataforFig6\ecoli_windows.bed"
 
 
 # Create the directory path directly
-os.makedirs(r"arabidopsis\dataforFig6", exist_ok=True)
+os.makedirs(r"ecoli\dataforFig6", exist_ok=True)
 
 # ======================
 

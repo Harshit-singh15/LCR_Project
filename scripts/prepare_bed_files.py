@@ -5,8 +5,8 @@ import pandas as pd
 # INPUT / OUTPUT 
 # ==========================================================
 
-INPUT_DIR = Path(r"arabidopsis\bed_arabidopsis")      # original BED files
-OUTPUT_DIR = Path(r"arabidopsis\bed_bedtools_Arabidopsis")     # BEDTools compatible files
+INPUT_DIR = Path(r"ecoli\bed_ecoli")      # original BED files
+OUTPUT_DIR = Path(r"ecoli\bed_bedtools_Ecoli")     # BEDTools compatible files
 
 OUTPUT_DIR.mkdir(exist_ok=True)
 

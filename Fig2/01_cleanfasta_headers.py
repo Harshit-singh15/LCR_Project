@@ -1,9 +1,9 @@
 from pathlib import Path
 
 # ==========================================
-INPUT_FASTA = r"arabidopsis\arabidopsis.fasta"
+INPUT_FASTA = r"ecoli\ecoli.fasta"
 
-OUTPUT_FASTA = r"arabidopsis\arabidopsis_cleaned.fasta"
+OUTPUT_FASTA = r"ecoli\ecoli_cleaned.fasta"
 # ==========================================
 
 converted = 0
