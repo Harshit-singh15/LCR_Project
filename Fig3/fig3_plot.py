@@ -4,7 +4,7 @@ import numpy as np
 from pathlib import Path
 
 INPUT_DIR = Path(
-    r"ecoli\dataforFig3\02_metrics"
+    "Fig3/02_metrics"
 )
 
 thresholds = np.arange(
@@ -21,30 +21,15 @@ for file in INPUT_DIR.glob(
     "*_purity.tsv"
 ):
 
-    method = file.stem.replace("_purity", "")
+    method = (
+        file.stem
+        .replace("_purity","")
+    )
 
-# Remove organism suffix
-    for organism in [
-        "_celegans",
-        "_mouse",
-        "_zebrafish",
-        "_human",
-        "_yeast",
-        "_Fruitfly",
-        "_arabidopsis",
-        "_ecoli"
-    ]:
-        method = method.replace(organism, "")
-
-    if file.stat().st_size == 0:
-        print(f"Skipping empty file: {file.name}")
-        continue
-
-    try:
-        df = pd.read_csv(file, sep="\t")
-    except pd.errors.EmptyDataError:
-        print(f"Skipping empty file: {file.name}")
-        continue
+    df = pd.read_csv(
+        file,
+        sep="\t"
+    )
 
     purity = (
         df["Purity"]
@@ -79,7 +64,7 @@ plt.ylabel(
 )
 
 plt.title(
-    "Fig 3: E. coli : Purity distribution across LCR detection methods"
+    "Purity distribution across LCR detection methods"
 )
 
 plt.legend(
@@ -93,11 +78,8 @@ plt.grid(
 
 plt.tight_layout()
 
-output_path = Path(r"ecoli\Fig_outputs\Fig3\Fig3_purity_distribution.png")
-output_path.parent.mkdir(parents=True, exist_ok=True)
-
 plt.savefig(
-    output_path,
+    "Fig3/03_plots/Fig3_purity_distribution.png",
     dpi=600,
     bbox_inches="tight"
 )

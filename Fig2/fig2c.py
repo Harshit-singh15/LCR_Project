@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 df = pd.read_csv(
-    r"ecoli\dataforFig2\purity\purity.tsv",
+    "Fig2/04_metrics/purity.tsv",
     sep="\t"
 )
 
@@ -45,13 +45,13 @@ ax.set_xticks(range(len(labels)))
 ax.set_xticklabels(labels)
 
 plt.title(
-    "Fig 2C: E. coli : Compositional purity across consensus levels"
+    "Compositional purity across consensus levels"
 )
 
 plt.tight_layout()
 
 plt.savefig(
-    r"ecoli\Fig_outputs\Fig2\Fig2C_purity.png",
+    "Fig2/05_plots/Fig2C_purity.png",
     dpi=600,
     bbox_inches="tight"
 )

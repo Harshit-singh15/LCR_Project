@@ -1,213 +1,131 @@
-from pathlib import Path
-from collections import Counter
 from Bio import SeqIO
+from collections import Counter
+from pathlib import Path
 import pandas as pd
-import math
-import re
 
-# ======================================================
-# Configuration
-# ======================================================
-
-INPUT_DIR = Path(r"ecoli\dataforFig3\01_fastas")
-OUTPUT_DIR = Path(r"ecoli\dataforFig5\02_metrics")
-
-# Maximum repeat unit length to test
-MAX_K = 6
+INPUT_DIR = Path("Fig5/01_fastas")
+OUTPUT_DIR = Path("Fig5/02_metrics")
 
 OUTPUT_DIR.mkdir(
     parents=True,
     exist_ok=True
 )
 
-# ======================================================
-# Header parser
-# ======================================================
-
-header_pattern = re.compile(
-    r"(.+):(\d+)-(\d+)"
-)
-
-# ======================================================
-# Shannon entropy
-# ======================================================
-
-def shannon_entropy(seq):
-
-    counts = Counter(seq)
-
-    length = len(seq)
-
-    entropy = 0
-
-    for count in counts.values():
-
-        p = count / length
-
-        entropy -= p * math.log2(p)
-
-    return entropy
-
-# ======================================================
+# ==========================================
 # Mutation calculation
-# ======================================================
+# ==========================================
 
 def mutations_to_repeat(seq, k):
-
-    """
-    Minimum mutations required to convert
-    the sequence into a perfect k-periodic repeat.
-    """
 
     n = len(seq)
 
     if n < k:
         return n
 
-    total_mut = 0
+    total_mutations = 0
 
     for pos in range(k):
 
-        column = []
+        chars = []
 
         i = pos
 
         while i < n:
 
-            column.append(seq[i])
+            chars.append(seq[i])
 
             i += k
 
-        counts = Counter(column)
+        counts = Counter(chars)
 
-        total_mut += (
-            len(column)
-            - max(counts.values())
+        best = max(counts.values())
+
+        total_mutations += (
+            len(chars) - best
         )
 
-    return total_mut
+    return total_mutations
 
-# ======================================================
-# Process each FASTA
-# ======================================================
 
-for fasta in sorted(INPUT_DIR.glob("*.fa")):
+# ==========================================
+# Process each method
+# ==========================================
+
+for fasta in INPUT_DIR.glob("*.fa"):
+
+    rows = []
 
     method = fasta.stem
 
     print(f"Processing {method}")
 
-    rows = []
+    for record in SeqIO.parse(
+        fasta,
+        "fasta"
+    ):
 
-    for record in SeqIO.parse(fasta, "fasta"):
+        seq = str(record.seq)
 
-        seq = str(record.seq).upper()
-
-        if len(seq) == 0:
+        if len(seq) < 2:
             continue
 
-        # ------------------------------------------
-        # Parse header
-        # ------------------------------------------
-
-        match = header_pattern.match(record.id)
-
-        if match:
-
-            protein, start, end = match.groups()
-
-        else:
-
-            protein = record.id
-
-            start = ""
-
-            end = ""
-
-        # ------------------------------------------
-        # Length
-        # ------------------------------------------
-
-        length = len(seq)
-
-        # ------------------------------------------
-        # Entropy
-        # ------------------------------------------
-
-        entropy = shannon_entropy(seq)
-
-        # ------------------------------------------
-        # Amino-acid composition
-        # ------------------------------------------
+        # ----------------------
+        # Purity
+        # ----------------------
 
         counts = Counter(seq)
 
-        aa, aa_count = counts.most_common(1)[0]
+        most_freq = max(
+            counts.values()
+        )
 
-        aa_percent = (
-            aa_count / length
+        purity = (
+            most_freq /
+            len(seq)
         ) * 100
 
-        # ------------------------------------------
+        # ----------------------
         # Mutation %
-        # ------------------------------------------
+        # ----------------------
 
-        best_k = None
+        mono_mut = mutations_to_repeat(
+            seq,
+            1
+        )
 
-        best_mut = length
+        di_mut = mutations_to_repeat(
+            seq,
+            2
+        )
 
-        for k in range(
-            1,
-            min(MAX_K, length) + 1
-        ):
+        tri_mut = mutations_to_repeat(
+            seq,
+            3
+        )
 
-            mut = mutations_to_repeat(
-                seq,
-                k
-            )
+        best_mut = min(
+            mono_mut,
+            di_mut,
+            tri_mut
+        )
 
-            if mut < best_mut:
-
-                best_mut = mut
-
-                best_k = k
-
-        mutation_percent = (
-            best_mut / length
+        mutation_pct = (
+            best_mut /
+            len(seq)
         ) * 100
 
-        rows.append({
+        rows.append([
+            mutation_pct,
+            purity
+        ])
 
-            "Protein": protein,
-
-            "Start": start,
-
-            "End": end,
-
-            "Length": length,
-
-            "Entropy": round(
-                entropy,
-                4
-            ),
-
-            "Most_Common_AA": aa,
-
-            "Most_Common_AA_Percent": round(
-                aa_percent,
-                2
-            ),
-
-            "Best_Model": best_k,
-
-            "Mutation_Percent": round(
-                mutation_percent,
-                2
-            )
-
-        })
-
-    df = pd.DataFrame(rows)
+    df = pd.DataFrame(
+        rows,
+        columns=[
+            "Mutation_Percent",
+            "Most_Frequent_AA_Percent"
+        ]
+    )
 
     outfile = (
         OUTPUT_DIR /
@@ -215,17 +133,13 @@ for fasta in sorted(INPUT_DIR.glob("*.fa")):
     )
 
     df.to_csv(
-
         outfile,
-
         sep="\t",
-
         index=False
-
     )
 
     print(
-        f"Saved {outfile}"
+        f"Saved: {outfile}"
     )
 
-print("\nDone.")
+print("Done")

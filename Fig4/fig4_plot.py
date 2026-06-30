@@ -4,78 +4,43 @@ import matplotlib.pyplot as plt
 import numpy as np
 from pathlib import Path
 
-# ======================================================
-# Input / Output
-# ======================================================
-
-INPUT_FILE = Path(
-    r"ecoli\dataforFig4\jaccard_matrix.tsv"
-)
-
-OUTPUT_DIR = Path(
-    r"ecoli\Fig_outputs\Fig4"
-)
-
-OUTPUT_DIR.mkdir(
+Path(
+    "Fig4/03_plots"
+).mkdir(
     parents=True,
     exist_ok=True
 )
 
-# ======================================================
-# Read matrix
-# ======================================================
-
 df = pd.read_csv(
-    INPUT_FILE,
+    "Fig4\\02_metrices\\jaccard_matrix.tsv",
     sep="\t",
     index_col=0
 )
 
-# ======================================================
-# Clean method names
-# ======================================================
+# remove suffix for cleaner labels
 
-organisms = [
-    "_celegans",
-    "_mouse",
-    "_zebrafish",
-    "_human",
-    "_Fruitfly",
-    "_yeast",
-    "_arabidopsis",
-    "_ecoli"
+df.index = [
+    x.replace("_sorted.bed","")
+    for x in df.index
 ]
 
-def clean_name(name):
+df.columns = [
+    x.replace("_sorted.bed","")
+    for x in df.columns
+]
 
-    name = str(name)
-
-    name = name.replace(".bed", "")
-    name = name.replace("_sorted", "")
-
-    for org in organisms:
-        name = name.replace(org, "")
-
-    return name
-
-df.index = [clean_name(x) for x in df.index]
-df.columns = [clean_name(x) for x in df.columns]
-
-# ======================================================
-# Lower triangle only
-# ======================================================
+# mask upper triangle
 
 mask = np.triu(
-    np.ones_like(df, dtype=bool),
+    np.ones_like(
+        df,
+        dtype=bool
+    ),
     k=1
 )
 
-# ======================================================
-# Plot
-# ======================================================
-
 plt.figure(
-    figsize=(10, 8)
+    figsize=(10,8)
 )
 
 sns.heatmap(
@@ -87,53 +52,33 @@ sns.heatmap(
     cmap="Reds",
 
     vmin=0,
+
     vmax=1,
 
     annot=True,
-    fmt=".2f",
 
-    annot_kws={
-        "size":8
-    },
+    fmt=".2f",
 
     square=True,
 
     linewidths=0.5,
 
-    linecolor="white",
-
     cbar_kws={
-        "label":"Jaccard similarity"
+        "label":
+        "Jaccard similarity"
     }
-
 )
 
 plt.title(
-    "Arabidopsis : Fig 4: Pairwise overlap among LCR detection methods",
-    fontsize=14
-)
-
-plt.xticks(
-    rotation=45,
-    ha="right"
-)
-
-plt.yticks(
-    rotation=0
+    "Pairwise overlap among LCR detection methods"
 )
 
 plt.tight_layout()
 
-# ======================================================
-# Save
-# ======================================================
-
 plt.savefig(
-    OUTPUT_DIR/"Fig4_jaccard_heatmap.png",
+    "Fig4/03_plots/Fig4_jaccard_heatmap.png",
     dpi=600,
     bbox_inches="tight"
 )
 
-plt.close()
-
-print("Done.")
+plt.show()

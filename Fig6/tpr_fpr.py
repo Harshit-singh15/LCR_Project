@@ -5,11 +5,11 @@ import pandas as pd
 # INPUTS
 # =====================================================
 
-metrics_file = r"ecoli\dataforFig6\reference_metrics.tsv"
+metrics_file = r"Fig6\reference_metrics.tsv"
 
-confusion_file = r"ecoli\dataforFig6\protein_confusion.tsv"
+confusion_file = r"Fig6\protein_confusion.tsv"
 
-output_dir = r"ecoli\dataforFig6\plot_tables"
+output_dir = r"Fig6\plot_tables"
 
 # =====================================================
 

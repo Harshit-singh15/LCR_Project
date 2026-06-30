@@ -6,13 +6,13 @@ from Bio import SeqIO
 # EDIT PATHS
 # =====================================================
 
-proteome_fasta = r"ecoli\ecoli_cleaned.fasta"
+proteome_fasta = r"outputs\mouse_proteome.fasta"
 
-reference_bed = r"ecoli\dataforFig6\ecoli_windows_real.bed"
+reference_bed = r"Fig6\mouse_real.bed"
 
-tool_folder = r"ecoli\bed_bedtools_Ecoli"
+tool_folder = r"Fig6\bed_files - Copy"
 
-output_file = r"ecoli\dataforFig6\protein_confusion.tsv"
+output_file = r"Fig6\protein_confusion.tsv"
 
 # =====================================================
 

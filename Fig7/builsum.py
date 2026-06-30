@@ -1,8 +1,8 @@
 import pandas as pd
 from pathlib import Path
 
-input_dir = Path(r"ecoli\dataforFig6\plot_tables")
-output_dir = Path(r"ecoli\dataforFig7")
+input_dir = Path("Fig6/plot_tables")
+output_dir = Path("Fig7")
 
 output_dir.mkdir(exist_ok=True)
 

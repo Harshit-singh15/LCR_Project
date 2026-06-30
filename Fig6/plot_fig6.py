@@ -2,13 +2,12 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 from pathlib import Path
-import numpy as np
 
 # =====================================================
 # INPUT AND OUTPUT DIRECTORIES
 # =====================================================
-input_dir = Path(r"ecoli\dataforFig6\plot_tables")
-output_dir = Path(r"ecoli\Fig_outputs\Fig6")
+input_dir = Path("fig6/plot_tables")
+output_dir = Path("Fig6/plots")
 
 # Ensure the output directory exists so saving doesn't fail
 output_dir.mkdir(parents=True, exist_ok=True)
@@ -81,13 +80,6 @@ def plot_metric(ax, df, value_col, title, xlab, order):
     ax.set_xlabel(xlab)
     ax.set_ylabel(value_col)
     ax.set_ylim(0, 1)
-    ax.set_yticks(
-        np.arange(
-        0,
-        1.00,
-        0.25
-        )
-    )
     ax.tick_params(axis="x", rotation=45)
     ax.grid(alpha=0.3)
 
@@ -96,7 +88,7 @@ def plot_metric(ax, df, value_col, title, xlab, order):
 # =====================================================
 
 # --- PANEL A ---
-fig, axes = plt.subplots(1, 2, figsize=(14, 8), constrained_layout=True)
+fig, axes = plt.subplots(1, 2, figsize=(14, 5), constrained_layout=True)
 plot_metric(axes[0], gene_tpr, "TPR", "Gene Length Categories", "Length Bin", gene_order)
 plot_metric(axes[1], gene_fpr, "FPR", "Gene Length Categories", "Length Bin", gene_order)
 handles, labels = axes[0].get_legend_handles_labels()
@@ -105,7 +97,7 @@ plt.savefig(output_dir / "Fig6A_GeneLength.png", dpi=300, bbox_inches="tight")
 plt.close()
 
 # --- PANEL B ---
-fig, axes = plt.subplots(1, 2, figsize=(14, 8), constrained_layout=True)
+fig, axes = plt.subplots(1, 2, figsize=(14, 5), constrained_layout=True)
 plot_metric(axes[0], count_tpr, "TPR", "LCR Number Per Gene", "LCR Count", count_order)
 plot_metric(axes[1], count_fpr, "FPR", "LCR Number Per Gene", "LCR Count", count_order)
 handles, labels = axes[0].get_legend_handles_labels()
@@ -114,7 +106,7 @@ plt.savefig(output_dir / "Fig6B_LCRCount.png", dpi=300, bbox_inches="tight")
 plt.close()
 
 # --- PANEL C ---
-fig, axes = plt.subplots(1, 2, figsize=(14, 8), constrained_layout=True)
+fig, axes = plt.subplots(1, 2, figsize=(14, 5), constrained_layout=True)
 plot_metric(axes[0], coverage_tpr, "TPR", "LCR Coverage (%)", "Coverage", coverage_order)
 plot_metric(axes[1], coverage_fpr, "FPR", "LCR Coverage (%)", "Coverage", coverage_order)
 handles, labels = axes[0].get_legend_handles_labels()
@@ -123,7 +115,7 @@ plt.savefig(output_dir / "Fig6C_Coverage.png", dpi=300, bbox_inches="tight")
 plt.close()
 
 # --- PANEL D ---
-fig, axes = plt.subplots(1, 2, figsize=(14, 8), constrained_layout=True)
+fig, axes = plt.subplots(1, 2, figsize=(14, 5), constrained_layout=True)
 plot_metric(axes[0], entropy_tpr, "TPR", "LCR : Gene Entropy Ratio", "Entropy Ratio", entropy_order)
 plot_metric(axes[1], entropy_fpr, "FPR", "LCR : Gene Entropy Ratio", "Entropy Ratio", entropy_order)
 handles, labels = axes[0].get_legend_handles_labels()

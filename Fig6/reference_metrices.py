@@ -6,11 +6,11 @@ from Bio import SeqIO
 
 # ===== EDIT THESE =====
 
-reference_bed = r"ecoli\dataforFig6\ecoli_windows_real.bed"
+reference_bed = r"Fig6\mouse_real.bed"
 
-proteome_fasta = r"ecoli\ecoli_cleaned.fasta"
+proteome_fasta = r"outputs\mouse_proteome.fasta"
 
-output_file = r"ecoli\dataforFig6\reference_metrics.tsv"
+output_file = r"Fig6\reference_metrics.tsv"
 
 # ======================
 

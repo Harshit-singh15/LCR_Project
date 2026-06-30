@@ -1,82 +1,130 @@
-import numpy as np
 import pandas as pd
+import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.colors import LogNorm
 from pathlib import Path
 
-INPUT_DIR = Path(r"ecoli\dataforFig5\02_metrics")
-OUTPUT_DIR = Path(r"ecoli\Fig_outputs\Fig5")
-OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+INPUT_DIR = Path("Fig5/02_metrics")
+OUTPUT_DIR = Path("Fig5/03_plots")
 
-organisms = [
-    "_mouse","_zebrafish","_human","_yeast",
-    "_celegans","_Fruitfly","_arabidopsis","_ecoli"
-]
+OUTPUT_DIR.mkdir(
+    parents=True,
+    exist_ok=True
+)
 
-def clean_name(name):
-    name = name.replace("_metrics", "")
-    for org in organisms:
-        name = name.replace(org, "")
-    return name
+files = sorted(
+    INPUT_DIR.glob("*_metrics.tsv")
+)
 
-for file in sorted(INPUT_DIR.glob("*_metrics.tsv")):
+n = len(files)
 
-    method = clean_name(file.stem)
-    print(f"Processing: {file.name}")
+cols = 4
+rows = int(np.ceil(n / cols))
 
-    try:
-        df = pd.read_csv(file, sep="\t")
+fig, axes = plt.subplots(
+    rows,
+    cols,
+    figsize=(16, 12)
+)
 
-    except Exception as e:
-        print(f"[SKIPPED] {file.name}")
-        print(f"Reason : {type(e).__name__}: {e}")
+axes = axes.flatten()
 
-        try:
-            print(f"Size : {file.stat().st_size} bytes")
-            with open(file, "rb") as f:
-                print(f"First bytes : {repr(f.read(80))}")
-        except:
-            pass
+for ax, file in zip(axes, files):
 
-        print()
-        continue
+    method = (
+        file.stem
+        .replace("_metrics", "")
+    )
 
-    df["MutBin"] = (df["Mutation_Percent"] / 10).round().astype(int).clip(0, 10)
-    df["FreqBin"] = (df["Most_Common_AA_Percent"] / 10).round().astype(int).clip(0, 10)
+    df = pd.read_csv(
+        file,
+        sep="\t"
+    )
 
-    heatmap = np.zeros((11, 11))
+    # 10 x 10 bins
+    heatmap, xedges, yedges = np.histogram2d(
+        df["Mutation_Percent"],
+        df["Most_Frequent_AA_Percent"],
+        bins=10,
+        range=[
+            [0,100],
+            [0,100]
+        ]
+    )
 
-    for _, row in df.iterrows():
-        heatmap[int(row["FreqBin"]), int(row["MutBin"])] += 1
-
-    fig, ax = plt.subplots(figsize=(7, 6))
+    heatmap = np.log10(
+        heatmap + 1
+    )
 
     im = ax.imshow(
-        heatmap,
+        heatmap.T,
         origin="lower",
-        cmap="Reds",
-        norm=LogNorm(vmin=1, vmax=max(1, heatmap.max())),
-        aspect="auto"
+        aspect="auto",
+        extent=[
+            0,100,
+            0,100
+        ]
     )
 
-    ax.set_xticks(range(11))
-    ax.set_yticks(range(11))
-    ax.set_xticklabels([i * 10 for i in range(11)], rotation=45)
-    ax.set_yticklabels([i * 10 for i in range(11)])
-
-    ax.set_xlabel("Mutation Percentage")
-    ax.set_ylabel("Most Frequent AA Percentage")
-    ax.set_title(method)
-
-    plt.colorbar(im, ax=ax, label="Number of LCRs")
-    plt.tight_layout()
-
-    plt.savefig(
-        OUTPUT_DIR / f"{method}_Fig5.png",
-        dpi=600,
-        bbox_inches="tight"
+    ax.set_title(
+        method,
+        fontsize=11,
+        fontweight="bold"
     )
 
-    plt.close()
+    ax.set_xticks(
+        np.arange(
+            10,
+            101,
+            10
+        )
+    )
 
-print("Done.")
+    ax.set_yticks(
+        np.arange(
+            10,
+            101,
+            10
+        )
+    )
+
+    cbar = plt.colorbar(
+        im,
+        ax=ax,
+        fraction=0.046,
+        pad=0.04
+    )
+
+    cbar.set_label(
+        "Count"
+    )
+
+# remove unused panels
+
+for i in range(
+    len(files),
+    len(axes)
+):
+    fig.delaxes(
+        axes[i]
+    )
+
+fig.supxlabel(
+    "Mutation Percent",
+    fontsize=18
+)
+
+fig.supylabel(
+    "Most Frequent AA Percent",
+    fontsize=18
+)
+
+plt.tight_layout()
+
+plt.savefig(
+    OUTPUT_DIR /
+    "Fig5_mutation_vs_composition.png",
+    dpi=600,
+    bbox_inches="tight"
+)
+
+plt.show()

@@ -1,66 +1,47 @@
-import os
+import re
 
-# ==================================
-input_file = r"ecoli\lcrbytools\flps2_default_ecoli.out"
-output_bed = r"ecoli\bed_ecoli\flps2_default_ecoli.bed"
-# ==================================
-
-os.makedirs(
-    os.path.dirname(output_bed),
-    exist_ok=True
-)
-
-written = 0
-skipped = 0
+input_fasta = r"outputs\flps_strict_masked.fa"
+output_bed = r"bed_files\flps_strict_masked_mouse.bed"
 
 with open(output_bed, "w") as out:
 
-    with open(input_file, "r") as f:
+    seq_id = None
+    seq = []
 
+    with open(input_fasta) as f:
         for line in f:
 
-            line = line.strip()
+            if line.startswith(">"):
 
-            if not line:
-                continue
+                if seq_id is not None:
 
-            fields = line.split()
+                    sequence = "".join(seq)
 
-            # skip malformed lines
-            if len(fields) < 5:
-                skipped += 1
-                continue
+                    for match in re.finditer(r"[a-z]+|X+", sequence):
+                        start = match.start() + 1
+                        end = match.end()
 
-            try:
+                        out.write(
+                             f"{seq_id}\t{start}\t{end}\n"
+                        )
 
-                protein_field = fields[0]
+                seq_id = line[1:].strip().split()[0]
+                seq = []
 
-                # UniProt accession
-                #
-                # tr|A0A067XG43|A0A067XG43_CAEEL
-                #
-                # -> A0A067XG43
+            else:
+                seq.append(line.strip())
 
-                parts = protein_field.split("|")
+        # process last sequence
+        if seq_id is not None:
 
-                if len(parts) >= 3:
-                    protein_id = parts[1]
-                else:
-                    protein_id = protein_field
+            sequence = "".join(seq)
 
-                start = int(fields[3])
-                end   = int(fields[4])
+            for match in re.finditer(r"[a-z]+|X+", sequence):
+                start = match.start() + 1
+                end = match.end()
 
                 out.write(
-                    f"{protein_id}\t{start}\t{end}\n"
+                    f"{seq_id}\t{start}\t{end}\n"
                 )
 
-                written += 1
-
-            except Exception:
-                skipped += 1
-
-print("Finished")
-print("Regions written:", written)
-print("Skipped lines:", skipped)
-print("Output:", output_bed)
+print("BED file written:", output_bed)

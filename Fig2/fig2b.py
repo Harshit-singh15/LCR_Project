@@ -3,65 +3,56 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from pathlib import Path
 
-# Create output directory
-Path(r"ecoli\Fig_outputs\Fig2").mkdir(
+Path("Fig2/05_plots").mkdir(
     parents=True,
     exist_ok=True
 )
 
-# Read data
 df = pd.read_csv(
-    r"ecoli\dataforFig2\entropy\entropy.tsv",
+    "Fig2/04_metrics/entropy.tsv",
     sep="\t"
 )
 
-# Get group sizes for the labels
 counts = (
     df.groupby("Consensus")
       .size()
       .to_dict()
 )
 
-# Generate labels (1 to 13)
 labels = [
     f"{i}\n(n={counts.get(i,0)})"
-    for i in range(1, 14)
+    for i in range(1,14)
 ]
 
-plt.figure(figsize=(12, 6))
+plt.figure(figsize=(12,6))
 
 palette = sns.color_palette(
     "viridis",
     n_colors=13
 )
 
-# FIXED: Added 'hue' and 'legend=False' to resolve the FutureWarning
 ax = sns.boxplot(
     data=df,
     x="Consensus",
     y="Entropy",
-    hue="Consensus",
     palette=palette,
     showfliers=False,
-    linewidth=1,
-    legend=False
+    linewidth=1
 )
 
 plt.xlabel("Consensus level")
 plt.ylabel("Shannon entropy")
 
-# FIXED: Explicitly set the ticks first to resolve the UserWarning
-ax.set_xticks(range(len(labels)))
 ax.set_xticklabels(labels)
 
 plt.title(
-    "E. coli : Shannon entropy distribution across consensus levels"
+    "Sequence complexity across consensus levels"
 )
 
 plt.tight_layout()
 
 plt.savefig(
-    r"ecoli\Fig_outputs\Fig2\Fig2B_entropy.png",
+    "Fig2/05_plots/Fig2B_entropy.png",
     dpi=600,
     bbox_inches="tight"
 )
