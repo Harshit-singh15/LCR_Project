@@ -194,7 +194,7 @@ for bed_file in bed_files:
             continue
 
         # ----------------------------------------
-        # 0-based 
+        # 1-based 
         # ----------------------------------------
 
         lcr_seq = protein_seq[start -1 :end]

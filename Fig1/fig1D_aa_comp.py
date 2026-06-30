@@ -10,7 +10,6 @@ import matplotlib.pyplot as plt
 # =====================================================
 
 INPUT_DIR = r"ecoli\dataforFig1\Amino_acid"
-
 OUTPUT_DIR = r"ecoli\Fig_outputs\Fig1"
 
 Path(OUTPUT_DIR).mkdir(
