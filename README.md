@@ -251,13 +251,11 @@ java -Xmx4G \
 -a arabido_treks_clustalw.aln \
 -c /usr/bin/clustalw
 ```
-## ![Command line — LCR tools cheat sheet](Figures/lcr_tools_cheat_sheet.png)
+![Command_line_LCR_tools_cheat_sheet](Figures/lcr_tools_cheat_sheet.png)
 
 ### 5.12 LCR-Finder
 LCR-Finder runs protein-by-protein and produces thousands of files for a whole proteome. A MATLAB script consolidates these into a single BED file (`lcrfinder_ecoli.bed`). This BED file is assumed to already exist as an input to the pipeline — LCR-Finder itself is not automated here.
 
----
-![Command_Line_sheet](Figures/LCR tools command cheat sheet.png)
 ---
 
 ## 6. Step 2 — Convert Tool Outputs to BED (`converter_to_bed`)
