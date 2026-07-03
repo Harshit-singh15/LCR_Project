@@ -257,7 +257,7 @@ java -Xmx4G \
 LCR-Finder runs protein-by-protein and produces thousands of files for a whole proteome. A MATLAB script consolidates these into a single BED file (`lcrfinder_ecoli.bed`). This BED file is assumed to already exist as an input to the pipeline — LCR-Finder itself is not automated here.
 
 ---
-![Command Line - sheet](Figures\LCR tools command cheat sheet.png)
+![Command_Line_sheet](Figures/LCR tools command cheat sheet.png)
 ---
 
 ## 6. Step 2 — Convert Tool Outputs to BED (`converter_to_bed`)
