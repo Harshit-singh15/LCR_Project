@@ -251,7 +251,7 @@ java -Xmx4G \
 -a arabido_treks_clustalw.aln \
 -c /usr/bin/clustalw
 ```
-![Command line — LCR tools cheat sheet](Figures/lcr_tools_cheat_sheet.png)
+## ![Command line — LCR tools cheat sheet](Figures/lcr_tools_cheat_sheet.png)
 
 ### 5.12 LCR-Finder
 LCR-Finder runs protein-by-protein and produces thousands of files for a whole proteome. A MATLAB script consolidates these into a single BED file (`lcrfinder_ecoli.bed`). This BED file is assumed to already exist as an input to the pipeline — LCR-Finder itself is not automated here.
@@ -820,7 +820,7 @@ Both output to `ecoli\Fig_outputs\Fig8`.
 - **LCR-Finder** is run outside this pipeline (per-protein output consolidated via a separate MATLAB script); its final BED file is treated as a pre-existing input.
 - **Dot-plot data** (`convert_dotplot.py`) is optional and only relevant when externally sourced composition data (e.g. from a published dataset) is available for a given organism — not all organisms will have this.
 - **DisProt filtering by taxonomy** (`Disprot_ecoli.tsv` used in `01_disprot_comp.py`) is currently a manual pre-filtering step from the full DisProt download and should be automated in Python for full pipeline reproducibility.
-- Several bash/CLI steps (`bedtools multiinter`, `extract_sequences.sh`, `makefastas.sh`, `jaccardsimilarity.sh`) are documented as run manually on Ubuntu; porting these into Python (e.g. via `pybedtools` or `subprocess` wrappers) is a planned follow-up so the full workflow can run end-to-end from a single entry point.
-- **Combined vs. individual figures**: for Fig1, Fig5, and Fig6, a combined composite PNG can be generated in addition to the individual panel PNGs. This should be a **user-selectable option** in the final report (checkbox: combined / individual), not a step that always runs.
+- Several bash/CLI steps (`bedtools multiinter`, `extract_sequences.sh`, `makefastas.sh`, `jaccardsimilarity.sh`) are documented as run manually on Ubuntu.
+- **Combined vs. individual figures**: for Fig1, Fig5, and Fig6, a combined composite PNG can be generated in addition to the individual panel PNGs. 
 - File paths throughout are shown as given in the original scripts (Windows-style `r"ecoli\..."`); adjust path separators for your OS as needed.
 - `07_motif_list.py` (Fig 2) and the `.log` outputs in Fig 8 are informational only and are not required for figure generation — safe to skip if optimizing for speed.
