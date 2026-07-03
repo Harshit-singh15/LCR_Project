@@ -1,0 +1,58 @@
+figure1:
+  title: "Comparative summary of Low-Complexity Regions"
+  caption: "Illustrates a comparative summary of Low-Complexity Regions (LCRs) identified by various computational techniques."
+
+figure1a:
+  caption: "Shows a heatmap of counts across LCR length bins detected by each method across the proteome."
+
+figure1b:
+  caption: "Represents a heatmap of counts in percentage coverage bins."
+
+figure1c:
+  caption: "Shows a stacked barplot comparing the number of LCRs detected per protein."
+
+figure1d:
+  caption: "Depicts the overall amino acid composition of LCRs."
+
+figure1e:
+  caption: "Shows boxplots comparing Shannon entropy."
+
+figure2:
+  title: "Compositional and sequence complexity characteristics of LCRs stratified by detection consensus"
+  caption: "Compositional and sequence complexity characteristics of LCRs stratified by detection consensus."
+
+figure2a:
+  caption: "Shows peptide motif contributions across consensus levels."
+
+figure2b:
+  caption: "Depicts Shannon entropy across consensus groups."
+
+figure2c:
+  caption: "Depicts compositional purity across consensus groups."
+
+figure3:
+  caption: "Purity distribution of LCRs detected by different computational methods."
+
+figure4:
+  caption: "Pairwise overlap and similarity between LCR detection methods."
+
+figure5:
+  caption: "Relationship between amino acid composition and mutation percentage."
+
+figure6:
+  caption: "Evaluation of LCR detection performance."
+
+figure6a:
+  caption: "Gene length categories."
+
+figure6b:
+  caption: "Number of LCRs per gene."
+
+figure6c:
+  caption: "LCR coverage percentage."
+
+figure6d:
+  caption: "LCR-to-gene entropy ratio."
+
+figure7:
+  caption: "Summary of benchmarking results."
