@@ -3,7 +3,8 @@
 A pipeline for running multiple Low Complexity Region (LCR) detection tools on a proteome, converting their outputs to a common BED format, and generating comparative figures (Fig 1–Fig 8) that benchmark tool performance, motif composition, entropy/purity, overlap, and agreement against a reference (windowed and DisProt/SIFTS-derived) definition of LCRs.
 
 Example organism used throughout: `ecoli`.
-![Workflow Diagram](Figures\lcr_benchmarking_workflow_overview.svg)
+
+![Workflow diagram](Figures/lcr_benchmarking_workflow_overview.svg)
 ---
 
 ## Table of Contents
@@ -250,6 +251,7 @@ java -Xmx4G \
 -a arabido_treks_clustalw.aln \
 -c /usr/bin/clustalw
 ```
+![Command line — LCR tools cheat sheet](Figures/lcr_tools_cheat_sheet.png)
 
 ### 5.12 LCR-Finder
 LCR-Finder runs protein-by-protein and produces thousands of files for a whole proteome. A MATLAB script consolidates these into a single BED file (`lcrfinder_ecoli.bed`). This BED file is assumed to already exist as an input to the pipeline — LCR-Finder itself is not automated here.
