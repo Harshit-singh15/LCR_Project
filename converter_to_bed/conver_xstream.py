@@ -1,66 +1,80 @@
-import os
+from pathlib import Path
 import re
+import sys
 
-# ==========================
-input_html = r"ecoli\lcrbytools\xstream_m1_ecoli.html"
-output_bed = r"ecoli\bed_ecoli\xstream_m1_ecoli.bed"
-# ==========================
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-os.makedirs(
-    os.path.dirname(output_bed),
-    exist_ok=True
-)
+from pipeline import config
 
+print("[INFO] Running conver_xstream")
 
-with open(
-    input_html,
-    "r",
-    encoding="utf-8",
-    errors="ignore"
-) as f:
-    html = f.read()
+input_folder = config.LCRBYTOOLS_DIR
+output_folder = config.BED_DIR
+output_folder.mkdir(parents=True, exist_ok=True)
 
-protein_pattern = re.compile(
-    r'(?:tr|sp)\|([^|]+)\|[^<]+'
-)
+for input_file in sorted(input_folder.iterdir()):
+    if not input_file.is_file() or input_file.suffix != ".html":
+        continue
 
-position_pattern = re.compile(
-    r'>(\d+)-(\d+)<'
-)
+    if "xstream" not in input_file.stem.lower():
+        continue
 
-lines = []
+    print(f"[INFO] Processing {input_file.name}")
 
-current_protein = None
+    with open(
+        input_file,
+        "r",
+        encoding="utf-8",
+        errors="ignore"
+    ) as f:
+        html = f.read()
 
-for block in re.split(
-    r'<A NAME="\d+"></A>',
-    html
-):
+    protein_pattern = re.compile(
+        r'(?:tr|sp)\|([^|]+)\|[^<]+'
+    )
 
-    prot = protein_pattern.search(block)
+    position_pattern = re.compile(
+        r'>(\d+)-(\d+)<'
+    )
 
-    if prot:
-        current_protein = prot.group(1)
+    lines = []
 
-    if current_protein:
+    current_protein = None
 
-        for start, end in position_pattern.findall(block):
+    for block in re.split(
+        r'<A NAME="\d+"></A>',
+        html
+    ):
 
-            lines.append(
-                (
-                    current_protein,
-                    int(start),
-                    int(end)
+        prot = protein_pattern.search(block)
+
+        if prot:
+            current_protein = prot.group(1)
+
+        if current_protein:
+
+            for start, end in position_pattern.findall(block):
+
+                lines.append(
+                    (
+                        current_protein,
+                        int(start),
+                        int(end)
+                    )
                 )
+
+    output_bed = output_folder / f"{input_file.stem}.bed"
+
+    with output_bed.open("w", encoding="utf-8") as out:
+
+        for prot, start, end in lines:
+
+            out.write(
+                f"{prot}\t{start}\t{end}\n"
             )
 
-with open(output_bed, "w") as out:
+    print(f"[SUCCESS] {input_file.name} converted")
+    print(f"Extracted {len(lines)} regions")
+    print(f"Output: {output_bed}")
 
-    for prot, start, end in lines:
-
-        out.write(
-            f"{prot}\t{start}\t{end}\n"
-        )
-
-print(f"Extracted {len(lines)} regions")
-print(f"Output: {output_bed}")
+print("[SUCCESS] Converter completed")

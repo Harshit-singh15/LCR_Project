@@ -1,36 +1,47 @@
-from Bio import SeqIO
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+
+from Bio import SeqIO
 import pandas as pd
+from pipeline import config
 
-# =====================================================
-# CONFIG
-# =====================================================
+FASTA_FILE = config.FASTA_FILE
+BED_FOLDER = config.BED_DIR
+OUTPUT_DIR = config.FIG1_DATA_DIR
 
-FASTA_FILE = r"ecoli\ecoli.fasta"
+print("[INFO] Running Run_pipeline_1")
 
-BED_FOLDER = r"ecoli\bed_ecoli"
+if not FASTA_FILE.exists():
+    raise FileNotFoundError(f"FASTA file not found: {FASTA_FILE}")
 
-OUTPUT_DIR = r"ecoli\dataforFig1"
+if not BED_FOLDER.exists():
+    raise FileNotFoundError(f"BED directory not found: {BED_FOLDER}")
 
 # =====================================================
 # CREATE OUTPUT DIRECTORIES
 # =====================================================
 
-Path(OUTPUT_DIR).mkdir(exist_ok=True)
+OUTPUT_DIR.mkdir(
+    parents=True,
+    exist_ok=True
+)
 
-EXTRACT_DIR = Path(OUTPUT_DIR) / "extracted_sequences"
-EXTRACT_DIR.mkdir(exist_ok=True)
+EXTRACT_DIR = config.EXTRACTED_SEQUENCES_DIR
+EXTRACT_DIR.mkdir(parents=True, exist_ok=True)
 
 # =====================================================
 # LOAD FASTA
 # =====================================================
 
+print("[INFO] Loading FASTA")
 print("\nLoading proteome...")
 
 proteins = {}
 protein_lengths = {}
 
-for record in SeqIO.parse(FASTA_FILE, "fasta"):
+for record in SeqIO.parse(FASTA_FILE, "fasta-pearson"):
 
     full_id = record.description.split()[0]
 
@@ -75,7 +86,7 @@ print(f"Loaded {len(protein_lengths)} identifiers")
 
 canonical_lengths = []
 
-for record in SeqIO.parse(FASTA_FILE, "fasta"):
+for record in SeqIO.parse(FASTA_FILE, "fasta-pearson"):
 
     full_id = record.description.split()[0]
 
@@ -97,7 +108,7 @@ length_df = pd.DataFrame(
 )
 
 length_df.to_csv(
-    Path(OUTPUT_DIR) / "protein_lengths.tsv",
+    config.PROTEIN_LENGTHS_FILE,
     sep="\t",
     index=False
 )
@@ -108,13 +119,17 @@ print("Saved protein_lengths.tsv")
 # PROCESS BED FILES
 # =====================================================
 
-bed_files = sorted(Path(BED_FOLDER).glob("*.bed"))
+bed_files = sorted(BED_FOLDER.glob(config.BED_GLOB_PATTERN))
 
-print(f"\nFound {len(bed_files)} BED files")
+print("[INFO] Reading BED files")
+print(f"[INFO] Found {len(bed_files)} BED files")
+
+if not bed_files:
+    raise FileNotFoundError("No BED files found in the configured BED directory")
 
 for bed_file in bed_files:
     missing_list = []
-    print(f"\nProcessing {bed_file.name}")
+    print(f"[INFO] Processing {bed_file.name}")
 
     try:
 
@@ -222,6 +237,8 @@ for bed_file in bed_files:
         ]
     )
 
+    print("[INFO] Writing extracted sequences")
+
     output_file = (
         EXTRACT_DIR /
         f"{bed_file.stem}_lcrs.tsv"
@@ -252,4 +269,5 @@ for bed_file in bed_files:
     print("end>len :", bad_end)
     print("start>end :", bad_order)
 
+print("[SUCCESS] Run_pipeline_1 completed")
 print("\nPipeline step 1 complete.")

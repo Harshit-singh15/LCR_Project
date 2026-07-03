@@ -1,41 +1,53 @@
-import os
+from pathlib import Path
+import sys
 import pandas as pd
 
-# ==================================
-input_tsv = r"ecoli\lcrbytools\treks_clustalw_ecoli.tsv"
-output_bed = r"ecoli\bed_ecoli\treks_clustalw_ecoli.bed"
-# ==================================
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-os.makedirs(
-    os.path.dirname(output_bed),
-    exist_ok=True
-)
+from pipeline import config
 
-df = pd.read_csv(input_tsv, sep="\t")
+print("[INFO] Running convert_trekes")
 
-# Extract UniProt accession
-def get_accession(seqid):
+input_folder = config.LCRBYTOOLS_DIR
+output_folder = config.BED_DIR
+output_folder.mkdir(parents=True, exist_ok=True)
 
-    parts = str(seqid).split("|")
+for input_file in sorted(input_folder.iterdir()):
+    if not input_file.is_file() or input_file.suffix != ".tsv":
+        continue
 
-    if len(parts) >= 3:
-        return parts[1]
+    print(f"[INFO] Processing {input_file.name}")
 
-    return seqid
+    df = pd.read_csv(input_file, sep="\t")
 
-df["Protein_ID"] = df["seqid"].apply(get_accession)
+    # Extract UniProt accession
+    def get_accession(seqid):
 
-df[["Protein_ID", "start", "end"]].rename(
-    columns={
-        "start": "Start",
-        "end": "End"
-    }
-).to_csv(
-    output_bed,
-    sep="\t",
-    index=False,
-    header=False
-)
+        parts = str(seqid).split("|")
 
-print("T-REKS BED file written:", output_bed)
-print("Regions:", len(df))
+        if len(parts) >= 3:
+            return parts[1]
+
+        return seqid
+
+    df["Protein_ID"] = df["seqid"].apply(get_accession)
+
+    output_bed = output_folder / f"{input_file.stem}.bed"
+
+    df[["Protein_ID", "start", "end"]].rename(
+        columns={
+            "start": "Start",
+            "end": "End"
+        }
+    ).to_csv(
+        output_bed,
+        sep="\t",
+        index=False,
+        header=False
+    )
+
+    print(f"[SUCCESS] {input_file.name} converted")
+    print("T-REKS BED file written:", output_bed)
+    print("Regions:", len(df))
+
+print("[SUCCESS] Converter completed")

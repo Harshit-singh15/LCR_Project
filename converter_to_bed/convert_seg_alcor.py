@@ -1,74 +1,67 @@
-import os
+from pathlib import Path
 import re
+import sys
 
-# ===== EDIT THESE =====
-input_fasta = r"ecoli\lcrbytools\seg_strict_ecoli.fa"
-output_bed  = r"ecoli\bed_ecoli\seg_strict_ecoli.bed"
-# ======================
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-# Create output directory if needed
-os.makedirs(
-    os.path.dirname(output_bed),
-    exist_ok=True
-)
+from pipeline import config
 
-with open(output_bed, "w") as out:
+input_fol = Path(config.LCRBYTOOLS_DIR)
+outputfolder = Path(config.BED_DIR)
 
-    current_id = None
-    sequence = []
+if not input_fol.is_dir():
+    raise FileNotFoundError(f"Input folder not found: {input_fol}")
 
-    with open(input_fasta, "r") as f:
+outputfolder.mkdir(parents=True, exist_ok=True)
 
-        for line in f:
+for input_fasta in sorted(input_fol.iterdir()):
+    if not input_fasta.is_file() or input_fasta.suffix != ".fa":
+        continue
 
-            line = line.strip()
+    input_path = input_fasta
+    output_bed = outputfolder / f"{input_fasta.stem}.bed"
 
-            if not line:
-                continue
+    with output_bed.open("w", encoding="utf-8") as out:
+        current_id = None
+        sequence = []
 
-            if line.startswith(">"):
+        with input_path.open("r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
 
-                # Process previous protein
-                if current_id is not None:
+                if not line:
+                    continue
 
-                    seq = "".join(sequence)
+                if line.startswith(">"):
+                    if current_id is not None:
+                        seq = "".join(sequence)
 
-                    for match in re.finditer(r"[a-z]+", seq):
+                        for match in re.finditer(r"[a-z]+", seq):
+                            start = match.start() + 1
+                            end = match.end()
+                            out.write(f"{current_id}\t{start}\t{end}\n")
 
-                        start = match.start() + 1
-                        end = match.end()
+                    header = line[1:].strip()
+                    parts = header.split("|")
 
-                        out.write(
-                            f"{current_id}\t{start}\t{end}\n"
-                        )
+                    if len(parts) >= 3:
+                        current_id = parts[1]
+                    else:
+                        current_id = header.split()[0]
 
-                # Extract UniProt accession
-                header = line[1:].strip()
-                parts = header.split("|")
-
-                if len(parts) >= 3:
-                    current_id = parts[1]
+                    sequence = []
                 else:
-                    current_id = header.split()[0]
+                    sequence.append(line)
 
-                sequence = []
+            if current_id is not None:
+                seq = "".join(sequence)
 
-            else:
-                sequence.append(line)
+                for match in re.finditer(r"[a-z]+", seq):
+                    start = match.start() + 1
+                    end = match.end()
+                    out.write(f"{current_id}\t{start}\t{end}\n")
 
-        # Process final protein
-        if current_id is not None:
-
-            seq = "".join(sequence)
-
-            for match in re.finditer(r"[a-z]+", seq):
-
-                start = match.start() + 1
-                end = match.end()
-
-                out.write(
-                    f"{current_id}\t{start}\t{end}\n"
-                )
+    print(f"Processed: {input_fasta.name}")
+    print("Output:", output_bed)
 
 print("conversion complete.")
-print("Output:", output_bed)
