@@ -1,0 +1,25 @@
+Assuming unrestricted shared filesystem usage.
+
+SNAKEMAKE
+=========
+  Date: 2026-07-03 18:02:41
+  Workflow ID: 5fdeb776-602d-4e2c-94cb-a0abf718ff08
+  Platform: Windows-11-10.0.26200-SP0
+  Host: Harshit
+  User: 91892
+  Snakemake version: 9.23.1
+  Python version: 3.12.0 (tags/v3.12.0:0fb18b0, Oct  2 2023, 13:03:39) [MSC v.1935 64 bit (AMD64)]
+  Command: C:\Users\91892\AppData\Local\Programs\Python\Python312\Scripts\snakemake --cores 1
+  Snakefile: C:\Users\91892\Documents\Project_LCR\Snakefile
+  Base directory: C:\Users\91892\Documents\Project_LCR
+  Run directory: C:\Users\91892\Documents\Project_LCR
+  Working directory: C:\Users\91892\Documents\Project_LCR
+  Config file(s): ['config.yaml']
+  Config MD5: 318c3b37efa56be3b71518c27276b21b
+
+Building DAG of jobs...
+MissingInputException in rule fig2c_plot in file "C:\Users\91892\Documents\Project_LCR\Snakefile", line 295:
+Missing input files for rule fig2c_plot:
+    output: ecoli/Fig_outputs/Fig2/Fig2C_Purity.png
+    affected files:
+        ecoli/dataforFig2/purity

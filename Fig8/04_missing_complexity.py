@@ -13,7 +13,15 @@ output_file = r"ecoli\dataforFig8\fig8B_missing_residue_complexity.tsv"
 log_file = r"ecoli\dataforFig8\fig8B_missing_complexity.log"
 
 # =====================================================
+output_file.parent.mkdir(
+    parents=True,
+    exist_ok=True
+)
 
+log_file.parent.mkdir(
+    parents=True,
+    exist_ok=True
+)
 
 def clean_sequence(sequence):
     """

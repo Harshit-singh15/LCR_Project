@@ -1,13 +1,12 @@
 from pathlib import Path
 from collections import Counter
-
+import sys
 # ==========================================================
 # Directories
 # ==========================================================
 
-INPUT_DIR = Path(r"ecoli\dataforFig2\03_consensus_fastas")
-
-OUTPUT_DIR = Path(r"ecoli\dataforFig2\04_substring_motifs")
+INPUT_DIR = Path(sys.argv[1])
+OUTPUT_DIR = Path(sys.argv[2])
 
 OUTPUT_DIR.mkdir(
     parents=True,

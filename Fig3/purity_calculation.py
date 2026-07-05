@@ -3,13 +3,13 @@ from Bio import SeqIO
 from collections import Counter
 import pandas as pd
 import re
-
+import sys
 # ==========================================
 # Directories
 # ==========================================
 
-INPUT_DIR = Path(r"ecoli\dataforFig3\01_fastas")
-OUTPUT_DIR = Path(r"ecoli\dataforFig3\02_metrics")
+INPUT_DIR = Path(sys.argv[1])     # Extracted Sequences
+OUTPUT_DIR = Path(sys.argv[2])    # Purity
 
 OUTPUT_DIR.mkdir(
     parents=True,

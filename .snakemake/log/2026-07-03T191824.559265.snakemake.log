@@ -1,0 +1,65 @@
+The flag 'touch' used in rule all is only valid for outputs, not inputs.
+The flag 'directory' used in rule fig3_plot is only valid for outputs, not inputs.
+Assuming unrestricted shared filesystem usage.
+
+SNAKEMAKE
+=========
+  Date: 2026-07-03 19:18:24
+  Workflow ID: 39008fbc-7c11-4201-a68f-7f418ab392fe
+  Platform: Windows-11-10.0.26200-SP0
+  Host: Harshit
+  User: 91892
+  Snakemake version: 9.23.1
+  Python version: 3.12.0 (tags/v3.12.0:0fb18b0, Oct  2 2023, 13:03:39) [MSC v.1935 64 bit (AMD64)]
+  Command: C:\Users\91892\AppData\Local\Programs\Python\Python312\Scripts\snakemake --cores 1
+  Snakefile: C:\Users\91892\Documents\Project_LCR\Snakefile
+  Base directory: C:\Users\91892\Documents\Project_LCR
+  Run directory: C:\Users\91892\Documents\Project_LCR
+  Working directory: C:\Users\91892\Documents\Project_LCR
+  Config file(s): ['config.yaml']
+  Config MD5: 318c3b37efa56be3b71518c27276b21b
+
+Building DAG of jobs...
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job                    count
+-------------------  -------
+fig1_aa_composition        1
+fig2a_plot                 1
+fig7_summaries             1
+fig1D_plot                 1
+fig7_plot                  1
+fig1_combined              1
+all                        1
+total                      7
+
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul  3 19:18:24 2026]
+localrule fig2a_plot:
+    input: ecoli/dataforFig2/06_peptide_counts
+    output: ecoli/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png
+    jobid: 12
+    reason: Missing output files: ecoli/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+Waiting at most 5 seconds for missing files:
+ecoli/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png (missing locally)
+MissingOutputException in rule fig2a_plot in file "C:\Users\91892\Documents\Project_LCR\Snakefile", line 277:
+Job 12  completed successfully, but some output files are missing. Missing files after 5 seconds. This might be due to filesystem latency. If that is the case, consider to increase the wait time with --latency-wait:
+ecoli/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png (missing locally, parent dir contents: Fig2A_Peptide_Motifs.png, Fig2B_entropy.png, Fig2C_purity.png)
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look below for error messages
+[Fri Jul  3 19:18:34 2026]
+Error in rule fig2a_plot:
+    message: None
+    jobid: 12
+    input: ecoli/dataforFig2/06_peptide_counts
+    output: ecoli/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png
+    shell:
+        python ./Fig2/fig2a.py ecoli/dataforFig2/06_peptide_counts ecoli/Fig_outputs/Fig2
+        (command exited with non-zero exit code)
+Complete log(s): C:\Users\91892\Documents\Project_LCR\.snakemake\log\2026-07-03T191824.559265.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.

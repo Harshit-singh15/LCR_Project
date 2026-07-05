@@ -3,17 +3,21 @@ import numpy as np
 import math
 from collections import Counter
 from Bio import SeqIO
-
+import sys
+from pathlib import Path
 # ===== EDIT THESE =====
 
-reference_bed = r"ecoli\dataforFig6\ecoli_windows_real.bed"
+reference_bed = Path(sys.argv[1])  # Reference BED file with LCR annotations
 
-proteome_fasta = r"ecoli\ecoli_cleaned.fasta"
+proteome_fasta = Path(sys.argv[2])  # Proteome FASTA file
 
-output_file = r"ecoli\dataforFig6\reference_metrics.tsv"
+output_file = Path(sys.argv[3])  # Output file for metrics
 
 # ======================
-
+output_file.parent.mkdir(
+    parents=True,
+    exist_ok=True
+)
 
 def shannon_entropy(sequence):
 

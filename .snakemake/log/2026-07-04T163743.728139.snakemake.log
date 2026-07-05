@@ -1,0 +1,40 @@
+Traceback (most recent call last):
+
+  File "C:\Users\91892\AppData\Local\Programs\Python\Python312\Lib\site-packages\snakemake\cli.py", line 2222, in args_to_api
+    dag_api = workflow_api.dag(
+              ^^^^^^^^^^^^^^^^^
+
+  File "C:\Users\91892\AppData\Local\Programs\Python\Python312\Lib\site-packages\snakemake\api.py", line 362, in dag
+    return DAGApi(
+           ^^^^^^^
+
+  File "<string>", line 6, in __init__
+
+  File "C:\Users\91892\AppData\Local\Programs\Python\Python312\Lib\site-packages\snakemake\api.py", line 469, in __post_init__
+    self.workflow_api._workflow.dag_settings = self.dag_settings
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+  File "C:\Users\91892\AppData\Local\Programs\Python\Python312\Lib\site-packages\snakemake\api.py", line 414, in _workflow
+    workflow.include(
+
+  File "C:\Users\91892\AppData\Local\Programs\Python\Python312\Lib\site-packages\snakemake\workflow.py", line 1699, in include
+    code, rulecount = parse(
+                      ^^^^^^
+
+  File "C:\Users\91892\AppData\Local\Programs\Python\Python312\Lib\site-packages\snakemake\parser.py", line 1402, in parse
+    for t, orig_token in automaton.consume():
+
+  File "C:\Users\91892\AppData\Local\Programs\Python\Python312\Lib\site-packages\snakemake\parser.py", line 155, in consume
+    for token in self.snakefile:
+
+  File "C:\Users\91892\AppData\Local\Programs\Python\Python312\Lib\site-packages\snakemake\parser.py", line 1370, in __next__
+    return next(self.tokens)
+           ^^^^^^^^^^^^^^^^^
+
+  File "C:\Users\91892\AppData\Local\Programs\Python\Python312\Lib\tokenize.py", line 537, in _generate_tokens_from_c_tokenizer
+    for info in it:
+
+  File "<frozen codecs>", line 322, in decode
+
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0x93 in position 10: invalid start byte
+

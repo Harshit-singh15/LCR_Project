@@ -1,35 +1,14 @@
-"""
-Figure 2 - Step 1
-Generate consensus LCR regions using BEDTools multiinter.
-
-Equivalent command:
-
-bedtools multiinter \
--i bed_bedtools/*.bed \
-> dataforFig2/multiinter.tsv
-"""
-
 from pathlib import Path
 import subprocess
+import sys
 import time
 
 
 # ==========================================================
-# Helper
+# Windows -> WSL
 # ==========================================================
 
-def windows_to_wsl(path: Path) -> str:
-    """
-    Convert a Windows path to a WSL path.
-
-    Example
-    -------
-    D:\\Project\\bed.bed
-
-    becomes
-
-    /mnt/d/Project/bed.bed
-    """
+def windows_to_wsl(path: Path):
 
     path = path.resolve()
 
@@ -41,72 +20,62 @@ def windows_to_wsl(path: Path) -> str:
 
 
 # ==========================================================
+# Figure 2
 # BEDTools Multiinter
 # ==========================================================
 
-def run_multiinter():
+def run_multiinter(input_dir, output_dir):
 
-    start = time.time()
+    overall_start = time.perf_counter()
 
     print("\n" + "=" * 60)
-    print("Figure 2 : BEDTools multiinter")
+    print("Figure 2 : BEDTools Multiinter")
     print("=" * 60)
 
-    project_dir = Path.cwd()
+    project = Path.cwd()
 
-    input_dir = project_dir / "ecoli" / "bed_bedtools_Ecoli"
+    input_dir = Path(input_dir)
+    output_dir = Path(output_dir)
 
-    output_dir = project_dir / "ecoli" / "dataforFig2"
-
-    output_dir.mkdir(
+    output_dir.parent.mkdir(
         parents=True,
         exist_ok=True
     )
 
-    output_file = output_dir / "multiinter.tsv"
+    output_file = output_dir 
 
-    if not input_dir.exists():
-        raise FileNotFoundError(
-            f"Input folder not found:\n{input_dir}"
-        )
-
-    bed_files = sorted(input_dir.glob("*.bed"))
+    bed_files = sorted(
+        input_dir.glob("*.bed")
+    )
 
     if len(bed_files) == 0:
         raise RuntimeError(
-            "No BED files found inside bed_bedtools_Ecoli."
+            "No BED files found."
         )
 
-    print(f"\nFound {len(bed_files)} BED files\n")
+    print(f"\nFound {len(bed_files)} BED files.\n")
 
-    wsl_beds = [
-        windows_to_wsl(f)
-        for f in bed_files
-        if f.stat().st_size > 0
+    command = [
+        "wsl",
+        "bedtools",
+        "multiinter",
+        "-i"
     ]
 
-    if len(wsl_beds) == 0:
-        raise RuntimeError(
-            "All BED files are empty."
+    for bed in bed_files:
+
+        if bed.stat().st_size == 0:
+
+            print(f"Skipping empty file : {bed.name}")
+
+            continue
+
+        command.append(
+            windows_to_wsl(bed)
         )
 
-    output_wsl = windows_to_wsl(output_file)
-
-    command = (
-        f"bedtools multiinter "
-        f"-i {' '.join(wsl_beds)} "
-        f"> {output_wsl}"
-    )
-
-    print("Running BEDTools...\n")
-
     result = subprocess.run(
-        [
-            "wsl",
-            "bash",
-            "-c",
-            command
-        ],
+        command,
         capture_output=True,
         text=True
     )
@@ -119,9 +88,11 @@ def run_multiinter():
             "BEDTools multiinter failed."
         )
 
-    elapsed = time.time() - start
+    output_file.write_text(result.stdout)
 
-    print("Done.\n")
+    elapsed = time.perf_counter() - overall_start
+
+    print("Finished.\n")
 
     print(f"Output : {output_file}")
 
@@ -138,4 +109,4 @@ def run_multiinter():
 
 if __name__ == "__main__":
 
-    run_multiinter()
+    run_multiinter(sys.argv[1], sys.argv[2])

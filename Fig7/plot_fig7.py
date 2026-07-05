@@ -1,6 +1,6 @@
 import re
 from pathlib import Path
-
+import sys
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -9,11 +9,11 @@ import matplotlib.pyplot as plt
 # ======================================================
 
 INPUT_DIR = Path(
-    r"ecoli\dataforFig7"
+    sys.argv[1]  # Input directory containing summary tables
 )
 
 OUTPUT_DIR = Path(
-    r"ecoli\Fig_outputs\Fig7"
+    sys.argv[2]  # Output directory for combined figure
 )
 
 OUTPUT_DIR.mkdir(
@@ -223,7 +223,7 @@ plt.tight_layout(
 
 plt.savefig(
 
-    OUTPUT_DIR/"Fig7.png",
+    OUTPUT_DIR/"Fig7_summary.png",
 
     dpi=600,
 

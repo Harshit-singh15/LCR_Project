@@ -11,6 +11,10 @@ observed_file = r"ecoli\dataforFig8\ecoli_sifts_observed.tsv"
 
 output_bed = r"ecoli\dataforFig8\ecoli_missing_residues.bed"
 
+output_bed.parent.mkdir(
+    parents=True,
+    exist_ok=True
+)
 minimum_gap = 10
 
 # ==========================================================

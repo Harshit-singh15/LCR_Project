@@ -1,0 +1,98 @@
+The flag 'touch' used in rule all is only valid for outputs, not inputs.
+The flag 'directory' used in rule fig3_plot is only valid for outputs, not inputs.
+Assuming unrestricted shared filesystem usage.
+
+SNAKEMAKE
+=========
+  Date: 2026-07-03 19:21:30
+  Workflow ID: 6bf619e2-f191-4598-9875-7b35285789ae
+  Platform: Windows-11-10.0.26200-SP0
+  Host: Harshit
+  User: 91892
+  Snakemake version: 9.23.1
+  Python version: 3.12.0 (tags/v3.12.0:0fb18b0, Oct  2 2023, 13:03:39) [MSC v.1935 64 bit (AMD64)]
+  Command: C:\Users\91892\AppData\Local\Programs\Python\Python312\Scripts\snakemake --cores 1
+  Snakefile: C:\Users\91892\Documents\Project_LCR\Snakefile
+  Base directory: C:\Users\91892\Documents\Project_LCR
+  Run directory: C:\Users\91892\Documents\Project_LCR
+  Working directory: C:\Users\91892\Documents\Project_LCR
+  Config file(s): ['config.yaml']
+  Config MD5: 318c3b37efa56be3b71518c27276b21b
+
+Building DAG of jobs...
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job               count
+--------------  -------
+fig1D_plot            1
+fig7_summaries        1
+fig1_combined         1
+fig7_plot             1
+all                   1
+total                 5
+
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul  3 19:21:31 2026]
+localrule fig7_summaries:
+    input: ecoli/dataforFig6/plot_tables
+    output: ecoli/dataforFig7
+    jobid: 43
+    reason: Missing output files: ecoli/dataforFig7
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul  3 19:21:31 2026]
+Finished jobid: 43 (Rule: fig7_summaries)
+1 of 5 steps (20%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul  3 19:21:31 2026]
+localrule fig1D_plot:
+    input: ecoli/dataforFig1/Amino_acid
+    output: ecoli/Fig_outputs/Fig1/Figure1D_AminoAcidComposition.png
+    jobid: 7
+    reason: Missing output files: ecoli/Fig_outputs/Fig1/Figure1D_AminoAcidComposition.png
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul  3 19:21:36 2026]
+Finished jobid: 7 (Rule: fig1D_plot)
+2 of 5 steps (40%) done
+Execute 1 jobs...
+[Fri Jul  3 19:21:36 2026]
+localrule fig1_combined:
+    input: ecoli/Fig_outputs/Fig1/Figure1A_Length_Heatmap.png, ecoli/Fig_outputs/Fig1/Figure1B_Coverage_Heatmap.png, ecoli/Fig_outputs/Fig1/Figure1C_CountDistribution.png, ecoli/Fig_outputs/Fig1/Figure1D_AminoAcidComposition.png, ecoli/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png
+    output: ecoli/Fig_outputs/Fig1/Figure1_Combined.png
+    jobid: 11
+    reason: Missing output files: ecoli/Fig_outputs/Fig1/Figure1_Combined.png; Input files updated by another job: ecoli/Fig_outputs/Fig1/Figure1D_AminoAcidComposition.png
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul  3 19:21:38 2026]
+Finished jobid: 11 (Rule: fig1_combined)
+3 of 5 steps (60%) done
+Execute 1 jobs...
+[Fri Jul  3 19:21:38 2026]
+localrule fig7_plot:
+    input: ecoli/dataforFig7
+    output: ecoli/Fig_outputs/Fig7/Fig7_summary.png
+    jobid: 42
+    reason: Missing output files: ecoli/Fig_outputs/Fig7/Fig7_summary.png; Input files updated by another job: ecoli/dataforFig7
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Waiting at most 5 seconds for missing files:
+ecoli/Fig_outputs/Fig7/Fig7_summary.png (missing locally)
+MissingOutputException in rule fig7_plot in file "C:\Users\91892\Documents\Project_LCR\Snakefile", line 503:
+Job 42  completed successfully, but some output files are missing. Missing files after 5 seconds. This might be due to filesystem latency. If that is the case, consider to increase the wait time with --latency-wait:
+ecoli/Fig_outputs/Fig7/Fig7_summary.png (missing locally, parent dir contents: Fig7.png)
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look below for error messages
+[Fri Jul  3 19:21:46 2026]
+Error in rule fig7_plot:
+    message: None
+    jobid: 42
+    input: ecoli/dataforFig7
+    output: ecoli/Fig_outputs/Fig7/Fig7_summary.png
+    shell:
+        python ./Fig7/Plot_fig7.py ecoli/dataforFig7 ecoli/Fig_outputs/Fig7
+        (command exited with non-zero exit code)
+Complete log(s): C:\Users\91892\Documents\Project_LCR\.snakemake\log\2026-07-03T192130.742867.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.

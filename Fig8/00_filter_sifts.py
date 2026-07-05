@@ -12,7 +12,10 @@ sifts_file = r"uniprot_segments_observed.tsv"
 
 output_file = r"ecoli\dataforFig8\ecoli_sifts_observed.tsv"
 
-
+output_file.parent.mkdir(
+    parents=True,
+    exist_ok=True
+)
 
 def get_accession(record_id):
     """

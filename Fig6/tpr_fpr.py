@@ -1,15 +1,15 @@
 import os
 import pandas as pd
-
+import sys
 # =====================================================
 # INPUTS
 # =====================================================
 
-metrics_file = r"ecoli\dataforFig6\reference_metrics.tsv"
+metrics_file = sys.argv[1]  # Input file with metrics
 
-confusion_file = r"ecoli\dataforFig6\protein_confusion.tsv"
+confusion_file = sys.argv[2]  # Input file with confusion matrix
 
-output_dir = r"ecoli\dataforFig6\plot_tables"
+output_dir = sys.argv[3]  # Output directory for TPR/FPR tables
 
 # =====================================================
 

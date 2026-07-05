@@ -1,0 +1,94 @@
+Assuming unrestricted shared filesystem usage.
+
+SNAKEMAKE
+=========
+  Date: 2026-07-03 17:30:02
+  Workflow ID: d506aaf0-0276-4d14-abf1-98a0ed4820af
+  Platform: Windows-11-10.0.26200-SP0
+  Host: Harshit
+  User: 91892
+  Snakemake version: 9.23.1
+  Python version: 3.12.0 (tags/v3.12.0:0fb18b0, Oct  2 2023, 13:03:39) [MSC v.1935 64 bit (AMD64)]
+  Command: C:\Users\91892\AppData\Local\Programs\Python\Python312\Scripts\snakemake --cores 1
+  Snakefile: C:\Users\91892\Documents\Project_LCR\Snakefile
+  Base directory: C:\Users\91892\Documents\Project_LCR
+  Run directory: C:\Users\91892\Documents\Project_LCR
+  Working directory: C:\Users\91892\Documents\Project_LCR
+  Config file(s): ['config.yaml']
+  Config MD5: 318c3b37efa56be3b71518c27276b21b
+
+Building DAG of jobs...
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job                       count
+----------------------  -------
+fig1_aa_composition           1
+fig2_consensus_beds           1
+fig3_fastas                   1
+fig4_jaccard_matrix           1
+fig6_complexity               1
+fig1D_plot                    1
+fig2_consensus_fastas         1
+fig3_purity_metrics           1
+fig4_plot                     1
+fig5_metrics                  1
+fig6_classification           1
+fig1_combined                 1
+fig2_entropy                  1
+fig2_purity                   1
+fig2_substring_motifs         1
+fig3_plot                     1
+fig5_heatmaps                 1
+fig6_annotate                 1
+fig2_filtered                 1
+fig2b_plot                    1
+fig2c_plot                    1
+fig5_combined                 1
+fig6_confusion                1
+fig6_reference_metrics        1
+fig2_peptide_counts           1
+fig6_tpr_fpr                  1
+fig2a_plot                    1
+fig6_combined                 1
+fig6_plots                    1
+fig7_summaries                1
+fig7_plot                     1
+all                           1
+total                        32
+
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul  3 17:30:02 2026]
+localrule fig2_consensus_beds:
+    input: ecoli/dataforFig2/multiinter.tsv
+    output: ecoli/dataforFig2/02_consensus_beds
+    jobid: 18
+    reason: Missing output files: ecoli/dataforFig2/02_consensus_beds
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+RuleException:
+CalledProcessError in file "C:\Users\91892\Documents\Project_LCR\Snakefile", line 218:
+Command 'python ./Fig2/02_consensus_beds_1.py ecoli/dataforFig2/multiinter.tsv ecoli/dataforFig2/02_consensus_beds' returned non-zero exit status 2.
+[Fri Jul  3 17:30:02 2026]
+Error in rule fig2_consensus_beds:
+    message: None
+    jobid: 18
+    input: ecoli/dataforFig2/multiinter.tsv
+    output: ecoli/dataforFig2/02_consensus_beds
+    shell:
+        python ./Fig2/02_consensus_beds_1.py ecoli/dataforFig2/multiinter.tsv ecoli/dataforFig2/02_consensus_beds
+        (command exited with non-zero exit code)
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look below for error messages
+[Fri Jul  3 17:30:02 2026]
+Error in rule fig2_consensus_beds:
+    message: None
+    jobid: 18
+    input: ecoli/dataforFig2/multiinter.tsv
+    output: ecoli/dataforFig2/02_consensus_beds
+    shell:
+        python ./Fig2/02_consensus_beds_1.py ecoli/dataforFig2/multiinter.tsv ecoli/dataforFig2/02_consensus_beds
+        (command exited with non-zero exit code)
+Complete log(s): C:\Users\91892\Documents\Project_LCR\.snakemake\log\2026-07-03T173001.924354.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.

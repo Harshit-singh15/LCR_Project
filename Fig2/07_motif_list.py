@@ -1,18 +1,14 @@
 from pathlib import Path
 import pandas as pd
 import re
+import sys
 
 # ==========================================================
 # Directories
 # ==========================================================
 
-INPUT_DIR = Path(
-    r"ecoli\dataforFig2\06_peptide_counts"
-)
-
-OUTPUT_DIR = Path(
-    r"ecoli\dataforFig2\07_motif_list"
-)
+INPUT_DIR = Path(sys.argv[1])     # peptide counts  
+OUTPUT_DIR = Path(sys.argv[2])    # motif matrix
 
 OUTPUT_DIR.mkdir(
     parents=True,

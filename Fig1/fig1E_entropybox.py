@@ -1,6 +1,7 @@
 # figure1E_entropy_boxplot.py
 
 from pathlib import Path
+import sys
 
 import pandas as pd
 import seaborn as sns
@@ -10,9 +11,8 @@ import matplotlib.pyplot as plt
 # CONFIG
 # =====================================================
 
-INPUT_DIR = r"ecoli\dataforFig1\ShanonEntropy"
-
-OUTPUT_DIR = r"ecoli\Fig_outputs\Fig1"
+INPUT_DIR = sys.argv[1]     # Shannon Entropy
+OUTPUT_DIR = sys.argv[2]    # Figure output directory
 
 Path(OUTPUT_DIR).mkdir(
     parents=True,
@@ -241,5 +241,3 @@ plt.savefig(
 print(
     "\nSaved Figure1E_Entropy_Boxplot.png"
 )
-
-plt.show()

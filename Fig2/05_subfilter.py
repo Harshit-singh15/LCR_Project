@@ -1,13 +1,12 @@
 from pathlib import Path
 import pandas as pd
-
+import sys
 # ==========================================================
 # Directories
 # ==========================================================
 
-INPUT_DIR = Path(r"ecoli\dataforFig2\04_substring_motifs")
-
-OUTPUT_DIR = Path(r"ecoli\dataforFig2\05_filtered")
+INPUT_DIR = Path(sys.argv[1])     # substring motifs
+OUTPUT_DIR = Path(sys.argv[2])    # filtered motifs
 
 OUTPUT_DIR.mkdir(
     parents=True,

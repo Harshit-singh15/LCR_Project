@@ -1,9 +1,11 @@
+from pathlib import Path
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import sys
 
 df = pd.read_csv(
-    r"ecoli\dataforFig2\purity\purity.tsv",
+    Path(sys.argv[1]),
     sep="\t"
 )
 
@@ -45,15 +47,13 @@ ax.set_xticks(range(len(labels)))
 ax.set_xticklabels(labels)
 
 plt.title(
-    "Fig 2C: E. coli : Compositional purity across consensus levels"
+    "Fig 2C : Compositional purity across consensus levels"
 )
 
 plt.tight_layout()
 
 plt.savefig(
-    r"ecoli\Fig_outputs\Fig2\Fig2C_purity.png",
+    Path(sys.argv[2]) / "Fig2C_purity.png",
     dpi=600,
     bbox_inches="tight"
 )
-
-plt.show()

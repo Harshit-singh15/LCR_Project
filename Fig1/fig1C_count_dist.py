@@ -1,7 +1,7 @@
 # figure1C_count_distribution.py
 
 from pathlib import Path
-
+import sys  
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -9,9 +9,8 @@ import matplotlib.pyplot as plt
 # CONFIG
 # =====================================================
 
-INPUT_DIR = r"ecoli\dataforFig1\LCR_Count"
-
-OUTPUT_DIR = r"ecoli\Fig_outputs\Fig1"
+INPUT_DIR = sys.argv[1]     # Categorized counts    
+OUTPUT_DIR = sys.argv[2]    # Figure output directory
 
 Path(OUTPUT_DIR).mkdir(
     parents=True,
@@ -205,5 +204,3 @@ plt.savefig(
 print(
     f"\nSaved: {output_file}"
 )
-
-plt.show()

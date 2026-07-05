@@ -1,19 +1,24 @@
 import os
+import sys
+from pathlib import Path
 import pandas as pd
 from Bio import SeqIO
-
 # =====================================================
 # EDIT PATHS
 # =====================================================
 
-proteome_fasta = r"ecoli\ecoli_cleaned.fasta"
+proteome_fasta = Path(sys.argv[1])  # Proteome FASTA file
 
-reference_bed = r"ecoli\dataforFig6\ecoli_windows_real.bed"
+reference_bed = Path(sys.argv[2])  # Reference BED file with LCR annotations
 
-tool_folder = r"ecoli\bed_bedtools_Ecoli"
+tool_folder = Path(sys.argv[3])  # Folder containing tool BED files
 
-output_file = r"ecoli\dataforFig6\protein_confusion.tsv"
+output_file = Path(sys.argv[4])  # Output file for confusion matrix
 
+output_file.parent.mkdir(
+    parents=True,
+    exist_ok=True
+)
 # =====================================================
 
 

@@ -2,7 +2,7 @@ from pathlib import Path
 import subprocess
 import pandas as pd
 import time
-
+import sys
 
 # ==========================================================
 # Windows -> WSL
@@ -23,7 +23,7 @@ def windows_to_wsl(path: Path):
 # Compute Jaccard Matrix
 # ==========================================================
 
-def run_jaccard_matrix():
+def run_jaccard_matrix(input_dir, output_dir):
 
     overall_start = time.perf_counter()
 
@@ -33,16 +33,15 @@ def run_jaccard_matrix():
 
     project = Path.cwd()
 
-    input_dir = project / "ecoli" / "bed_bedtools_Ecoli"
+    input_dir = Path(input_dir)
+    output_dir = Path(output_dir)
 
-    output_dir = project / "ecoli" / "dataforFig4" / "jaccard_matrix1"
-
-    output_dir.mkdir(
+    output_dir.parent.mkdir(
         parents=True,
         exist_ok=True
     )
 
-    output_file = output_dir / "jaccard_matrix.tsv"
+    output_file = output_dir 
 
     bed_files = sorted(input_dir.glob("*.bed"))
 
@@ -148,4 +147,4 @@ def run_jaccard_matrix():
 
 if __name__ == "__main__":
 
-    run_jaccard_matrix()
+    run_jaccard_matrix(sys.argv[1], sys.argv[2])

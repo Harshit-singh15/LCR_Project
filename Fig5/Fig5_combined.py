@@ -2,14 +2,18 @@ from pathlib import Path
 from PIL import Image
 import math
 import matplotlib.pyplot as plt
-
+import sys
 # =====================================================
 # Directories
 # =====================================================
 
-INPUT_DIR = Path(r"ecoli\Fig_outputs\Fig5")
+INPUT_DIR = Path(sys.argv[1])  # Directory containing individual heatmaps   
+OUTPUT_DIR = Path(sys.argv[2])  # Directory to save the combined figure
 
-OUTPUT_DIR = Path(r"ecoli\Fig_outputs\Fig5")
+OUTPUT_DIR.parent.mkdir(
+    parents=True,
+    exist_ok=True
+)
 
 # =====================================================
 # Read all PNG heatmaps
@@ -88,7 +92,7 @@ plt.tight_layout()
 # =====================================================
 
 plt.savefig(
-    OUTPUT_DIR/"Fig5_combined.png",
+    OUTPUT_DIR,
     dpi=600,
     bbox_inches="tight"
 )

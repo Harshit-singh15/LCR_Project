@@ -4,13 +4,13 @@ from Bio import SeqIO
 import pandas as pd
 import math
 import re
-
+import sys
 # ======================================================
 # Configuration
 # ======================================================
 
-INPUT_DIR = Path(r"ecoli\dataforFig3\01_fastas")
-OUTPUT_DIR = Path(r"ecoli\dataforFig5\02_metrics")
+INPUT_DIR = Path(sys.argv[1])
+OUTPUT_DIR = Path(sys.argv[2])
 
 # Maximum repeat unit length to test
 MAX_K = 6

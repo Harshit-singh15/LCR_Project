@@ -1,0 +1,110 @@
+The flag 'touch' used in rule all is only valid for outputs, not inputs.
+The flag 'directory' used in rule fig3_plot is only valid for outputs, not inputs.
+Assuming unrestricted shared filesystem usage.
+
+SNAKEMAKE
+=========
+  Date: 2026-07-03 19:52:14
+  Workflow ID: 6dd1e9e7-c1eb-4f70-8619-363e4614c8da
+  Platform: Windows-11-10.0.26200-SP0
+  Host: Harshit
+  User: 91892
+  Snakemake version: 9.23.1
+  Python version: 3.12.0 (tags/v3.12.0:0fb18b0, Oct  2 2023, 13:03:39) [MSC v.1935 64 bit (AMD64)]
+  Command: C:\Users\91892\AppData\Local\Programs\Python\Python312\Scripts\snakemake --cores 1 --forceall
+  Snakefile: C:\Users\91892\Documents\Project_LCR\Snakefile
+  Base directory: C:\Users\91892\Documents\Project_LCR
+  Run directory: C:\Users\91892\Documents\Project_LCR
+  Working directory: C:\Users\91892\Documents\Project_LCR
+  Config file(s): ['config.yaml']
+  Config MD5: 318c3b37efa56be3b71518c27276b21b
+
+Building DAG of jobs...
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job                       count
+----------------------  -------
+clean_fasta                   1
+fig1_extract_sequences        1
+prepare_bedtools_beds         1
+fig1_aa_composition           1
+fig1_coverage                 1
+fig1_entropy                  1
+fig1_length_counts            1
+fig2_multiinter               1
+fig3_fastas                   1
+fig4_jaccard_matrix           1
+fig6_windows                  1
+fig1A_plot                    1
+fig1B_plot                    1
+fig1C_plot                    1
+fig1D_plot                    1
+fig1E_plot                    1
+fig2_consensus_beds           1
+fig3_purity_metrics           1
+fig4_plot                     1
+fig5_metrics                  1
+fig6_complexity               1
+fig1_combined                 1
+fig2_consensus_fastas         1
+fig3_plot                     1
+fig5_heatmaps                 1
+fig6_classification           1
+fig2_entropy                  1
+fig2_purity                   1
+fig2_substring_motifs         1
+fig5_combined                 1
+fig6_annotate                 1
+fig2_filtered                 1
+fig2b_plot                    1
+fig2c_plot                    1
+fig6_confusion                1
+fig6_reference_metrics        1
+fig2_peptide_counts           1
+fig6_tpr_fpr                  1
+fig2a_plot                    1
+fig6_combined                 1
+fig6_plots                    1
+fig7_summaries                1
+fig7_plot                     1
+all                           1
+total                        44
+
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul  3 19:52:14 2026]
+localrule clean_fasta:
+    input: ecoli/ecoli.fasta
+    output: ecoli/ecoli_cleaned.fasta
+    jobid: 20
+    reason: Forced execution
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul  3 19:52:14 2026]
+Finished jobid: 20 (Rule: clean_fasta)
+1 of 44 steps (2%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul  3 19:52:14 2026]
+localrule fig1_extract_sequences:
+    input: ecoli/ecoli.fasta, ecoli/bed_ecoli
+    output: ecoli/dataforFig1/extracted_sequences, ecoli/dataforFig1/protein_lengths.tsv
+    jobid: 3
+    reason: Forced execution
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+RuleException:
+CalledProcessError in file "C:\Users\91892\Documents\Project_LCR\Snakefile", line 93:
+Command 'python ./Fig1/Run_pipeline_1.py ecoli/ecoli.fasta ecoli/bed_ecoli ecoli/dataforFig1' returned non-zero exit status 3221225786.
+[Fri Jul  3 19:52:15 2026]
+Error in rule fig1_extract_sequences:
+    message: None
+    jobid: 3
+    input: ecoli/ecoli.fasta, ecoli/bed_ecoli
+    output: ecoli/dataforFig1/extracted_sequences, ecoli/dataforFig1/protein_lengths.tsv
+    shell:
+        python ./Fig1/Run_pipeline_1.py ecoli/ecoli.fasta ecoli/bed_ecoli ecoli/dataforFig1
+        (command exited with non-zero exit code)
+Terminating processes on user request, this might take some time.
+Complete log(s): C:\Users\91892\Documents\Project_LCR\.snakemake\log\2026-07-03T195213.979233.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.

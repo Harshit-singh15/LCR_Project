@@ -3,17 +3,17 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
 from pathlib import Path
-
+import sys
 # ======================================================
 # Input / Output
 # ======================================================
 
 INPUT_FILE = Path(
-    r"ecoli\dataforFig4\jaccard_matrix.tsv"
+    sys.argv[1]
 )
 
 OUTPUT_DIR = Path(
-    r"ecoli\Fig_outputs\Fig4"
+    sys.argv[2]
 )
 
 OUTPUT_DIR.mkdir(
@@ -129,7 +129,7 @@ plt.tight_layout()
 # ======================================================
 
 plt.savefig(
-    OUTPUT_DIR/"Fig4_jaccard_heatmap.png",
+    OUTPUT_DIR/"Fig4_Jaccard.png",
     dpi=600,
     bbox_inches="tight"
 )

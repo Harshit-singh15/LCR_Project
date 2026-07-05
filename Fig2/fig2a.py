@@ -1,6 +1,6 @@
 import re
 from pathlib import Path
-
+import sys  
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -8,8 +8,8 @@ import matplotlib.pyplot as plt
 # Input / Output
 # ======================================================
 
-INPUT_DIR = Path(r"ecoli\dataforFig2\06_peptide_counts")
-OUTPUT_DIR = Path(r"ecoli\Fig_outputs\Fig2")
+INPUT_DIR = Path(sys.argv[1])     # peptide counts
+OUTPUT_DIR = Path(sys.argv[2])    # Fig2
 
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -197,7 +197,7 @@ ax.legend(
 plt.tight_layout()
 
 plt.savefig(
-    OUTPUT_DIR/"Fig2A.png",
+    OUTPUT_DIR/"Fig2A_PeptideMotifs.png",
     dpi=600,
     bbox_inches="tight"
 )

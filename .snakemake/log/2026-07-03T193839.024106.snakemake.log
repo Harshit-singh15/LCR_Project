@@ -1,0 +1,286 @@
+The flag 'touch' used in rule all is only valid for outputs, not inputs.
+The flag 'directory' used in rule fig3_plot is only valid for outputs, not inputs.
+Assuming unrestricted shared filesystem usage.
+
+SNAKEMAKE
+=========
+  Date: 2026-07-03 19:38:39
+  Workflow ID: daf1dfc1-4ec2-42a0-a33c-fb09c72111fb
+  Platform: Windows-11-10.0.26200-SP0
+  Host: Harshit
+  User: 91892
+  Snakemake version: 9.23.1
+  Python version: 3.12.0 (tags/v3.12.0:0fb18b0, Oct  2 2023, 13:03:39) [MSC v.1935 64 bit (AMD64)]
+  Command: C:\Users\91892\AppData\Local\Programs\Python\Python312\Scripts\snakemake --cores 1
+  Snakefile: C:\Users\91892\Documents\Project_LCR\Snakefile
+  Base directory: C:\Users\91892\Documents\Project_LCR
+  Run directory: C:\Users\91892\Documents\Project_LCR
+  Working directory: C:\Users\91892\Documents\Project_LCR
+  Config file(s): ['config.yaml']
+  Config MD5: 318c3b37efa56be3b71518c27276b21b
+
+Building DAG of jobs...
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job                       count
+----------------------  -------
+fig1_aa_composition           1
+fig2_consensus_fastas         1
+fig3_fastas                   1
+fig4_jaccard_matrix           1
+fig6_complexity               1
+fig1D_plot                    1
+fig2_entropy                  1
+fig2_purity                   1
+fig2_substring_motifs         1
+fig3_purity_metrics           1
+fig4_plot                     1
+fig5_metrics                  1
+fig6_classification           1
+fig1_combined                 1
+fig2_filtered                 1
+fig2b_plot                    1
+fig2c_plot                    1
+fig3_plot                     1
+fig5_heatmaps                 1
+fig6_annotate                 1
+fig2_peptide_counts           1
+fig5_combined                 1
+fig6_confusion                1
+fig6_reference_metrics        1
+fig2a_plot                    1
+fig6_tpr_fpr                  1
+fig6_combined                 1
+fig6_plots                    1
+fig7_summaries                1
+fig7_plot                     1
+all                           1
+total                        31
+
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul  3 19:38:39 2026]
+localrule fig2_consensus_fastas:
+    input: ecoli/dataforFig2/02_consensus_beds, ecoli/ecoli_cleaned.fasta
+    output: ecoli/dataforFig2/03_consensus_fastas
+    jobid: 16
+    reason: Missing output files: ecoli/dataforFig2/03_consensus_fastas; Updated input files: ecoli/ecoli_cleaned.fasta, ecoli/dataforFig2/02_consensus_beds
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul  3 19:38:39 2026]
+Finished jobid: 16 (Rule: fig2_consensus_fastas)
+1 of 31 steps (3%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul  3 19:38:40 2026]
+localrule fig2_entropy:
+    input: ecoli/dataforFig2/03_consensus_fastas
+    output: ecoli/dataforFig2/entropy.tsv
+    jobid: 22
+    reason: Input files updated by another job: ecoli/dataforFig2/03_consensus_fastas
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul  3 19:38:41 2026]
+Finished jobid: 22 (Rule: fig2_entropy)
+2 of 31 steps (6%) done
+Execute 1 jobs...
+[Fri Jul  3 19:38:41 2026]
+localrule fig2_purity:
+    input: ecoli/dataforFig2/03_consensus_fastas
+    output: ecoli/dataforFig2/purity.tsv
+    jobid: 24
+    reason: Input files updated by another job: ecoli/dataforFig2/03_consensus_fastas
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul  3 19:38:42 2026]
+Finished jobid: 24 (Rule: fig2_purity)
+3 of 31 steps (10%) done
+Execute 1 jobs...
+[Fri Jul  3 19:38:42 2026]
+localrule fig2c_plot:
+    input: ecoli/dataforFig2/purity.tsv
+    output: ecoli/Fig_outputs/Fig2/Fig2C_Purity.png
+    jobid: 23
+    reason: Input files updated by another job: ecoli/dataforFig2/purity.tsv
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul  3 19:38:48 2026]
+Finished jobid: 23 (Rule: fig2c_plot)
+4 of 31 steps (13%) done
+Execute 1 jobs...
+[Fri Jul  3 19:38:48 2026]
+localrule fig4_jaccard_matrix:
+    input: ecoli/bed_bedtools_ecoli
+    output: ecoli/dataforFig4/jaccard_matrix.tsv
+    jobid: 29
+    reason: Updated input files: ecoli/bed_bedtools_ecoli
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul  3 19:39:25 2026]
+Finished jobid: 29 (Rule: fig4_jaccard_matrix)
+5 of 31 steps (16%) done
+Execute 1 jobs...
+[Fri Jul  3 19:39:25 2026]
+localrule fig4_plot:
+    input: ecoli/dataforFig4/jaccard_matrix.tsv
+    output: ecoli/Fig_outputs/Fig4/Fig4_Jaccard.png
+    jobid: 28
+    reason: Input files updated by another job: ecoli/dataforFig4/jaccard_matrix.tsv
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul  3 19:39:30 2026]
+Finished jobid: 28 (Rule: fig4_plot)
+6 of 31 steps (19%) done
+Execute 1 jobs...
+[Fri Jul  3 19:39:30 2026]
+localrule fig3_fastas:
+    input: ecoli/bed_bedtools_ecoli, ecoli/ecoli_cleaned.fasta
+    output: ecoli/dataforFig3/01_fastas
+    jobid: 27
+    reason: Updated input files: ecoli/bed_bedtools_ecoli, ecoli/ecoli_cleaned.fasta
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul  3 19:39:30 2026]
+Finished jobid: 27 (Rule: fig3_fastas)
+7 of 31 steps (23%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul  3 19:39:31 2026]
+localrule fig3_purity_metrics:
+    input: ecoli/dataforFig3/01_fastas
+    output: ecoli/dataforFig3/02_metrics
+    jobid: 26
+    reason: Input files updated by another job: ecoli/dataforFig3/01_fastas
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul  3 19:39:32 2026]
+Finished jobid: 26 (Rule: fig3_purity_metrics)
+8 of 31 steps (26%) done
+Execute 1 jobs...
+[Fri Jul  3 19:39:32 2026]
+localrule fig3_plot:
+    input: ecoli/dataforFig3/02_metrics
+    output: ecoli/Fig_outputs/Fig3/Fig3_Purity.png
+    jobid: 25
+    reason: Input files updated by another job: ecoli/dataforFig3/02_metrics
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul  3 19:39:37 2026]
+Finished jobid: 25 (Rule: fig3_plot)
+9 of 31 steps (29%) done
+Execute 1 jobs...
+[Fri Jul  3 19:39:37 2026]
+localrule fig2_substring_motifs:
+    input: ecoli/dataforFig2/03_consensus_fastas
+    output: ecoli/dataforFig2/04_substring_motifs
+    jobid: 15
+    reason: Input files updated by another job: ecoli/dataforFig2/03_consensus_fastas
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul  3 19:39:39 2026]
+Finished jobid: 15 (Rule: fig2_substring_motifs)
+10 of 31 steps (32%) done
+Execute 1 jobs...
+[Fri Jul  3 19:39:39 2026]
+localrule fig2_filtered:
+    input: ecoli/dataforFig2/04_substring_motifs
+    output: ecoli/dataforFig2/05_filtered
+    jobid: 14
+    reason: Input files updated by another job: ecoli/dataforFig2/04_substring_motifs
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul  3 19:39:42 2026]
+Finished jobid: 14 (Rule: fig2_filtered)
+11 of 31 steps (35%) done
+Execute 1 jobs...
+[Fri Jul  3 19:39:42 2026]
+localrule fig2_peptide_counts:
+    input: ecoli/dataforFig2/05_filtered
+    output: ecoli/dataforFig2/06_peptide_counts
+    jobid: 13
+    reason: Input files updated by another job: ecoli/dataforFig2/05_filtered
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul  3 19:39:43 2026]
+Finished jobid: 13 (Rule: fig2_peptide_counts)
+12 of 31 steps (39%) done
+Execute 1 jobs...
+[Fri Jul  3 19:39:43 2026]
+localrule fig2a_plot:
+    input: ecoli/dataforFig2/06_peptide_counts
+    output: ecoli/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png
+    jobid: 12
+    reason: Input files updated by another job: ecoli/dataforFig2/06_peptide_counts
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul  3 19:39:48 2026]
+Finished jobid: 12 (Rule: fig2a_plot)
+13 of 31 steps (42%) done
+Execute 1 jobs...
+[Fri Jul  3 19:39:48 2026]
+localrule fig2b_plot:
+    input: ecoli/dataforFig2/entropy.tsv
+    output: ecoli/Fig_outputs/Fig2/Fig2B_Entropy.png
+    jobid: 21
+    reason: Input files updated by another job: ecoli/dataforFig2/entropy.tsv
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul  3 19:39:54 2026]
+Finished jobid: 21 (Rule: fig2b_plot)
+14 of 31 steps (45%) done
+Execute 1 jobs...
+[Fri Jul  3 19:39:54 2026]
+localrule fig5_metrics:
+    input: ecoli/dataforFig3/01_fastas
+    output: ecoli/dataforFig5/02_metrics
+    jobid: 31
+    reason: Input files updated by another job: ecoli/dataforFig3/01_fastas
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul  3 19:40:01 2026]
+Finished jobid: 31 (Rule: fig5_metrics)
+15 of 31 steps (48%) done
+Execute 1 jobs...
+[Fri Jul  3 19:40:01 2026]
+localrule fig5_heatmaps:
+    input: ecoli/dataforFig5/02_metrics
+    output: ecoli/Fig_outputs/Fig5/Fig5_heatmaps_done.flag
+    jobid: 30
+    reason: Input files updated by another job: ecoli/dataforFig5/02_metrics
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+Touching output file ecoli/Fig_outputs/Fig5/Fig5_heatmaps_done.flag.
+[Fri Jul  3 19:40:29 2026]
+Finished jobid: 30 (Rule: fig5_heatmaps)
+16 of 31 steps (52%) done
+Execute 1 jobs...
+[Fri Jul  3 19:40:29 2026]
+localrule fig5_combined:
+    input: ecoli/Fig_outputs/Fig5/Fig5_heatmaps_done.flag
+    output: ecoli/Fig_outputs/Fig5/Fig5_Combined.png
+    jobid: 32
+    reason: Input files updated by another job: ecoli/Fig_outputs/Fig5/Fig5_heatmaps_done.flag
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[WinError 145] The directory is not empty: 'ecoli/Fig_outputs/Fig5/Fig5_Combined.png'
+Select jobs to execute...
+ImproperOutputException in rule fig5_combined in file "C:\Users\91892\Documents\Project_LCR\Snakefile", line 386:
+Outputs of incorrect type (directories when expecting files or vice versa). Output directories must be flagged with directory(). for rule fig5_combined:
+    output: ecoli/Fig_outputs/Fig5/Fig5_Combined.png
+    affected files:
+        ecoli/Fig_outputs/Fig5/Fig5_Combined.png
+Removing output files of failed job fig5_combined since they might be corrupted:
+ecoli/Fig_outputs/Fig5/Fig5_Combined.png
+[WinError 145] The directory is not empty: 'ecoli/Fig_outputs/Fig5/Fig5_Combined.png'
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look below for error messages
+[Fri Jul  3 19:40:50 2026]
+Error in rule fig5_combined:
+    message: None
+    jobid: 32
+    input: ecoli/Fig_outputs/Fig5/Fig5_heatmaps_done.flag
+    output: ecoli/Fig_outputs/Fig5/Fig5_Combined.png
+    shell:
+        python ./Fig5/Fig5_combined.py ecoli/Fig_outputs/Fig5 ecoli/Fig_outputs/Fig5/Fig5_Combined.png
+        (command exited with non-zero exit code)
+Complete log(s): C:\Users\91892\Documents\Project_LCR\.snakemake\log\2026-07-03T193839.024106.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.

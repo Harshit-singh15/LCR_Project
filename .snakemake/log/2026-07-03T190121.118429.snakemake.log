@@ -1,0 +1,83 @@
+The flag 'touch' used in rule all is only valid for outputs, not inputs.
+The flag 'directory' used in rule fig3_plot is only valid for outputs, not inputs.
+Assuming unrestricted shared filesystem usage.
+
+SNAKEMAKE
+=========
+  Date: 2026-07-03 19:01:21
+  Workflow ID: 48cc1583-4d44-4079-9dab-c2d2dfe171a2
+  Platform: Windows-11-10.0.26200-SP0
+  Host: Harshit
+  User: 91892
+  Snakemake version: 9.23.1
+  Python version: 3.12.0 (tags/v3.12.0:0fb18b0, Oct  2 2023, 13:03:39) [MSC v.1935 64 bit (AMD64)]
+  Command: C:\Users\91892\AppData\Local\Programs\Python\Python312\Scripts\snakemake --cores 1
+  Snakefile: C:\Users\91892\Documents\Project_LCR\Snakefile
+  Base directory: C:\Users\91892\Documents\Project_LCR
+  Run directory: C:\Users\91892\Documents\Project_LCR
+  Working directory: C:\Users\91892\Documents\Project_LCR
+  Config file(s): ['config.yaml']
+  Config MD5: 318c3b37efa56be3b71518c27276b21b
+
+Building DAG of jobs...
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job                       count
+----------------------  -------
+fig1_aa_composition           1
+fig2_entropy                  1
+fig2_filtered                 1
+fig6_classification           1
+fig1D_plot                    1
+fig2_peptide_counts           1
+fig2b_plot                    1
+fig6_annotate                 1
+fig1_combined                 1
+fig2a_plot                    1
+fig6_confusion                1
+fig6_reference_metrics        1
+fig6_tpr_fpr                  1
+fig6_combined                 1
+fig6_plots                    1
+fig7_summaries                1
+fig7_plot                     1
+all                           1
+total                        18
+
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul  3 19:01:21 2026]
+localrule fig2_entropy:
+    input: ecoli/dataforFig2/03_consensus_fastas
+    output: ecoli/dataforFig2/entropy
+    jobid: 22
+    reason: Missing output files: ecoli/dataforFig2/entropy
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+RuleException:
+CalledProcessError in file "C:\Users\91892\Documents\Project_LCR\Snakefile", line 265:
+Command 'python ./Fig2/entropy.py ecoli/dataforFig2/03_consensus_fastas ecoli/dataforFig2/entropy' returned non-zero exit status 1.
+[Fri Jul  3 19:01:22 2026]
+Error in rule fig2_entropy:
+    message: None
+    jobid: 22
+    input: ecoli/dataforFig2/03_consensus_fastas
+    output: ecoli/dataforFig2/entropy
+    shell:
+        python ./Fig2/entropy.py ecoli/dataforFig2/03_consensus_fastas ecoli/dataforFig2/entropy
+        (command exited with non-zero exit code)
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look below for error messages
+[Fri Jul  3 19:01:22 2026]
+Error in rule fig2_entropy:
+    message: None
+    jobid: 22
+    input: ecoli/dataforFig2/03_consensus_fastas
+    output: ecoli/dataforFig2/entropy
+    shell:
+        python ./Fig2/entropy.py ecoli/dataforFig2/03_consensus_fastas ecoli/dataforFig2/entropy
+        (command exited with non-zero exit code)
+Complete log(s): C:\Users\91892\Documents\Project_LCR\.snakemake\log\2026-07-03T190121.118429.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.

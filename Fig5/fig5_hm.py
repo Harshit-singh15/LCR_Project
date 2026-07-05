@@ -3,9 +3,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
 from pathlib import Path
+import sys
 
-INPUT_DIR = Path(r"ecoli\dataforFig5\02_metrics")
-OUTPUT_DIR = Path(r"ecoli\Fig_outputs\Fig5")
+INPUT_DIR = Path(sys.argv[1])
+OUTPUT_DIR = Path(sys.argv[2])
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
 organisms = [

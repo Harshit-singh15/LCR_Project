@@ -1,7 +1,7 @@
 # figure1D_amino_acid_composition.py
 
 from pathlib import Path
-
+import sys
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -9,9 +9,8 @@ import matplotlib.pyplot as plt
 # CONFIG
 # =====================================================
 
-INPUT_DIR = r"ecoli\dataforFig1\Amino_acid"
-
-OUTPUT_DIR = r"ecoli\Fig_outputs\Fig1"
+INPUT_DIR = sys.argv[1]     # Amino acid composition
+OUTPUT_DIR = sys.argv[2]    # Figure output directory
 
 Path(OUTPUT_DIR).mkdir(
     parents=True,
@@ -209,5 +208,3 @@ plt.savefig(
     dpi=300,
     bbox_inches="tight"
 )
-
-plt.show()

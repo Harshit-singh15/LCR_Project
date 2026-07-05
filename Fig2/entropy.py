@@ -3,20 +3,15 @@ from collections import Counter
 from math import log2
 from Bio import SeqIO
 import pandas as pd
-
+import sys
 # ==========================================================
 # Directories
 # ==========================================================
 
-INPUT_DIR = Path(
-    r"ecoli\dataforFig2\03_consensus_fastas"
-)
+INPUT_DIR = Path(sys.argv[1])     # Extracted Sequences
+OUTPUT_DIR = Path(sys.argv[2])    # Shannon entropy
 
-OUTPUT_DIR = Path(
-    r"ecoli\dataforFig2\entropy"
-)
-
-OUTPUT_DIR.mkdir(
+OUTPUT_DIR.parent.mkdir(
     parents=True,
     exist_ok=True
 )
@@ -91,7 +86,7 @@ entropy_df = pd.DataFrame(
     ]
 )
 
-outfile = OUTPUT_DIR / "entropy.tsv"
+outfile = OUTPUT_DIR 
 
 entropy_df.to_csv(
     outfile,

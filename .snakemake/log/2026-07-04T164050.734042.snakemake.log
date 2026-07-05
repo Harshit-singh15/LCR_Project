@@ -1,0 +1,3 @@
+ModuleNotFoundError in file "C:\Users\91892\Documents\Project_LCR\Snakefile", line 13:
+No module named 'ecoli.reports'
+  File "C:\Users\91892\Documents\Project_LCR\Snakefile", line 13, in <module>

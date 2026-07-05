@@ -1,16 +1,14 @@
 from pathlib import Path
 import pandas as pd
-
+import sys
 # ==========================================================
 # Directories
 # ==========================================================
 
-INPUT_DIR = Path(
-    r"ecoli\dataforFig2\05_filtered"
-)
+INPUT_DIR = Path(sys.argv[1])     # filtered motifs 
 
 OUTPUT_DIR = Path(
-    r"ecoli\dataforFig2\06_peptide_counts"
+    sys.argv[2]  # peptide counts
 )
 
 OUTPUT_DIR.mkdir(

@@ -13,7 +13,14 @@ output_fasta = r"ecoli\dataforFig8\ecoli_missing_residues.fa"
 log_file = r"ecoli\dataforFig8\extract_missing_sequences.log"
 
 # ==========================================================
-
+output_fasta.parent.mkdir(
+    parents=True,
+    exist_ok=True
+)
+log_file.parent.mkdir(
+    parents=True,
+    exist_ok=True
+)
 
 def get_accession(record):
 

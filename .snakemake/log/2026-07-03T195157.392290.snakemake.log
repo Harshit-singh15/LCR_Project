@@ -1,0 +1,81 @@
+The flag 'touch' used in rule all is only valid for outputs, not inputs.
+The flag 'directory' used in rule fig3_plot is only valid for outputs, not inputs.
+Assuming unrestricted shared filesystem usage.
+
+SNAKEMAKE
+=========
+  Date: 2026-07-03 19:51:57
+  Workflow ID: 41128c29-be0f-4581-a5e7-5e96895a74c9
+  Platform: Windows-11-10.0.26200-SP0
+  Host: Harshit
+  User: 91892
+  Snakemake version: 9.23.1
+  Python version: 3.12.0 (tags/v3.12.0:0fb18b0, Oct  2 2023, 13:03:39) [MSC v.1935 64 bit (AMD64)]
+  Command: C:\Users\91892\AppData\Local\Programs\Python\Python312\Scripts\snakemake --cores 1
+  Snakefile: C:\Users\91892\Documents\Project_LCR\Snakefile
+  Base directory: C:\Users\91892\Documents\Project_LCR
+  Run directory: C:\Users\91892\Documents\Project_LCR
+  Working directory: C:\Users\91892\Documents\Project_LCR
+  Config file(s): ['config.yaml']
+  Config MD5: 318c3b37efa56be3b71518c27276b21b
+
+Building DAG of jobs...
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job               count
+--------------  -------
+fig6_combined         1
+fig7_summaries        1
+fig7_plot             1
+all                   1
+total                 4
+
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul  3 19:51:57 2026]
+localrule fig6_combined:
+    input: ecoli/dataforFig6/plot_tables
+    output: ecoli/Fig_outputs/Fig6/Fig6_Combined.png
+    jobid: 41
+    reason: Missing output files: ecoli/Fig_outputs/Fig6/Fig6_Combined.png
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul  3 19:52:01 2026]
+Finished jobid: 41 (Rule: fig6_combined)
+1 of 4 steps (25%) done
+Execute 1 jobs...
+[Fri Jul  3 19:52:02 2026]
+localrule fig7_summaries:
+    input: ecoli/dataforFig6/plot_tables
+    output: ecoli/dataforFig7
+    jobid: 43
+    reason: Updated input files: ecoli/dataforFig6/plot_tables
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul  3 19:52:02 2026]
+Finished jobid: 43 (Rule: fig7_summaries)
+2 of 4 steps (50%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul  3 19:52:03 2026]
+localrule fig7_plot:
+    input: ecoli/dataforFig7
+    output: ecoli/Fig_outputs/Fig7/Fig7_summary.png
+    jobid: 42
+    reason: Input files updated by another job: ecoli/dataforFig7
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul  3 19:52:06 2026]
+Finished jobid: 42 (Rule: fig7_plot)
+3 of 4 steps (75%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul  3 19:52:06 2026]
+localrule all:
+    input: ecoli/Fig_outputs/Fig1/Figure1A_Length_Heatmap.png, ecoli/Fig_outputs/Fig1/Figure1B_Coverage_Heatmap.png, ecoli/Fig_outputs/Fig1/Figure1C_CountDistribution.png, ecoli/Fig_outputs/Fig1/Figure1D_AminoAcidComposition.png, ecoli/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png, ecoli/Fig_outputs/Fig1/Figure1_Combined.png, ecoli/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png, ecoli/Fig_outputs/Fig2/Fig2B_Entropy.png, ecoli/Fig_outputs/Fig2/Fig2C_Purity.png, ecoli/Fig_outputs/Fig3/Fig3_Purity.png, ecoli/Fig_outputs/Fig4/Fig4_Jaccard.png, ecoli/Fig_outputs/Fig5/Fig5_heatmaps_done.flag, ecoli/Fig_outputs/Fig5/Fig5_Combined.png, ecoli/Fig_outputs/Fig6/Fig6A_Genelength.png, ecoli/Fig_outputs/Fig6/Fig6B_LCRCount.png, ecoli/Fig_outputs/Fig6/Fig6C_Coverage.png, ecoli/Fig_outputs/Fig6/Fig6D_EntropyRatio.png, ecoli/Fig_outputs/Fig6/Fig6_Combined.png, ecoli/Fig_outputs/Fig7/Fig7_summary.png
+    jobid: 0
+    reason: Input files updated by another job: ecoli/Fig_outputs/Fig7/Fig7_summary.png, ecoli/Fig_outputs/Fig6/Fig6_Combined.png
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul  3 19:52:06 2026]
+Finished jobid: 0 (Rule: all)
+4 of 4 steps (100%) done
+Complete log(s): C:\Users\91892\Documents\Project_LCR\.snakemake\log\2026-07-03T195157.392290.snakemake.log

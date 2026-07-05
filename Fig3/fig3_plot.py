@@ -2,9 +2,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 from pathlib import Path
+import sys
 
 INPUT_DIR = Path(
-    r"ecoli\dataforFig3\02_metrics"
+    sys.argv[1]
 )
 
 thresholds = np.arange(
@@ -93,13 +94,11 @@ plt.grid(
 
 plt.tight_layout()
 
-output_path = Path(r"ecoli\Fig_outputs\Fig3\Fig3_purity_distribution.png")
+output_path = Path(sys.argv[2])
 output_path.parent.mkdir(parents=True, exist_ok=True)
 
 plt.savefig(
-    output_path,
+    output_path/"Fig3_Purity.png",
     dpi=600,
     bbox_inches="tight"
 )
-
-plt.show()

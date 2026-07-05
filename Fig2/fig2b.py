@@ -2,16 +2,17 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from pathlib import Path
+import sys
 
 # Create output directory
-Path(r"ecoli\Fig_outputs\Fig2").mkdir(
+Path(sys.argv[2]).mkdir(
     parents=True,
     exist_ok=True
 )
 
 # Read data
 df = pd.read_csv(
-    r"ecoli\dataforFig2\entropy\entropy.tsv",
+    Path(sys.argv[1]),
     sep="\t"
 )
 
@@ -61,9 +62,7 @@ plt.title(
 plt.tight_layout()
 
 plt.savefig(
-    r"ecoli\Fig_outputs\Fig2\Fig2B_entropy.png",
+    Path(sys.argv[2]) / "Fig2B_entropy.png",
     dpi=600,
     bbox_inches="tight"
 )
-
-plt.show()

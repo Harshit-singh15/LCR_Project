@@ -1,0 +1,267 @@
+The flag 'touch' used in rule all is only valid for outputs, not inputs.
+The flag 'directory' used in rule fig3_plot is only valid for outputs, not inputs.
+Assuming unrestricted shared filesystem usage.
+
+SNAKEMAKE
+=========
+  Date: 2026-07-03 19:35:43
+  Workflow ID: ce3752f0-e04a-44f1-8a57-3eb5ec17ded9
+  Platform: Windows-11-10.0.26200-SP0
+  Host: Harshit
+  User: 91892
+  Snakemake version: 9.23.1
+  Python version: 3.12.0 (tags/v3.12.0:0fb18b0, Oct  2 2023, 13:03:39) [MSC v.1935 64 bit (AMD64)]
+  Command: C:\Users\91892\AppData\Local\Programs\Python\Python312\Scripts\snakemake --cores 1 --forceall
+  Snakefile: C:\Users\91892\Documents\Project_LCR\Snakefile
+  Base directory: C:\Users\91892\Documents\Project_LCR
+  Run directory: C:\Users\91892\Documents\Project_LCR
+  Working directory: C:\Users\91892\Documents\Project_LCR
+  Config file(s): ['config.yaml']
+  Config MD5: 318c3b37efa56be3b71518c27276b21b
+
+Building DAG of jobs...
+Provided cores: 1 (use --cores to define parallelism)
+Rules claiming more threads will be scaled down.
+Job stats:
+job                       count
+----------------------  -------
+clean_fasta                   1
+fig1_extract_sequences        1
+prepare_bedtools_beds         1
+fig1_aa_composition           1
+fig1_coverage                 1
+fig1_entropy                  1
+fig1_length_counts            1
+fig2_multiinter               1
+fig3_fastas                   1
+fig4_jaccard_matrix           1
+fig6_windows                  1
+fig1A_plot                    1
+fig1B_plot                    1
+fig1C_plot                    1
+fig1D_plot                    1
+fig1E_plot                    1
+fig2_consensus_beds           1
+fig3_purity_metrics           1
+fig4_plot                     1
+fig5_metrics                  1
+fig6_complexity               1
+fig1_combined                 1
+fig2_consensus_fastas         1
+fig3_plot                     1
+fig5_heatmaps                 1
+fig6_classification           1
+fig2_entropy                  1
+fig2_purity                   1
+fig2_substring_motifs         1
+fig5_combined                 1
+fig6_annotate                 1
+fig2_filtered                 1
+fig2b_plot                    1
+fig2c_plot                    1
+fig6_confusion                1
+fig6_reference_metrics        1
+fig2_peptide_counts           1
+fig6_tpr_fpr                  1
+fig2a_plot                    1
+fig6_combined                 1
+fig6_plots                    1
+fig7_summaries                1
+fig7_plot                     1
+all                           1
+total                        44
+
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul  3 19:35:43 2026]
+localrule clean_fasta:
+    input: ecoli/ecoli.fasta
+    output: ecoli/ecoli_cleaned.fasta
+    jobid: 20
+    reason: Forced execution
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul  3 19:35:44 2026]
+Finished jobid: 20 (Rule: clean_fasta)
+1 of 44 steps (2%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul  3 19:35:44 2026]
+localrule fig1_extract_sequences:
+    input: ecoli/ecoli.fasta, ecoli/bed_ecoli
+    output: ecoli/dataforFig1/extracted_sequences, ecoli/dataforFig1/protein_lengths.tsv
+    jobid: 3
+    reason: Forced execution
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul  3 19:35:47 2026]
+Finished jobid: 3 (Rule: fig1_extract_sequences)
+2 of 44 steps (5%) done
+Execute 1 jobs...
+[Fri Jul  3 19:35:47 2026]
+localrule fig1_entropy:
+    input: ecoli/dataforFig1/extracted_sequences
+    output: ecoli/dataforFig1/ShanonEntropy
+    jobid: 10
+    reason: Forced execution
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul  3 19:35:48 2026]
+Finished jobid: 10 (Rule: fig1_entropy)
+3 of 44 steps (7%) done
+Execute 1 jobs...
+[Fri Jul  3 19:35:48 2026]
+localrule fig1E_plot:
+    input: ecoli/dataforFig1/ShanonEntropy
+    output: ecoli/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png
+    jobid: 9
+    reason: Forced execution
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul  3 19:35:52 2026]
+Finished jobid: 9 (Rule: fig1E_plot)
+4 of 44 steps (9%) done
+Execute 1 jobs...
+[Fri Jul  3 19:35:53 2026]
+localrule fig6_windows:
+    input: ecoli/ecoli_cleaned.fasta
+    output: ecoli/dataforFig6/ecoli_windows.bed
+    jobid: 39
+    reason: Forced execution
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul  3 19:35:53 2026]
+Finished jobid: 39 (Rule: fig6_windows)
+5 of 44 steps (11%) done
+Execute 1 jobs...
+[Fri Jul  3 19:35:53 2026]
+localrule fig1_coverage:
+    input: ecoli/dataforFig1/extracted_sequences, ecoli/dataforFig1/protein_lengths.tsv, ecoli/ecoli.fasta
+    output: ecoli/dataforFig1/LCR_Coverage
+    jobid: 5
+    reason: Forced execution
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul  3 19:35:56 2026]
+Finished jobid: 5 (Rule: fig1_coverage)
+6 of 44 steps (14%) done
+Execute 1 jobs...
+[Fri Jul  3 19:35:56 2026]
+localrule fig1B_plot:
+    input: ecoli/dataforFig1/LCR_Coverage
+    output: ecoli/Fig_outputs/Fig1/Figure1B_Coverage_Heatmap.png
+    jobid: 4
+    reason: Forced execution
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul  3 19:36:01 2026]
+Finished jobid: 4 (Rule: fig1B_plot)
+7 of 44 steps (16%) done
+Execute 1 jobs...
+[Fri Jul  3 19:36:01 2026]
+localrule fig1_length_counts:
+    input: ecoli/dataforFig1/extracted_sequences
+    output: ecoli/dataforFig1/LCR_Length, ecoli/dataforFig1/LCR_Count
+    jobid: 2
+    reason: Forced execution
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul  3 19:36:02 2026]
+Finished jobid: 2 (Rule: fig1_length_counts)
+8 of 44 steps (18%) done
+Execute 1 jobs...
+[Fri Jul  3 19:36:03 2026]
+localrule fig1A_plot:
+    input: ecoli/dataforFig1/LCR_Length
+    output: ecoli/Fig_outputs/Fig1/Figure1A_Length_Heatmap.png
+    jobid: 1
+    reason: Forced execution
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul  3 19:36:07 2026]
+Finished jobid: 1 (Rule: fig1A_plot)
+9 of 44 steps (20%) done
+Execute 1 jobs...
+[Fri Jul  3 19:36:07 2026]
+localrule fig1C_plot:
+    input: ecoli/dataforFig1/LCR_Count
+    output: ecoli/Fig_outputs/Fig1/Figure1C_CountDistribution.png
+    jobid: 6
+    reason: Forced execution
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul  3 19:36:10 2026]
+Finished jobid: 6 (Rule: fig1C_plot)
+10 of 44 steps (23%) done
+Execute 1 jobs...
+[Fri Jul  3 19:36:10 2026]
+localrule prepare_bedtools_beds:
+    input: ecoli/bed_ecoli
+    output: ecoli/bed_bedtools_ecoli
+    jobid: 19
+    reason: Forced execution
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul  3 19:36:11 2026]
+Finished jobid: 19 (Rule: prepare_bedtools_beds)
+11 of 44 steps (25%) done
+Execute 1 jobs...
+[Fri Jul  3 19:36:12 2026]
+localrule fig2_multiinter:
+    input: ecoli/bed_bedtools_ecoli
+    output: ecoli/dataforFig2/multiinter.tsv
+    jobid: 18
+    reason: Forced execution
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul  3 19:36:19 2026]
+Finished jobid: 18 (Rule: fig2_multiinter)
+12 of 44 steps (27%) done
+Execute 1 jobs...
+[Fri Jul  3 19:36:19 2026]
+localrule fig2_consensus_beds:
+    input: ecoli/dataforFig2/multiinter.tsv
+    output: ecoli/dataforFig2/02_consensus_beds
+    jobid: 17
+    reason: Forced execution
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul  3 19:36:21 2026]
+Finished jobid: 17 (Rule: fig2_consensus_beds)
+13 of 44 steps (30%) done
+Execute 1 jobs...
+[Fri Jul  3 19:36:21 2026]
+localrule fig2_consensus_fastas:
+    input: ecoli/dataforFig2/02_consensus_beds, ecoli/ecoli_cleaned.fasta
+    output: ecoli/dataforFig2/03_consensus_fastas
+    jobid: 16
+    reason: Forced execution
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+RuleException:
+CalledProcessError in file "C:\Users\91892\Documents\Project_LCR\Snakefile", line 229:
+Command 'python ./Fig2/getfasta.py ecoli/ecoli_cleaned.fasta ecoli/dataforFig2/02_consensus_beds ecoli/dataforFig2/03_consensus_fastas' returned non-zero exit status 1.
+[Fri Jul  3 19:36:21 2026]
+Error in rule fig2_consensus_fastas:
+    message: None
+    jobid: 16
+    input: ecoli/dataforFig2/02_consensus_beds, ecoli/ecoli_cleaned.fasta
+    output: ecoli/dataforFig2/03_consensus_fastas
+    shell:
+        python ./Fig2/getfasta.py ecoli/ecoli_cleaned.fasta ecoli/dataforFig2/02_consensus_beds ecoli/dataforFig2/03_consensus_fastas
+        (command exited with non-zero exit code)
+Removing output files of failed job fig2_consensus_fastas since they might be corrupted:
+ecoli/dataforFig2/03_consensus_fastas
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look below for error messages
+[Fri Jul  3 19:36:21 2026]
+Error in rule fig2_consensus_fastas:
+    message: None
+    jobid: 16
+    input: ecoli/dataforFig2/02_consensus_beds, ecoli/ecoli_cleaned.fasta
+    output: ecoli/dataforFig2/03_consensus_fastas
+    shell:
+        python ./Fig2/getfasta.py ecoli/ecoli_cleaned.fasta ecoli/dataforFig2/02_consensus_beds ecoli/dataforFig2/03_consensus_fastas
+        (command exited with non-zero exit code)
+Complete log(s): C:\Users\91892\Documents\Project_LCR\.snakemake\log\2026-07-03T193543.468088.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.

@@ -1,0 +1,4 @@
+SyntaxError in file "C:\Users\91892\Documents\Project_LCR\Snakefile", line 536:
+invalid syntax. Perhaps you forgot a comma?:
+				" python " { PROJECT_ROOT } / reports / generate_report . py " " { BASE } " " { output . pdf } " " 
+

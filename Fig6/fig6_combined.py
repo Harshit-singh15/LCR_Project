@@ -2,15 +2,15 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 from pathlib import Path
-
+import sys
 # =====================================================
 # INPUT AND OUTPUT DIRECTORIES
 # =====================================================
-input_dir = Path(r"ecoli\dataforFig6\plot_tables")
-output_dir = Path(r"ecoli\Fig_outputs\Fig6")
+input_dir = Path(sys.argv[1])  # Input directory containing TPR/FPR tables
+output_dir = Path(sys.argv[2])  # Output directory for plots
 
 # Ensure the output directory exists
-output_dir.mkdir(parents=True, exist_ok=True)
+output_dir.parent.mkdir(parents=True, exist_ok=True)
 
 # =====================================================
 # LOAD FILES
@@ -135,7 +135,7 @@ fig.legend(
 # =====================================================
 # SAVE FILES
 # =====================================================
-plt.savefig(output_dir / "Figure6_Combined.png", dpi=300, bbox_inches="tight")
+plt.savefig(output_dir, dpi=300, bbox_inches="tight")
 
 plt.close()
-print("Success! Master 4x2 grid saved as 'Figure6_Combined.png")
+print("Success! Master 4x2 grid saved as 'Figure6_Combined.png'")

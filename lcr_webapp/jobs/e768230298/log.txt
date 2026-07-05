@@ -1,0 +1,65 @@
+Config file config.yaml is extended by additional config specified via the command line.
+The flag 'touch' used in rule all is only valid for outputs, not inputs.
+The flag 'directory' used in rule fig3_plot is only valid for outputs, not inputs.
+Assuming unrestricted shared filesystem usage.
+
+SNAKEMAKE
+=========
+  Date: 2026-07-04 16:42:19
+  Workflow ID: 0ed73541-6cd4-4db7-bbc1-a9151446b0a5
+  Platform: Windows-11-10.0.26200-SP0
+  Host: Harshit
+  User: 91892
+  Snakemake version: 9.23.1
+  Python version: 3.12.0 (tags/v3.12.0:0fb18b0, Oct  2 2023, 13:03:39) [MSC v.1935 64 bit (AMD64)]
+  Command: C:\Users\91892\AppData\Local\Programs\Python\Python312\Scripts\snakemake --snakefile C:\Users\91892\Documents\Project_LCR\Snakefile --configfile C:\Users\91892\Documents\lcr_webapp\jobs\e768230298\config.yaml --cores 4
+  Snakefile: C:\Users\91892\Documents\Project_LCR\Snakefile
+  Base directory: C:\Users\91892\Documents\Project_LCR
+  Run directory: C:\Users\91892\Documents\Project_LCR
+  Working directory: C:\Users\91892\Documents\Project_LCR
+  Config file(s): [WindowsPath('C:/Users/91892/Documents/lcr_webapp/jobs/e768230298/config.yaml'), 'config.yaml']
+  Config MD5: a81274ef2708d80305cad85c9f491018
+
+Building DAG of jobs...
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Job stats:
+job             count
+------------  -------
+final_report        1
+all                 1
+total               2
+
+Select jobs to execute...
+Execute 1 jobs...
+
+[Sat Jul  4 16:42:19 2026]
+localrule final_report:
+    input: C:/Users/91892/Documents/lcr_webapp/jobs/e768230298/ecoli/Fig_outputs/Fig1/Figure1_Combined.png, C:/Users/91892/Documents/lcr_webapp/jobs/e768230298/ecoli/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png, C:/Users/91892/Documents/lcr_webapp/jobs/e768230298/ecoli/Fig_outputs/Fig2/Fig2B_Entropy.png, C:/Users/91892/Documents/lcr_webapp/jobs/e768230298/ecoli/Fig_outputs/Fig2/Fig2C_Purity.png, C:/Users/91892/Documents/lcr_webapp/jobs/e768230298/ecoli/Fig_outputs/Fig3/Fig3_Purity.png, C:/Users/91892/Documents/lcr_webapp/jobs/e768230298/ecoli/Fig_outputs/Fig4/Fig4_Jaccard.png, C:/Users/91892/Documents/lcr_webapp/jobs/e768230298/ecoli/Fig_outputs/Fig5/Fig5_Combined.png, C:/Users/91892/Documents/lcr_webapp/jobs/e768230298/ecoli/Fig_outputs/Fig6/Fig6_Combined.png, C:/Users/91892/Documents/lcr_webapp/jobs/e768230298/ecoli/Fig_outputs/Fig7/Fig7_summary.png
+    output: C:/Users/91892/Documents/lcr_webapp/jobs/e768230298/ecoli/reports/Benchmark_Report.pdf
+    jobid: 44
+    reason: Missing output files: C:/Users/91892/Documents/lcr_webapp/jobs/e768230298/ecoli/reports/Benchmark_Report.pdf
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+C:\Users\91892\AppData\Local\Programs\Python\Python312\Lib\site-packages\PIL\Image.py:3442: DecompressionBombWarning: Image size (103400400 pixels) exceeds limit of 89478485 pixels, could be decompression bomb DOS attack.
+  warnings.warn(
+
+====================================
+Benchmark report generated
+C:\Users\91892\Documents\lcr_webapp\jobs\e768230298\ecoli\reports\Benchmark_Report.pdf
+====================================
+[Sat Jul  4 16:42:57 2026]
+Finished jobid: 44 (Rule: final_report)
+1 of 2 steps (50%) done
+Select jobs to execute...
+Execute 1 jobs...
+
+[Sat Jul  4 16:42:57 2026]
+localrule all:
+    input: C:/Users/91892/Documents/lcr_webapp/jobs/e768230298/ecoli/Fig_outputs/Fig1/Figure1A_Length_Heatmap.png, C:/Users/91892/Documents/lcr_webapp/jobs/e768230298/ecoli/Fig_outputs/Fig1/Figure1B_Coverage_Heatmap.png, C:/Users/91892/Documents/lcr_webapp/jobs/e768230298/ecoli/Fig_outputs/Fig1/Figure1C_CountDistribution.png, C:/Users/91892/Documents/lcr_webapp/jobs/e768230298/ecoli/Fig_outputs/Fig1/Figure1D_AminoAcidComposition.png, C:/Users/91892/Documents/lcr_webapp/jobs/e768230298/ecoli/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png, C:/Users/91892/Documents/lcr_webapp/jobs/e768230298/ecoli/Fig_outputs/Fig1/Figure1_Combined.png, C:/Users/91892/Documents/lcr_webapp/jobs/e768230298/ecoli/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png, C:/Users/91892/Documents/lcr_webapp/jobs/e768230298/ecoli/Fig_outputs/Fig2/Fig2B_Entropy.png, C:/Users/91892/Documents/lcr_webapp/jobs/e768230298/ecoli/Fig_outputs/Fig2/Fig2C_Purity.png, C:/Users/91892/Documents/lcr_webapp/jobs/e768230298/ecoli/Fig_outputs/Fig3/Fig3_Purity.png, C:/Users/91892/Documents/lcr_webapp/jobs/e768230298/ecoli/Fig_outputs/Fig4/Fig4_Jaccard.png, C:/Users/91892/Documents/lcr_webapp/jobs/e768230298/ecoli/Fig_outputs/Fig5/Fig5_heatmaps_done.flag, C:/Users/91892/Documents/lcr_webapp/jobs/e768230298/ecoli/Fig_outputs/Fig5/Fig5_Combined.png, C:/Users/91892/Documents/lcr_webapp/jobs/e768230298/ecoli/Fig_outputs/Fig6/Fig6A_Genelength.png, C:/Users/91892/Documents/lcr_webapp/jobs/e768230298/ecoli/Fig_outputs/Fig6/Fig6B_LCRCount.png, C:/Users/91892/Documents/lcr_webapp/jobs/e768230298/ecoli/Fig_outputs/Fig6/Fig6C_Coverage.png, C:/Users/91892/Documents/lcr_webapp/jobs/e768230298/ecoli/Fig_outputs/Fig6/Fig6D_EntropyRatio.png, C:/Users/91892/Documents/lcr_webapp/jobs/e768230298/ecoli/Fig_outputs/Fig6/Fig6_Combined.png, C:/Users/91892/Documents/lcr_webapp/jobs/e768230298/ecoli/Fig_outputs/Fig7/Fig7_summary.png, C:/Users/91892/Documents/lcr_webapp/jobs/e768230298/ecoli/reports/Benchmark_Report.pdf
+    jobid: 0
+    reason: Input files updated by another job: C:/Users/91892/Documents/lcr_webapp/jobs/e768230298/ecoli/reports/Benchmark_Report.pdf
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Sat Jul  4 16:42:57 2026]
+Finished jobid: 0 (Rule: all)
+2 of 2 steps (100%) done
+Complete log(s): C:\Users\91892\Documents\Project_LCR\.snakemake\log\2026-07-04T164219.113883.snakemake.log
