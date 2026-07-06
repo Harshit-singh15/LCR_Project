@@ -5,8 +5,8 @@ print("[INFO] Running FASTA to BED converter")
 
 # 1. PASTE YOUR EXACT PATHS HERE
 # Use absolute paths (e.g., r"C:\path\to\file.fa") or relative paths.
-input_file = Path(r"path/to/your/input_file.fa")
-output_file = Path(r"path/to/your/output_file.bed")
+input_file = Path(r"yeast\lcrbytools_yeast\yeast_baker_seg_intermediate.fa")
+output_file = Path(r"yeast\bed_yeast\seg_intermediate_yeast.bed")
 
 # Ensure the parent directory for the output file exists
 output_file.parent.mkdir(parents=True, exist_ok=True)

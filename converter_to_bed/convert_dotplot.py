@@ -6,15 +6,15 @@ import os
 # INPUT FILES
 # ==========================
 
-lcr_tsv = r"ecoli\5_07_ecoli_UP000000625_83333_4391_lcrbylcr.tsv"
-proteome_fasta = r"ecoli\ecoli.fasta"
+lcr_tsv = r"yeast\lcrbytools_yeast\5_06_yeast_UP000002311_559292_6049_lcrbylcr.tsv"
+proteome_fasta = r"yeast\yeast.fasta"
 
 # ==========================
 # OUTPUT FILES
 # ==========================
 
-bed_out = r"ecoli\bed_ecoli\ecoli_dotplot.bed"
-unmapped_out = r"ecoli\unmapped_lcrs_Ecoli.tsv"
+bed_out = r"yeast\bed_yeast\dotplot_yeast.bed"
+unmapped_out = r"yeast\unmapped_lcrs_yeast.tsv"
 
 # ==========================
 # CREATE OUTPUT DIRECTORIES

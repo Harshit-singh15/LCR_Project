@@ -4,8 +4,8 @@ import sys
 
 # Define your exact input file and desired output file paths
 # (You can replace "target_file.out" and "target_file.bed" with your actual filenames)
-input_file = Path(r"human\lcrbytools_human\human_flps_default.out")
-output_file = Path(r"human\bed_human\human_flps_default.bed")
+input_file = Path(r"yeast\lcrbytools_yeast\yeast_baker_flps2_default.out")
+output_file = Path(r"yeast\bed_yeast\flps2_default_yeast")
 
 # Ensure the parent directory for the output file exists
 output_file.parent.mkdir(parents=True, exist_ok=True)

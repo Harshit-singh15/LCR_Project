@@ -1,0 +1,601 @@
+Assuming unrestricted shared filesystem usage.
+
+SNAKEMAKE
+=========
+  Date: 2026-07-06 16:06:53
+  Workflow ID: 2ce60916-deef-4303-a332-4b695bb18ca0
+  Platform: Windows-11-10.0.26200-SP0
+  Host: Harshit
+  User: 91892
+  Snakemake version: 9.23.1
+  Python version: 3.12.0 (tags/v3.12.0:0fb18b0, Oct  2 2023, 13:03:39) [MSC v.1935 64 bit (AMD64)]
+  Command: C:\Users\91892\AppData\Local\Programs\Python\Python312\Scripts\snakemake --cores 4
+  Snakefile: C:\Users\91892\Documents\Project_LCR\Snakefile
+  Base directory: C:\Users\91892\Documents\Project_LCR
+  Run directory: C:\Users\91892\Documents\Project_LCR
+  Working directory: C:\Users\91892\Documents\Project_LCR
+  Config file(s): ['config.yaml']
+  Config MD5: 3744756fcd6d0ba831cc39f8c53c2155
+
+Building DAG of jobs...
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Job stats:
+job                       count
+----------------------  -------
+clean_fasta                   1
+fig1_extract_sequences        1
+prepare_bedtools_beds         1
+fig1_aa_composition           1
+fig1_coverage                 1
+fig1_entropy                  1
+fig1_length_counts            1
+fig2_multiinter               1
+fig3_fastas                   1
+fig4_jaccard_matrix           1
+fig6_windows                  1
+fig1A_plot                    1
+fig1B_plot                    1
+fig1C_plot                    1
+fig1D_plot                    1
+fig1E_plot                    1
+fig2_consensus_beds           1
+fig3_purity_metrics           1
+fig4_plot                     1
+fig5_metrics                  1
+fig6_complexity               1
+fig1_combined                 1
+fig2_consensus_fastas         1
+fig3_plot                     1
+fig5_heatmaps                 1
+fig6_classification           1
+fig2_entropy                  1
+fig2_purity                   1
+fig2_substring_motifs         1
+fig5_combined                 1
+fig6_annotate                 1
+fig2_filtered                 1
+fig2b_plot                    1
+fig2c_plot                    1
+fig6_confusion                1
+fig6_reference_metrics        1
+fig2_peptide_counts           1
+fig6_tpr_fpr                  1
+fig2a_plot                    1
+fig6_combined                 1
+fig6_plots                    1
+fig7_summaries                1
+fig7_plot                     1
+final_report                  1
+all                           1
+total                        45
+
+Select jobs to execute...
+Execute 3 jobs...
+[Mon Jul  6 16:06:54 2026]
+localrule prepare_bedtools_beds:
+    input: human/bed_human
+    output: human/bed_bedtools_human
+    jobid: 19
+    reason: Missing output files: human/bed_bedtools_human
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Mon Jul  6 16:06:54 2026]
+localrule fig1_extract_sequences:
+    input: human/human.fasta, human/bed_human
+    output: human/dataforFig1/extracted_sequences, human/dataforFig1/protein_lengths.tsv
+    jobid: 3
+    reason: Missing output files: human/dataforFig1/protein_lengths.tsv, human/dataforFig1/extracted_sequences
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Mon Jul  6 16:06:54 2026]
+localrule clean_fasta:
+    input: human/human.fasta
+    output: human/human_cleaned.fasta
+    jobid: 20
+    reason: Missing output files: human/human_cleaned.fasta
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Mon Jul  6 16:06:55 2026]
+Finished jobid: 20 (Rule: clean_fasta)
+1 of 45 steps (2%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Mon Jul  6 16:06:55 2026]
+localrule fig6_windows:
+    input: human/human_cleaned.fasta
+    output: human/dataforFig6/ecoli_windows.bed
+    jobid: 39
+    reason: Missing output files: human/dataforFig6/ecoli_windows.bed; Input files updated by another job: human/human_cleaned.fasta
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Mon Jul  6 16:06:57 2026]
+Finished jobid: 39 (Rule: fig6_windows)
+2 of 45 steps (4%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Mon Jul  6 16:06:57 2026]
+localrule fig6_complexity:
+    input: human/human_cleaned.fasta, human/dataforFig6/ecoli_windows.bed
+    output: human/dataforFig6/ecoli_windows_out.tsv
+    jobid: 38
+    reason: Missing output files: human/dataforFig6/ecoli_windows_out.tsv; Input files updated by another job: human/human_cleaned.fasta, human/dataforFig6/ecoli_windows.bed
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Mon Jul  6 16:06:58 2026]
+Finished jobid: 19 (Rule: prepare_bedtools_beds)
+3 of 45 steps (7%) done
+Select jobs to execute...
+Execute 2 jobs...
+[Mon Jul  6 16:06:58 2026]
+localrule fig4_jaccard_matrix:
+    input: human/bed_bedtools_human
+    output: human/dataforFig4/jaccard_matrix.tsv
+    jobid: 29
+    reason: Missing output files: human/dataforFig4/jaccard_matrix.tsv; Input files updated by another job: human/bed_bedtools_human
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Mon Jul  6 16:06:58 2026]
+localrule fig3_fastas:
+    input: human/bed_bedtools_human, human/human_cleaned.fasta
+    output: human/dataforFig3/01_fastas
+    jobid: 27
+    reason: Missing output files: human/dataforFig3/01_fastas; Input files updated by another job: human/human_cleaned.fasta, human/bed_bedtools_human
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Mon Jul  6 16:07:04 2026]
+Finished jobid: 27 (Rule: fig3_fastas)
+4 of 45 steps (9%) done
+Execute 1 jobs...
+[Mon Jul  6 16:07:04 2026]
+localrule fig3_purity_metrics:
+    input: human/dataforFig3/01_fastas
+    output: human/dataforFig3/02_metrics
+    jobid: 26
+    reason: Missing output files: human/dataforFig3/02_metrics; Input files updated by another job: human/dataforFig3/01_fastas
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Mon Jul  6 16:07:28 2026]
+Finished jobid: 26 (Rule: fig3_purity_metrics)
+5 of 45 steps (11%) done
+Execute 1 jobs...
+[Mon Jul  6 16:07:28 2026]
+localrule fig3_plot:
+    input: human/dataforFig3/02_metrics
+    output: human/Fig_outputs/Fig3/Fig3_Purity.png
+    jobid: 25
+    reason: Missing output files: human/Fig_outputs/Fig3/Fig3_Purity.png; Input files updated by another job: human/dataforFig3/02_metrics
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Mon Jul  6 16:07:33 2026]
+Finished jobid: 25 (Rule: fig3_plot)
+6 of 45 steps (13%) done
+Execute 1 jobs...
+[Mon Jul  6 16:07:33 2026]
+localrule fig5_metrics:
+    input: human/dataforFig3/01_fastas
+    output: human/dataforFig5/02_metrics
+    jobid: 31
+    reason: Missing output files: human/dataforFig5/02_metrics; Input files updated by another job: human/dataforFig3/01_fastas
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Mon Jul  6 16:07:49 2026]
+Finished jobid: 3 (Rule: fig1_extract_sequences)
+7 of 45 steps (16%) done
+Execute 1 jobs...
+[Mon Jul  6 16:07:49 2026]
+localrule fig2_multiinter:
+    input: human/bed_bedtools_human
+    output: human/dataforFig2/multiinter.tsv
+    jobid: 18
+    reason: Missing output files: human/dataforFig2/multiinter.tsv; Input files updated by another job: human/bed_bedtools_human
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Mon Jul  6 16:07:49 2026]
+Finished jobid: 29 (Rule: fig4_jaccard_matrix)
+8 of 45 steps (18%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Mon Jul  6 16:07:50 2026]
+localrule fig1_length_counts:
+    input: human/dataforFig1/extracted_sequences
+    output: human/dataforFig1/LCR_Length, human/dataforFig1/LCR_Count
+    jobid: 2
+    reason: Missing output files: human/dataforFig1/LCR_Count, human/dataforFig1/LCR_Length; Input files updated by another job: human/dataforFig1/extracted_sequences
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Mon Jul  6 16:07:55 2026]
+Finished jobid: 18 (Rule: fig2_multiinter)
+9 of 45 steps (20%) done
+Execute 1 jobs...
+[Mon Jul  6 16:07:55 2026]
+localrule fig1_coverage:
+    input: human/dataforFig1/extracted_sequences, human/dataforFig1/protein_lengths.tsv, human/human.fasta
+    output: human/dataforFig1/LCR_Coverage
+    jobid: 5
+    reason: Missing output files: human/dataforFig1/LCR_Coverage; Input files updated by another job: human/dataforFig1/protein_lengths.tsv, human/dataforFig1/extracted_sequences
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Mon Jul  6 16:07:55 2026]
+Finished jobid: 2 (Rule: fig1_length_counts)
+10 of 45 steps (22%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Mon Jul  6 16:07:56 2026]
+localrule fig1C_plot:
+    input: human/dataforFig1/LCR_Count
+    output: human/Fig_outputs/Fig1/Figure1C_CountDistribution.png
+    jobid: 6
+    reason: Missing output files: human/Fig_outputs/Fig1/Figure1C_CountDistribution.png; Input files updated by another job: human/dataforFig1/LCR_Count
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Mon Jul  6 16:07:58 2026]
+Finished jobid: 6 (Rule: fig1C_plot)
+11 of 45 steps (24%) done
+Execute 1 jobs...
+[Mon Jul  6 16:07:58 2026]
+localrule fig4_plot:
+    input: human/dataforFig4/jaccard_matrix.tsv
+    output: human/Fig_outputs/Fig4/Fig4_Jaccard.png
+    jobid: 28
+    reason: Missing output files: human/Fig_outputs/Fig4/Fig4_Jaccard.png; Input files updated by another job: human/dataforFig4/jaccard_matrix.tsv
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Mon Jul  6 16:08:04 2026]
+Finished jobid: 28 (Rule: fig4_plot)
+12 of 45 steps (27%) done
+Execute 1 jobs...
+[Mon Jul  6 16:08:05 2026]
+localrule fig2_consensus_beds:
+    input: human/dataforFig2/multiinter.tsv
+    output: human/dataforFig2/02_consensus_beds
+    jobid: 17
+    reason: Missing output files: human/dataforFig2/02_consensus_beds; Input files updated by another job: human/dataforFig2/multiinter.tsv
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Mon Jul  6 16:08:07 2026]
+Finished jobid: 17 (Rule: fig2_consensus_beds)
+13 of 45 steps (29%) done
+Execute 1 jobs...
+[Mon Jul  6 16:08:07 2026]
+localrule fig2_consensus_fastas:
+    input: human/dataforFig2/02_consensus_beds, human/human_cleaned.fasta
+    output: human/dataforFig2/03_consensus_fastas
+    jobid: 16
+    reason: Missing output files: human/dataforFig2/03_consensus_fastas; Input files updated by another job: human/human_cleaned.fasta, human/dataforFig2/02_consensus_beds
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Mon Jul  6 16:08:10 2026]
+Finished jobid: 16 (Rule: fig2_consensus_fastas)
+14 of 45 steps (31%) done
+Execute 1 jobs...
+[Mon Jul  6 16:08:10 2026]
+localrule fig2_substring_motifs:
+    input: human/dataforFig2/03_consensus_fastas
+    output: human/dataforFig2/04_substring_motifs
+    jobid: 15
+    reason: Missing output files: human/dataforFig2/04_substring_motifs; Input files updated by another job: human/dataforFig2/03_consensus_fastas
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Mon Jul  6 16:08:29 2026]
+Finished jobid: 15 (Rule: fig2_substring_motifs)
+15 of 45 steps (33%) done
+Execute 1 jobs...
+[Mon Jul  6 16:08:29 2026]
+localrule fig2_filtered:
+    input: human/dataforFig2/04_substring_motifs
+    output: human/dataforFig2/05_filtered
+    jobid: 14
+    reason: Missing output files: human/dataforFig2/05_filtered; Input files updated by another job: human/dataforFig2/04_substring_motifs
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Mon Jul  6 16:08:40 2026]
+Finished jobid: 5 (Rule: fig1_coverage)
+16 of 45 steps (36%) done
+Execute 1 jobs...
+[Mon Jul  6 16:08:41 2026]
+localrule fig1B_plot:
+    input: human/dataforFig1/LCR_Coverage
+    output: human/Fig_outputs/Fig1/Figure1B_Coverage_Heatmap.png
+    jobid: 4
+    reason: Missing output files: human/Fig_outputs/Fig1/Figure1B_Coverage_Heatmap.png; Input files updated by another job: human/dataforFig1/LCR_Coverage
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Mon Jul  6 16:08:45 2026]
+Finished jobid: 4 (Rule: fig1B_plot)
+17 of 45 steps (38%) done
+Execute 1 jobs...
+[Mon Jul  6 16:08:45 2026]
+localrule fig1_aa_composition:
+    input: human/dataforFig1/extracted_sequences
+    output: human/dataforFig1/Amino_acid
+    jobid: 8
+    reason: Missing output files: human/dataforFig1/Amino_acid; Input files updated by another job: human/dataforFig1/extracted_sequences
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Mon Jul  6 16:09:00 2026]
+Finished jobid: 8 (Rule: fig1_aa_composition)
+18 of 45 steps (40%) done
+Execute 1 jobs...
+[Mon Jul  6 16:09:00 2026]
+localrule fig2_entropy:
+    input: human/dataforFig2/03_consensus_fastas
+    output: human/dataforFig2/entropy.tsv
+    jobid: 22
+    reason: Missing output files: human/dataforFig2/entropy.tsv; Input files updated by another job: human/dataforFig2/03_consensus_fastas
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Mon Jul  6 16:09:08 2026]
+Finished jobid: 22 (Rule: fig2_entropy)
+19 of 45 steps (42%) done
+Execute 1 jobs...
+[Mon Jul  6 16:09:09 2026]
+localrule fig2b_plot:
+    input: human/dataforFig2/entropy.tsv
+    output: human/Fig_outputs/Fig2/Fig2B_Entropy.png
+    jobid: 21
+    reason: Missing output files: human/Fig_outputs/Fig2/Fig2B_Entropy.png; Input files updated by another job: human/dataforFig2/entropy.tsv
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Mon Jul  6 16:09:14 2026]
+Finished jobid: 21 (Rule: fig2b_plot)
+20 of 45 steps (44%) done
+Execute 1 jobs...
+[Mon Jul  6 16:09:14 2026]
+localrule fig2_purity:
+    input: human/dataforFig2/03_consensus_fastas
+    output: human/dataforFig2/purity.tsv
+    jobid: 24
+    reason: Missing output files: human/dataforFig2/purity.tsv; Input files updated by another job: human/dataforFig2/03_consensus_fastas
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Mon Jul  6 16:09:21 2026]
+Finished jobid: 24 (Rule: fig2_purity)
+21 of 45 steps (47%) done
+Execute 1 jobs...
+[Mon Jul  6 16:09:21 2026]
+localrule fig1D_plot:
+    input: human/dataforFig1/Amino_acid
+    output: human/Fig_outputs/Fig1/Figure1D_AminoAcidComposition.png
+    jobid: 7
+    reason: Missing output files: human/Fig_outputs/Fig1/Figure1D_AminoAcidComposition.png; Input files updated by another job: human/dataforFig1/Amino_acid
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Mon Jul  6 16:09:24 2026]
+Finished jobid: 7 (Rule: fig1D_plot)
+22 of 45 steps (49%) done
+Execute 1 jobs...
+[Mon Jul  6 16:09:24 2026]
+localrule fig1_entropy:
+    input: human/dataforFig1/extracted_sequences
+    output: human/dataforFig1/ShanonEntropy
+    jobid: 10
+    reason: Missing output files: human/dataforFig1/ShanonEntropy; Input files updated by another job: human/dataforFig1/extracted_sequences
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Mon Jul  6 16:09:32 2026]
+Finished jobid: 14 (Rule: fig2_filtered)
+23 of 45 steps (51%) done
+Execute 1 jobs...
+[Mon Jul  6 16:09:32 2026]
+localrule fig2c_plot:
+    input: human/dataforFig2/purity.tsv
+    output: human/Fig_outputs/Fig2/Fig2C_Purity.png
+    jobid: 23
+    reason: Missing output files: human/Fig_outputs/Fig2/Fig2C_Purity.png; Input files updated by another job: human/dataforFig2/purity.tsv
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Mon Jul  6 16:09:37 2026]
+Finished jobid: 23 (Rule: fig2c_plot)
+24 of 45 steps (53%) done
+Execute 1 jobs...
+[Mon Jul  6 16:09:37 2026]
+localrule fig1A_plot:
+    input: human/dataforFig1/LCR_Length
+    output: human/Fig_outputs/Fig1/Figure1A_Length_Heatmap.png
+    jobid: 1
+    reason: Missing output files: human/Fig_outputs/Fig1/Figure1A_Length_Heatmap.png; Input files updated by another job: human/dataforFig1/LCR_Length
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Mon Jul  6 16:09:42 2026]
+Finished jobid: 1 (Rule: fig1A_plot)
+25 of 45 steps (56%) done
+Execute 1 jobs...
+[Mon Jul  6 16:09:42 2026]
+localrule fig2_peptide_counts:
+    input: human/dataforFig2/05_filtered
+    output: human/dataforFig2/06_peptide_counts
+    jobid: 13
+    reason: Missing output files: human/dataforFig2/06_peptide_counts; Input files updated by another job: human/dataforFig2/05_filtered
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Mon Jul  6 16:09:44 2026]
+Finished jobid: 13 (Rule: fig2_peptide_counts)
+26 of 45 steps (58%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Mon Jul  6 16:09:44 2026]
+localrule fig2a_plot:
+    input: human/dataforFig2/06_peptide_counts
+    output: human/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png
+    jobid: 12
+    reason: Missing output files: human/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png; Input files updated by another job: human/dataforFig2/06_peptide_counts
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Mon Jul  6 16:09:44 2026]
+Finished jobid: 10 (Rule: fig1_entropy)
+27 of 45 steps (60%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Mon Jul  6 16:09:44 2026]
+localrule fig1E_plot:
+    input: human/dataforFig1/ShanonEntropy
+    output: human/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png
+    jobid: 9
+    reason: Missing output files: human/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png; Input files updated by another job: human/dataforFig1/ShanonEntropy
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Mon Jul  6 16:09:50 2026]
+Finished jobid: 9 (Rule: fig1E_plot)
+28 of 45 steps (62%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Mon Jul  6 16:09:50 2026]
+localrule fig1_combined:
+    input: human/Fig_outputs/Fig1/Figure1A_Length_Heatmap.png, human/Fig_outputs/Fig1/Figure1B_Coverage_Heatmap.png, human/Fig_outputs/Fig1/Figure1C_CountDistribution.png, human/Fig_outputs/Fig1/Figure1D_AminoAcidComposition.png, human/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png
+    output: human/Fig_outputs/Fig1/Figure1_Combined.png
+    jobid: 11
+    reason: Missing output files: human/Fig_outputs/Fig1/Figure1_Combined.png; Input files updated by another job: human/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png, human/Fig_outputs/Fig1/Figure1D_AminoAcidComposition.png, human/Fig_outputs/Fig1/Figure1C_CountDistribution.png, human/Fig_outputs/Fig1/Figure1B_Coverage_Heatmap.png, human/Fig_outputs/Fig1/Figure1A_Length_Heatmap.png
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Mon Jul  6 16:09:50 2026]
+Finished jobid: 12 (Rule: fig2a_plot)
+29 of 45 steps (64%) done
+[Mon Jul  6 16:09:52 2026]
+Finished jobid: 11 (Rule: fig1_combined)
+30 of 45 steps (67%) done
+[Mon Jul  6 16:10:48 2026]
+Finished jobid: 38 (Rule: fig6_complexity)
+31 of 45 steps (69%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Mon Jul  6 16:10:49 2026]
+localrule fig6_classification:
+    input: human/dataforFig6/ecoli_windows_out.tsv
+    output: human/dataforFig6/ecoli_windows_classified.tsv
+    jobid: 37
+    reason: Missing output files: human/dataforFig6/ecoli_windows_classified.tsv; Input files updated by another job: human/dataforFig6/ecoli_windows_out.tsv
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Mon Jul  6 16:11:10 2026]
+Finished jobid: 37 (Rule: fig6_classification)
+32 of 45 steps (71%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Mon Jul  6 16:11:10 2026]
+localrule fig6_annotate:
+    input: human/dataforFig6/ecoli_windows_classified.tsv
+    output: human/dataforFig6/ecoli_windows_real.bed
+    jobid: 36
+    reason: Missing output files: human/dataforFig6/ecoli_windows_real.bed; Input files updated by another job: human/dataforFig6/ecoli_windows_classified.tsv
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Mon Jul  6 16:11:22 2026]
+Finished jobid: 36 (Rule: fig6_annotate)
+33 of 45 steps (73%) done
+Select jobs to execute...
+Execute 2 jobs...
+[Mon Jul  6 16:11:22 2026]
+localrule fig6_confusion:
+    input: human/human_cleaned.fasta, human/dataforFig6/ecoli_windows_real.bed, human/bed_bedtools_human
+    output: human/dataforFig6/protein_confusion.tsv
+    jobid: 40
+    reason: Missing output files: human/dataforFig6/protein_confusion.tsv; Input files updated by another job: human/human_cleaned.fasta, human/bed_bedtools_human, human/dataforFig6/ecoli_windows_real.bed
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Mon Jul  6 16:11:22 2026]
+localrule fig6_reference_metrics:
+    input: human/dataforFig6/ecoli_windows_real.bed, human/human_cleaned.fasta
+    output: human/dataforFig6/reference_metrics.tsv
+    jobid: 35
+    reason: Missing output files: human/dataforFig6/reference_metrics.tsv; Input files updated by another job: human/human_cleaned.fasta, human/dataforFig6/ecoli_windows_real.bed
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Mon Jul  6 16:11:25 2026]
+Finished jobid: 31 (Rule: fig5_metrics)
+34 of 45 steps (76%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Mon Jul  6 16:11:25 2026]
+localrule fig5_heatmaps:
+    input: human/dataforFig5/02_metrics
+    output: human/Fig_outputs/Fig5/Fig5_heatmaps_done.flag
+    jobid: 30
+    reason: Missing output files: human/Fig_outputs/Fig5/Fig5_heatmaps_done.flag; Input files updated by another job: human/dataforFig5/02_metrics
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Mon Jul  6 16:11:45 2026]
+Finished jobid: 35 (Rule: fig6_reference_metrics)
+35 of 45 steps (78%) done
+[Mon Jul  6 16:12:16 2026]
+Finished jobid: 40 (Rule: fig6_confusion)
+36 of 45 steps (80%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Mon Jul  6 16:12:16 2026]
+localrule fig6_tpr_fpr:
+    input: human/dataforFig6/reference_metrics.tsv, human/dataforFig6/protein_confusion.tsv
+    output: human/dataforFig6/plot_tables
+    jobid: 34
+    reason: Missing output files: human/dataforFig6/plot_tables; Input files updated by another job: human/dataforFig6/protein_confusion.tsv, human/dataforFig6/reference_metrics.tsv
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Mon Jul  6 16:12:18 2026]
+Finished jobid: 34 (Rule: fig6_tpr_fpr)
+37 of 45 steps (82%) done
+Select jobs to execute...
+Execute 3 jobs...
+[Mon Jul  6 16:12:18 2026]
+localrule fig6_combined:
+    input: human/dataforFig6/plot_tables
+    output: human/Fig_outputs/Fig6/Fig6_Combined.png
+    jobid: 41
+    reason: Missing output files: human/Fig_outputs/Fig6/Fig6_Combined.png; Input files updated by another job: human/dataforFig6/plot_tables
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Mon Jul  6 16:12:18 2026]
+localrule fig6_plots:
+    input: human/dataforFig6/plot_tables
+    output: human/Fig_outputs/Fig6/Fig6A_Genelength.png, human/Fig_outputs/Fig6/Fig6B_LCRCount.png, human/Fig_outputs/Fig6/Fig6C_Coverage.png, human/Fig_outputs/Fig6/Fig6D_EntropyRatio.png
+    jobid: 33
+    reason: Missing output files: human/Fig_outputs/Fig6/Fig6B_LCRCount.png, human/Fig_outputs/Fig6/Fig6C_Coverage.png, human/Fig_outputs/Fig6/Fig6A_Genelength.png, human/Fig_outputs/Fig6/Fig6D_EntropyRatio.png; Input files updated by another job: human/dataforFig6/plot_tables
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Mon Jul  6 16:12:18 2026]
+localrule fig7_summaries:
+    input: human/dataforFig6/plot_tables
+    output: human/dataforFig7
+    jobid: 43
+    reason: Missing output files: human/dataforFig7; Input files updated by another job: human/dataforFig6/plot_tables
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Mon Jul  6 16:12:20 2026]
+Finished jobid: 43 (Rule: fig7_summaries)
+38 of 45 steps (84%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Mon Jul  6 16:12:20 2026]
+localrule fig7_plot:
+    input: human/dataforFig7
+    output: human/Fig_outputs/Fig7/Fig7_summary.png
+    jobid: 42
+    reason: Missing output files: human/Fig_outputs/Fig7/Fig7_summary.png; Input files updated by another job: human/dataforFig7
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Mon Jul  6 16:12:28 2026]
+Finished jobid: 41 (Rule: fig6_combined)
+39 of 45 steps (87%) done
+[Mon Jul  6 16:12:29 2026]
+Finished jobid: 33 (Rule: fig6_plots)
+40 of 45 steps (89%) done
+[Mon Jul  6 16:12:29 2026]
+Finished jobid: 42 (Rule: fig7_plot)
+41 of 45 steps (91%) done
+Touching output file human/Fig_outputs/Fig5/Fig5_heatmaps_done.flag.
+[Mon Jul  6 16:12:37 2026]
+Finished jobid: 30 (Rule: fig5_heatmaps)
+42 of 45 steps (93%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Mon Jul  6 16:12:37 2026]
+localrule fig5_combined:
+    input: human/Fig_outputs/Fig5/Fig5_heatmaps_done.flag
+    output: human/Fig_outputs/Fig5/Fig5_Combined.png
+    jobid: 32
+    reason: Missing output files: human/Fig_outputs/Fig5/Fig5_Combined.png; Input files updated by another job: human/Fig_outputs/Fig5/Fig5_heatmaps_done.flag
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Mon Jul  6 16:13:02 2026]
+Finished jobid: 32 (Rule: fig5_combined)
+43 of 45 steps (96%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Mon Jul  6 16:13:02 2026]
+localrule final_report:
+    input: human/Fig_outputs/Fig1/Figure1_Combined.png, human/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png, human/Fig_outputs/Fig2/Fig2B_Entropy.png, human/Fig_outputs/Fig2/Fig2C_Purity.png, human/Fig_outputs/Fig3/Fig3_Purity.png, human/Fig_outputs/Fig4/Fig4_Jaccard.png, human/Fig_outputs/Fig5/Fig5_Combined.png, human/Fig_outputs/Fig6/Fig6_Combined.png, human/Fig_outputs/Fig7/Fig7_summary.png
+    output: human/reports/Benchmark_Report.pdf
+    jobid: 44
+    reason: Missing output files: human/reports/Benchmark_Report.pdf; Input files updated by another job: human/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png, human/Fig_outputs/Fig1/Figure1_Combined.png, human/Fig_outputs/Fig4/Fig4_Jaccard.png, human/Fig_outputs/Fig2/Fig2C_Purity.png, human/Fig_outputs/Fig3/Fig3_Purity.png, human/Fig_outputs/Fig5/Fig5_Combined.png, human/Fig_outputs/Fig6/Fig6_Combined.png, human/Fig_outputs/Fig7/Fig7_summary.png, human/Fig_outputs/Fig2/Fig2B_Entropy.png
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Mon Jul  6 16:13:25 2026]
+Finished jobid: 44 (Rule: final_report)
+44 of 45 steps (98%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Mon Jul  6 16:13:25 2026]
+localrule all:
+    input: human/Fig_outputs/Fig1/Figure1A_Length_Heatmap.png, human/Fig_outputs/Fig1/Figure1B_Coverage_Heatmap.png, human/Fig_outputs/Fig1/Figure1C_CountDistribution.png, human/Fig_outputs/Fig1/Figure1D_AminoAcidComposition.png, human/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png, human/Fig_outputs/Fig1/Figure1_Combined.png, human/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png, human/Fig_outputs/Fig2/Fig2B_Entropy.png, human/Fig_outputs/Fig2/Fig2C_Purity.png, human/Fig_outputs/Fig3/Fig3_Purity.png, human/Fig_outputs/Fig4/Fig4_Jaccard.png, human/Fig_outputs/Fig5/Fig5_heatmaps_done.flag, human/Fig_outputs/Fig5/Fig5_Combined.png, human/Fig_outputs/Fig6/Fig6A_Genelength.png, human/Fig_outputs/Fig6/Fig6B_LCRCount.png, human/Fig_outputs/Fig6/Fig6C_Coverage.png, human/Fig_outputs/Fig6/Fig6D_EntropyRatio.png, human/Fig_outputs/Fig6/Fig6_Combined.png, human/Fig_outputs/Fig7/Fig7_summary.png, human/reports/Benchmark_Report.pdf
+    jobid: 0
+    reason: Input files updated by another job: human/Fig_outputs/Fig4/Fig4_Jaccard.png, human/Fig_outputs/Fig6/Fig6B_LCRCount.png, human/Fig_outputs/Fig6/Fig6C_Coverage.png, human/Fig_outputs/Fig5/Fig5_Combined.png, human/Fig_outputs/Fig1/Figure1B_Coverage_Heatmap.png, human/Fig_outputs/Fig2/Fig2C_Purity.png, human/Fig_outputs/Fig6/Fig6A_Genelength.png, human/Fig_outputs/Fig6/Fig6D_EntropyRatio.png, human/Fig_outputs/Fig6/Fig6_Combined.png, human/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png, human/Fig_outputs/Fig1/Figure1_Combined.png, human/Fig_outputs/Fig1/Figure1D_AminoAcidComposition.png, human/Fig_outputs/Fig1/Figure1C_CountDistribution.png, human/Fig_outputs/Fig7/Fig7_summary.png, human/Fig_outputs/Fig2/Fig2B_Entropy.png, human/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png, human/Fig_outputs/Fig5/Fig5_heatmaps_done.flag, human/Fig_outputs/Fig1/Figure1A_Length_Heatmap.png, human/Fig_outputs/Fig3/Fig3_Purity.png, human/reports/Benchmark_Report.pdf
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Mon Jul  6 16:13:25 2026]
+Finished jobid: 0 (Rule: all)
+45 of 45 steps (100%) done
+Complete log(s): C:\Users\91892\Documents\Project_LCR\.snakemake\log\2026-07-06T160653.677977.snakemake.log

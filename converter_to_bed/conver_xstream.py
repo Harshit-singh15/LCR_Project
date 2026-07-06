@@ -4,8 +4,8 @@ import re
 print("[INFO] Running convert_xstream")
 
 # Define your exact input file and desired output file paths
-input_file = Path(r"human\lcrbytools_human\xstream_m1_human.html")
-output_file = Path(r"human\bed_human\xstream_m1_human.bed")
+input_file = Path(r"yeast\lcrbytools_yeast\XSTREAM__yeast_baker_m1_i0.7_g3_m1_e2.0_out_2.html")
+output_file = Path(r"yeast\bed_yeast\xstream_m1_yeast")
 
 # Ensure the output directory exists
 output_file.parent.mkdir(parents=True, exist_ok=True)
