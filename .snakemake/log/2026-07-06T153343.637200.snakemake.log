@@ -1,0 +1,224 @@
+Config file config.yaml is extended by additional config specified via the command line.
+Assuming unrestricted shared filesystem usage.
+
+SNAKEMAKE
+=========
+  Date: 2026-07-06 15:33:43
+  Workflow ID: ea04a336-1a3f-4d2b-861e-d0be18e645e3
+  Platform: Windows-11-10.0.26200-SP0
+  Host: Harshit
+  User: 91892
+  Snakemake version: 9.23.1
+  Python version: 3.12.0 (tags/v3.12.0:0fb18b0, Oct  2 2023, 13:03:39) [MSC v.1935 64 bit (AMD64)]
+  Command: C:\Users\91892\AppData\Local\Programs\Python\Python312\Scripts\snakemake --snakefile C:\Users\91892\Documents\Project_LCR\Snakefile --configfile C:\Users\91892\Documents\lcr_webapp\jobs\3e9487c190\config.yaml --cores 4
+  Snakefile: C:\Users\91892\Documents\Project_LCR\Snakefile
+  Base directory: C:\Users\91892\Documents\Project_LCR
+  Run directory: C:\Users\91892\Documents\Project_LCR
+  Working directory: C:\Users\91892\Documents\Project_LCR
+  Config file(s): [WindowsPath('C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/config.yaml'), 'config.yaml']
+  Config MD5: d53d5af085af9d48ca36ea7c2e26dc19
+
+Building DAG of jobs...
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Job stats:
+job                       count
+----------------------  -------
+fig1_extract_sequences        1
+fig2_consensus_beds           1
+fig3_purity_metrics           1
+fig4_plot                     1
+fig5_metrics                  1
+fig6_classification           1
+fig1_aa_composition           1
+fig1_coverage                 1
+fig1_entropy                  1
+fig1_length_counts            1
+fig2_consensus_fastas         1
+fig3_plot                     1
+fig5_heatmaps                 1
+fig6_annotate                 1
+fig1A_plot                    1
+fig1B_plot                    1
+fig1C_plot                    1
+fig1D_plot                    1
+fig1E_plot                    1
+fig2_entropy                  1
+fig2_purity                   1
+fig2_substring_motifs         1
+fig5_combined                 1
+fig6_confusion                1
+fig6_reference_metrics        1
+fig1_combined                 1
+fig2_filtered                 1
+fig2b_plot                    1
+fig2c_plot                    1
+fig6_tpr_fpr                  1
+fig2_peptide_counts           1
+fig6_combined                 1
+fig6_plots                    1
+fig7_summaries                1
+fig2a_plot                    1
+fig7_plot                     1
+final_report                  1
+all                           1
+total                        38
+
+Select jobs to execute...
+Execute 4 jobs...
+[Mon Jul  6 15:33:44 2026]
+localrule fig5_metrics:
+    input: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/dataforFig3/01_fastas
+    output: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/dataforFig5/02_metrics
+    jobid: 31
+    reason: Missing output files: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/dataforFig5/02_metrics
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Mon Jul  6 15:33:44 2026]
+localrule fig4_plot:
+    input: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/dataforFig4/jaccard_matrix.tsv
+    output: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/Fig_outputs/Fig4/Fig4_Jaccard.png
+    jobid: 28
+    reason: Missing output files: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/Fig_outputs/Fig4/Fig4_Jaccard.png
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Mon Jul  6 15:33:44 2026]
+localrule fig6_classification:
+    input: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/dataforFig6/ecoli_windows_out.tsv
+    output: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/dataforFig6/ecoli_windows_classified.tsv
+    jobid: 37
+    reason: Missing output files: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/dataforFig6/ecoli_windows_classified.tsv
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Mon Jul  6 15:33:44 2026]
+localrule fig3_purity_metrics:
+    input: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/dataforFig3/01_fastas
+    output: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/dataforFig3/02_metrics
+    jobid: 26
+    reason: Missing output files: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/dataforFig3/02_metrics
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Mon Jul  6 15:33:45 2026]
+Finished jobid: 26 (Rule: fig3_purity_metrics)
+1 of 38 steps (3%) done
+Execute 1 jobs...
+[Mon Jul  6 15:33:45 2026]
+localrule fig3_plot:
+    input: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/dataforFig3/02_metrics
+    output: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/Fig_outputs/Fig3/Fig3_Purity.png
+    jobid: 25
+    reason: Missing output files: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/Fig_outputs/Fig3/Fig3_Purity.png; Input files updated by another job: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/dataforFig3/02_metrics
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Mon Jul  6 15:33:45 2026]
+Finished jobid: 31 (Rule: fig5_metrics)
+2 of 38 steps (5%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Mon Jul  6 15:33:46 2026]
+localrule fig2_consensus_beds:
+    input: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/dataforFig2/multiinter.tsv
+    output: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/dataforFig2/02_consensus_beds
+    jobid: 17
+    reason: Missing output files: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/dataforFig2/02_consensus_beds
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Mon Jul  6 15:33:48 2026]
+Finished jobid: 25 (Rule: fig3_plot)
+3 of 38 steps (8%) done
+Execute 1 jobs...
+[Mon Jul  6 15:33:48 2026]
+localrule fig5_heatmaps:
+    input: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/dataforFig5/02_metrics
+    output: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/Fig_outputs/Fig5/Fig5_heatmaps_done.flag
+    jobid: 30
+    reason: Missing output files: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/Fig_outputs/Fig5/Fig5_heatmaps_done.flag; Input files updated by another job: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/dataforFig5/02_metrics
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Mon Jul  6 15:33:49 2026]
+Finished jobid: 17 (Rule: fig2_consensus_beds)
+4 of 38 steps (11%) done
+Execute 1 jobs...
+[Mon Jul  6 15:33:49 2026]
+localrule fig1_extract_sequences:
+    input: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/Arabidopsis.fasta, C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/bed_Arabidopsis
+    output: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/dataforFig1/extracted_sequences, C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/dataforFig1/protein_lengths.tsv
+    jobid: 3
+    reason: Missing output files: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/dataforFig1/protein_lengths.tsv, C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/dataforFig1/extracted_sequences
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+Touching output file C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/Fig_outputs/Fig5/Fig5_heatmaps_done.flag.
+[Mon Jul  6 15:33:50 2026]
+Finished jobid: 30 (Rule: fig5_heatmaps)
+5 of 38 steps (13%) done
+Execute 1 jobs...
+[Mon Jul  6 15:33:50 2026]
+localrule fig5_combined:
+    input: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/Fig_outputs/Fig5/Fig5_heatmaps_done.flag
+    output: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/Fig_outputs/Fig5/Fig5_Combined.png
+    jobid: 32
+    reason: Missing output files: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/Fig_outputs/Fig5/Fig5_Combined.png; Input files updated by another job: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/Fig_outputs/Fig5/Fig5_heatmaps_done.flag
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Mon Jul  6 15:33:50 2026]
+Finished jobid: 28 (Rule: fig4_plot)
+6 of 38 steps (16%) done
+Execute 1 jobs...
+[Mon Jul  6 15:33:50 2026]
+localrule fig2_consensus_fastas:
+    input: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/dataforFig2/02_consensus_beds, C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/Arabidopsis_cleaned.fasta
+    output: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/dataforFig2/03_consensus_fastas
+    jobid: 16
+    reason: Missing output files: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/dataforFig2/03_consensus_fastas; Input files updated by another job: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/dataforFig2/02_consensus_beds
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+RuleException:
+CalledProcessError in file "C:\Users\91892\Documents\Project_LCR\Snakefile", line 395:
+Command 'python C:/Users/91892/Documents/Project_LCR/Fig5/Fig5_combined.py C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/Fig_outputs/Fig5 C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/Fig_outputs/Fig5/Fig5_Combined.png' returned non-zero exit status 1.
+[Mon Jul  6 15:33:51 2026]
+Error in rule fig5_combined:
+    message: None
+    jobid: 32
+    input: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/Fig_outputs/Fig5/Fig5_heatmaps_done.flag
+    output: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/Fig_outputs/Fig5/Fig5_Combined.png
+    shell:
+        python C:/Users/91892/Documents/Project_LCR/Fig5/Fig5_combined.py C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/Fig_outputs/Fig5 C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/Fig_outputs/Fig5/Fig5_Combined.png
+        (command exited with non-zero exit code)
+[Mon Jul  6 15:33:52 2026]
+Finished jobid: 16 (Rule: fig2_consensus_fastas)
+7 of 38 steps (18%) done
+RuleException:
+CalledProcessError in file "C:\Users\91892\Documents\Project_LCR\Snakefile", line 96:
+Command 'python C:/Users/91892/Documents/Project_LCR/Fig1/Run_pipeline_1.py C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/Arabidopsis.fasta C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/bed_Arabidopsis C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/dataforFig1' returned non-zero exit status 1.
+[Mon Jul  6 15:34:04 2026]
+Error in rule fig1_extract_sequences:
+    message: None
+    jobid: 3
+    input: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/Arabidopsis.fasta, C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/bed_Arabidopsis
+    output: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/dataforFig1/extracted_sequences, C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/dataforFig1/protein_lengths.tsv
+    shell:
+        python C:/Users/91892/Documents/Project_LCR/Fig1/Run_pipeline_1.py C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/Arabidopsis.fasta C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/bed_Arabidopsis C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/dataforFig1
+        (command exited with non-zero exit code)
+Removing output files of failed job fig1_extract_sequences since they might be corrupted:
+C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/dataforFig1/extracted_sequences, C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/dataforFig1/protein_lengths.tsv
+[Mon Jul  6 15:34:30 2026]
+Finished jobid: 37 (Rule: fig6_classification)
+8 of 38 steps (21%) done
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look below for error messages
+[Mon Jul  6 15:34:30 2026]
+Error in rule fig5_combined:
+    message: None
+    jobid: 32
+    input: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/Fig_outputs/Fig5/Fig5_heatmaps_done.flag
+    output: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/Fig_outputs/Fig5/Fig5_Combined.png
+    shell:
+        python C:/Users/91892/Documents/Project_LCR/Fig5/Fig5_combined.py C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/Fig_outputs/Fig5 C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/Fig_outputs/Fig5/Fig5_Combined.png
+        (command exited with non-zero exit code)
+[Mon Jul  6 15:34:30 2026]
+Error in rule fig1_extract_sequences:
+    message: None
+    jobid: 3
+    input: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/Arabidopsis.fasta, C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/bed_Arabidopsis
+    output: C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/dataforFig1/extracted_sequences, C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/dataforFig1/protein_lengths.tsv
+    shell:
+        python C:/Users/91892/Documents/Project_LCR/Fig1/Run_pipeline_1.py C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/Arabidopsis.fasta C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/bed_Arabidopsis C:/Users/91892/Documents/lcr_webapp/jobs/3e9487c190/Arabidopsis/dataforFig1
+        (command exited with non-zero exit code)
+Complete log(s): C:\Users\91892\Documents\Project_LCR\.snakemake\log\2026-07-06T153343.637200.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.

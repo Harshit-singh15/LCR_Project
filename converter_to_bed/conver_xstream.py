@@ -1,80 +1,49 @@
 from pathlib import Path
 import re
-import sys
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+print("[INFO] Running convert_xstream")
 
-from pipeline import config
+# Define your exact input file and desired output file paths
+input_file = Path(r"human\lcrbytools_human\xstream_m1_human.html")
+output_file = Path(r"human\bed_human\xstream_m1_human.bed")
 
-print("[INFO] Running conver_xstream")
+# Ensure the output directory exists
+output_file.parent.mkdir(parents=True, exist_ok=True)
 
-input_folder = config.LCRBYTOOLS_DIR
-output_folder = config.BED_DIR
-output_folder.mkdir(parents=True, exist_ok=True)
+# Validate that the input file exists before proceeding
+if not input_file.is_file():
+    print(f"[ERROR] Input file not found: {input_file}")
+    exit(1)
 
-for input_file in sorted(input_folder.iterdir()):
-    if not input_file.is_file() or input_file.suffix != ".html":
-        continue
+print(f"[INFO] Processing {input_file.name}")
 
-    if "xstream" not in input_file.stem.lower():
-        continue
+# Read the HTML content
+with open(input_file, "r", encoding="utf-8", errors="ignore") as f:
+    html = f.read()
 
-    print(f"[INFO] Processing {input_file.name}")
+# Regex patterns
+protein_pattern = re.compile(r'(?:tr|sp)\|([^|]+)\|[^<]+')
+position_pattern = re.compile(r'>(\d+)-(\d+)<')
 
-    with open(
-        input_file,
-        "r",
-        encoding="utf-8",
-        errors="ignore"
-    ) as f:
-        html = f.read()
+lines = []
+current_protein = None
 
-    protein_pattern = re.compile(
-        r'(?:tr|sp)\|([^|]+)\|[^<]+'
-    )
+# Split and parse the blocks
+for block in re.split(r'<A NAME="\d+"></A>', html):
+    prot = protein_pattern.search(block)
+    if prot:
+        current_protein = prot.group(1)
 
-    position_pattern = re.compile(
-        r'>(\d+)-(\d+)<'
-    )
+    if current_protein:
+        for start, end in position_pattern.findall(block):
+            lines.append((current_protein, int(start), int(end)))
 
-    lines = []
+# Write directly to the specified output file
+with output_file.open("w", encoding="utf-8") as out:
+    for prot, start, end in lines:
+        out.write(f"{prot}\t{start}\t{end}\n")
 
-    current_protein = None
-
-    for block in re.split(
-        r'<A NAME="\d+"></A>',
-        html
-    ):
-
-        prot = protein_pattern.search(block)
-
-        if prot:
-            current_protein = prot.group(1)
-
-        if current_protein:
-
-            for start, end in position_pattern.findall(block):
-
-                lines.append(
-                    (
-                        current_protein,
-                        int(start),
-                        int(end)
-                    )
-                )
-
-    output_bed = output_folder / f"{input_file.stem}.bed"
-
-    with output_bed.open("w", encoding="utf-8") as out:
-
-        for prot, start, end in lines:
-
-            out.write(
-                f"{prot}\t{start}\t{end}\n"
-            )
-
-    print(f"[SUCCESS] {input_file.name} converted")
-    print(f"Extracted {len(lines)} regions")
-    print(f"Output: {output_bed}")
-
+print(f"[SUCCESS] {input_file.name} converted")
+print(f"Extracted {len(lines)} regions")
+print(f"Output saved to: {output_file}")
 print("[SUCCESS] Converter completed")

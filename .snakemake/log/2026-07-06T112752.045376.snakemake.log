@@ -1,0 +1,3 @@
+Config file config.yaml is extended by additional config specified via the command line.
+The flag 'directory' used in rule fig3_plot is only valid for outputs, not inputs.
+Building DAG of jobs...

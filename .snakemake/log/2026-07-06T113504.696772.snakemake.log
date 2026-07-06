@@ -1,0 +1,6 @@
+Config file config.yaml is extended by additional config specified via the command line.
+Building DAG of jobs...
+Creating report...
+Missing metadata for file ecoli/reports/Benchmark_Report.pdf. Maybe metadata was deleted or it was created using an older version of Snakemake. This is a non critical warning.
+WorkflowError:
+Python package pygments must be installed to create reports.

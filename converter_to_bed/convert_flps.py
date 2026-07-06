@@ -1,82 +1,61 @@
 from pathlib import Path
 import sys
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from pipeline import config
+# Define your exact input file and desired output file paths
+# (You can replace "target_file.out" and "target_file.bed" with your actual filenames)
+input_file = Path(r"human\lcrbytools_human\human_flps_default.out")
+output_file = Path(r"human\bed_human\human_flps_default.bed")
 
-input_fol = Path(config.LCRBYTOOLS_DIR)
-outputfolder = Path(config.BED_DIR)
+# Ensure the parent directory for the output file exists
+output_file.parent.mkdir(parents=True, exist_ok=True)
 
-if not input_fol.is_dir():
-    raise FileNotFoundError(f"Input folder not found: {input_fol}")
+# Validate that the input file exists before running
+if not input_file.is_file():
+    raise FileNotFoundError(f"Input file not found: {input_file}")
 
-outputfolder.mkdir(parents=True, exist_ok=True)
+print(f"Processing: {input_file.name}")
 
 written = 0
 skipped = 0
-processed_files = 0
 
-for input_file in sorted(input_fol.iterdir()):
-    if not input_file.is_file() or input_file.suffix != ".out":
-        continue
+# Process the single file
+with output_file.open("w", encoding="utf-8") as out:
+    with input_file.open("r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
 
-    input_path = input_file
-    output_bed = outputfolder / f"{input_file.stem}.bed"
+            if not line:
+                continue
 
-    processed_files += 1
-    file_written = 0
-    file_skipped = 0
+            fields = line.split()
 
-    with output_bed.open("w", encoding="utf-8") as out:
-        with input_path.open("r", encoding="utf-8") as f:
-            for line in f:
-                line = line.strip()
+            # Skip malformed lines
+            if len(fields) < 5:
+                skipped += 1
+                continue
 
-                if not line:
-                    continue
+            try:
+                protein_field = fields[0]
 
-                fields = line.split()
+                # UniProt accession parsing
+                # tr|A0A067XG43|A0A067XG43_CAEEL -> A0A067XG43
+                parts = protein_field.split("|")
+                if len(parts) >= 3:
+                    protein_id = parts[1]
+                else:
+                    protein_id = protein_field
 
-                # skip malformed lines
-                if len(fields) < 5:
-                    file_skipped += 1
-                    continue
+                start = int(fields[3])
+                end = int(fields[4])
 
-                try:
-                    protein_field = fields[0]
+                out.write(f"{protein_id}\t{start}\t{end}\n")
+                written += 1
 
-                    # UniProt accession
-                    #
-                    # tr|A0A067XG43|A0A067XG43_CAEEL
-                    #
-                    # -> A0A067XG43
+            except Exception:
+                skipped += 1
 
-                    parts = protein_field.split("|")
-
-                    if len(parts) >= 3:
-                        protein_id = parts[1]
-                    else:
-                        protein_id = protein_field
-
-                    start = int(fields[3])
-                    end = int(fields[4])
-
-                    out.write(f"{protein_id}\t{start}\t{end}\n")
-                    file_written += 1
-
-                except Exception:
-                    file_skipped += 1
-
-    written += file_written
-    skipped += file_skipped
-
-    print(f"Processed: {input_file.name}")
-    print("Regions written:", file_written)
-    print("Skipped lines:", file_skipped)
-    print("Output:", output_bed)
-
-print("Finished")
-print("Files processed:", processed_files)
-print("Total regions written:", written)
-print("Total skipped lines:", skipped)
+print("\nFinished")
+print(f"Output saved to: {output_file}")
+print("Regions written:", written)
+print("Skipped lines:", skipped)

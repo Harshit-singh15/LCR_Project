@@ -43,7 +43,7 @@ rule all:
         f"{BASE}/Fig_outputs/Fig2/Fig2C_Purity.png",
         f"{BASE}/Fig_outputs/Fig3/Fig3_Purity.png",
         f"{BASE}/Fig_outputs/Fig4/Fig4_Jaccard.png",
-        touch(f"{BASE}/Fig_outputs/Fig5/Fig5_heatmaps_done.flag"),
+        (f"{BASE}/Fig_outputs/Fig5/Fig5_heatmaps_done.flag"),
         (f"{BASE}/Fig_outputs/Fig5/Fig5_Combined.png" if COMBINED else []),
         f"{BASE}/Fig_outputs/Fig6/Fig6A_Genelength.png",
         f"{BASE}/Fig_outputs/Fig6/Fig6B_LCRCount.png",
@@ -331,7 +331,7 @@ rule fig3_purity_metrics:
 # fig3_plot.py — argv order: metrics_dir, out_dir
 rule fig3_plot:
     input:
-        directory(f"{BASE}/dataforFig3/02_metrics")
+        (f"{BASE}/dataforFig3/02_metrics")
     output:
         f"{BASE}/Fig_outputs/Fig3/Fig3_Purity.png"
     shell:

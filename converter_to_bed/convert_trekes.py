@@ -1,53 +1,48 @@
 from pathlib import Path
-import sys
 import pandas as pd
-
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-
-from pipeline import config
 
 print("[INFO] Running convert_trekes")
 
-input_folder = config.LCRBYTOOLS_DIR
-output_folder = config.BED_DIR
-output_folder.mkdir(parents=True, exist_ok=True)
+# 1. PASTE YOUR EXACT PATHS HERE
+# Use absolute paths (e.g., r"C:\path\to\file.tsv") or relative paths.
+input_file = Path(r"path/to/your/input_file.tsv")
+output_file = Path(r"path/to/your/output_file.bed")
 
-for input_file in sorted(input_folder.iterdir()):
-    if not input_file.is_file() or input_file.suffix != ".tsv":
-        continue
+# Ensure the parent directory for the output file exists
+output_file.parent.mkdir(parents=True, exist_ok=True)
 
-    print(f"[INFO] Processing {input_file.name}")
+# Validate that the input file exists before running
+if not input_file.is_file():
+    raise FileNotFoundError(f"Input file not found: {input_file}")
 
-    df = pd.read_csv(input_file, sep="\t")
+print(f"[INFO] Processing {input_file.name}")
 
-    # Extract UniProt accession
-    def get_accession(seqid):
+# Read the single TSV file
+df = pd.read_csv(input_file, sep="\t")
 
-        parts = str(seqid).split("|")
+# Extract UniProt accession
+def get_accession(seqid):
+    parts = str(seqid).split("|")
+    if len(parts) >= 3:
+        return parts[1]
+    return seqid
 
-        if len(parts) >= 3:
-            return parts[1]
+df["Protein_ID"] = df["seqid"].apply(get_accession)
 
-        return seqid
+# Write out to the specific BED file path
+df[["Protein_ID", "start", "end"]].rename(
+    columns={
+        "start": "Start",
+        "end": "End"
+    }
+).to_csv(
+    output_file,
+    sep="\t",
+    index=False,
+    header=False
+)
 
-    df["Protein_ID"] = df["seqid"].apply(get_accession)
-
-    output_bed = output_folder / f"{input_file.stem}.bed"
-
-    df[["Protein_ID", "start", "end"]].rename(
-        columns={
-            "start": "Start",
-            "end": "End"
-        }
-    ).to_csv(
-        output_bed,
-        sep="\t",
-        index=False,
-        header=False
-    )
-
-    print(f"[SUCCESS] {input_file.name} converted")
-    print("T-REKS BED file written:", output_bed)
-    print("Regions:", len(df))
-
+print(f"[SUCCESS] {input_file.name} converted")
+print("T-REKS BED file written:", output_file)
+print("Regions:", len(df))
 print("[SUCCESS] Converter completed")

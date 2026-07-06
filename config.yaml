@@ -6,7 +6,6 @@ organism: ecoli
 base_dir: ecoli
 
 # Folder containing your converted Python scripts, organized same as before:
-# scripts/common, scripts/Fig1, scripts/Fig2, ... scripts/Fig7
 scripts_dir: .
 
 # Whether to also build the combined (multi-panel) figures for Fig1, Fig5, Fig6
