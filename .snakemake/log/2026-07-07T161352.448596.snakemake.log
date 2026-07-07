@@ -1,0 +1,103 @@
+Assuming unrestricted shared filesystem usage.
+
+SNAKEMAKE
+=========
+  Date: 2026-07-07 16:13:52
+  Workflow ID: 2fda0a25-be4d-406a-a3d9-99ec388c2212
+  Platform: Windows-11-10.0.26200-SP0
+  Host: Harshit
+  User: 91892
+  Snakemake version: 9.23.1
+  Python version: 3.12.0 (tags/v3.12.0:0fb18b0, Oct  2 2023, 13:03:39) [MSC v.1935 64 bit (AMD64)]
+  Command: C:\Users\91892\AppData\Local\Programs\Python\Python312\Scripts\snakemake --cores all
+  Snakefile: C:\Users\91892\Documents\Project_LCR\Snakefile
+  Base directory: C:\Users\91892\Documents\Project_LCR
+  Run directory: C:\Users\91892\Documents\Project_LCR
+  Working directory: C:\Users\91892\Documents\Project_LCR
+  Config file(s): ['config.yaml']
+  Config MD5: 2e887fc56c6a17a87ff318b38d7671db
+
+Building DAG of jobs...
+Provided cores: 12
+Rules claiming more threads will be scaled down.
+Job stats:
+job                   count
+------------------  -------
+fig1_length_counts        1
+fig1A_plot                1
+fig1C_plot                1
+fig1_combined             1
+final_report              1
+all                       1
+total                     6
+
+Select jobs to execute...
+Execute 1 jobs...
+[Tue Jul  7 16:13:53 2026]
+localrule fig1_length_counts:
+    input: mouse/dataforFig1/extracted_sequences, mouse/dataforFig1/protein_lengths.tsv
+    output: mouse/dataforFig1/LCR_Length, mouse/dataforFig1/LCR_Count
+    jobid: 2
+    reason: Set of input files has changed since last execution; Code has changed since last execution
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:13:56 2026]
+Finished jobid: 2 (Rule: fig1_length_counts)
+1 of 6 steps (17%) done
+Select jobs to execute...
+Execute 2 jobs...
+[Tue Jul  7 16:13:56 2026]
+localrule fig1A_plot:
+    input: mouse/dataforFig1/LCR_Length
+    output: mouse/Fig_outputs/Fig1/Figure1A_Length_Heatmap.png
+    jobid: 1
+    reason: Input files updated by another job: mouse/dataforFig1/LCR_Length
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:13:56 2026]
+localrule fig1C_plot:
+    input: mouse/dataforFig1/LCR_Count
+    output: mouse/Fig_outputs/Fig1/Figure1C_CountDistribution.png
+    jobid: 6
+    reason: Input files updated by another job: mouse/dataforFig1/LCR_Count
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:13:59 2026]
+Finished jobid: 6 (Rule: fig1C_plot)
+2 of 6 steps (33%) done
+[Tue Jul  7 16:14:00 2026]
+Finished jobid: 1 (Rule: fig1A_plot)
+3 of 6 steps (50%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Tue Jul  7 16:14:00 2026]
+localrule fig1_combined:
+    input: mouse/Fig_outputs/Fig1/Figure1A_Length_Heatmap.png, mouse/Fig_outputs/Fig1/Figure1B_Coverage_Heatmap.png, mouse/Fig_outputs/Fig1/Figure1C_CountDistribution.png, mouse/Fig_outputs/Fig1/Figure1D_AminoAcidComposition.png, mouse/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png
+    output: mouse/Fig_outputs/Fig1/Figure1_Combined.png
+    jobid: 11
+    reason: Input files updated by another job: mouse/Fig_outputs/Fig1/Figure1A_Length_Heatmap.png, mouse/Fig_outputs/Fig1/Figure1C_CountDistribution.png
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:14:02 2026]
+Finished jobid: 11 (Rule: fig1_combined)
+4 of 6 steps (67%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Tue Jul  7 16:14:02 2026]
+localrule final_report:
+    input: mouse/Fig_outputs/Fig1/Figure1_Combined.png, mouse/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png, mouse/Fig_outputs/Fig2/Fig2B_Entropy.png, mouse/Fig_outputs/Fig2/Fig2C_Purity.png, mouse/Fig_outputs/Fig3/Fig3_Purity.png, mouse/Fig_outputs/Fig4/Fig4_Jaccard.png, mouse/Fig_outputs/Fig5/Fig5_Combined.png, mouse/Fig_outputs/Fig6/Fig6_Combined.png, mouse/Fig_outputs/Fig7/Fig7_summary.png
+    output: mouse/reports/Benchmark_Report.pdf
+    jobid: 44
+    reason: Missing output files: mouse/reports/Benchmark_Report.pdf; Input files updated by another job: mouse/Fig_outputs/Fig1/Figure1_Combined.png
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:14:36 2026]
+Finished jobid: 44 (Rule: final_report)
+5 of 6 steps (83%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Tue Jul  7 16:14:36 2026]
+localrule all:
+    input: mouse/Fig_outputs/Fig1/Figure1A_Length_Heatmap.png, mouse/Fig_outputs/Fig1/Figure1B_Coverage_Heatmap.png, mouse/Fig_outputs/Fig1/Figure1C_CountDistribution.png, mouse/Fig_outputs/Fig1/Figure1D_AminoAcidComposition.png, mouse/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png, mouse/Fig_outputs/Fig1/Figure1_Combined.png, mouse/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png, mouse/Fig_outputs/Fig2/Fig2B_Entropy.png, mouse/Fig_outputs/Fig2/Fig2C_Purity.png, mouse/Fig_outputs/Fig3/Fig3_Purity.png, mouse/Fig_outputs/Fig4/Fig4_Jaccard.png, mouse/Fig_outputs/Fig5/Fig5_heatmaps_done.flag, mouse/Fig_outputs/Fig5/Fig5_Combined.png, mouse/Fig_outputs/Fig6/Fig6A_Genelength.png, mouse/Fig_outputs/Fig6/Fig6B_LCRCount.png, mouse/Fig_outputs/Fig6/Fig6C_Coverage.png, mouse/Fig_outputs/Fig6/Fig6D_EntropyRatio.png, mouse/Fig_outputs/Fig6/Fig6_Combined.png, mouse/Fig_outputs/Fig7/Fig7_summary.png, mouse/reports/Benchmark_Report.pdf
+    jobid: 0
+    reason: Input files updated by another job: mouse/Fig_outputs/Fig1/Figure1A_Length_Heatmap.png, mouse/Fig_outputs/Fig1/Figure1_Combined.png, mouse/Fig_outputs/Fig1/Figure1C_CountDistribution.png, mouse/reports/Benchmark_Report.pdf
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:14:36 2026]
+Finished jobid: 0 (Rule: all)
+6 of 6 steps (100%) done
+Complete log(s): C:\Users\91892\Documents\Project_LCR\.snakemake\log\2026-07-07T161352.448596.snakemake.log

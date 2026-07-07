@@ -169,7 +169,7 @@ ax.set_ylabel(
 )
 
 ax.set_title(
-    "E. coli: Top peptide motifs across consensus levels",
+    "Fig 2A: Top peptide motifs across consensus levels",
     fontsize=15
 )
         

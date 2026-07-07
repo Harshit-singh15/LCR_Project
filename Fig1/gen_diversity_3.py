@@ -52,7 +52,7 @@ for file in Path(INPUT_DIR).glob("*_lcrs.tsv"):
     out_file = (
         Path(OUTPUT_DIR)
         /
-        f"{file.stem.replace('_lcrs','')}_SNS"
+        f"{file.stem.replace('_lcrs','')}_SNS.tsv"
     )
 
     out_df.to_csv(

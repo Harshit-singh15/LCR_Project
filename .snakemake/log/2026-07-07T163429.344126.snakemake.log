@@ -1,0 +1,397 @@
+Assuming unrestricted shared filesystem usage.
+
+SNAKEMAKE
+=========
+  Date: 2026-07-07 16:34:29
+  Workflow ID: 51a10c73-9736-4e8f-a8cc-06650ee8eacd
+  Platform: Windows-11-10.0.26200-SP0
+  Host: Harshit
+  User: 91892
+  Snakemake version: 9.23.1
+  Python version: 3.12.0 (tags/v3.12.0:0fb18b0, Oct  2 2023, 13:03:39) [MSC v.1935 64 bit (AMD64)]
+  Command: C:\Users\91892\AppData\Local\Programs\Python\Python312\Scripts\snakemake --cores all
+  Snakefile: C:\Users\91892\Documents\Project_LCR\Snakefile
+  Base directory: C:\Users\91892\Documents\Project_LCR
+  Run directory: C:\Users\91892\Documents\Project_LCR
+  Working directory: C:\Users\91892\Documents\Project_LCR
+  Config file(s): ['config.yaml']
+  Config MD5: 3e30a9687b3aa8bea9953c79ea088972
+
+Building DAG of jobs...
+Provided cores: 12
+Rules claiming more threads will be scaled down.
+Job stats:
+job                       count
+----------------------  -------
+clean_fasta                   1
+fig1_extract_sequences        1
+prepare_bedtools_beds         1
+fig1_aa_composition           1
+fig1_coverage                 1
+fig1_entropy                  1
+fig1_length_counts            1
+fig2_multiinter               1
+fig3_fastas                   1
+fig4_jaccard_matrix           1
+fig6_windows                  1
+fig1A_plot                    1
+fig1B_plot                    1
+fig1C_plot                    1
+fig1D_plot                    1
+fig1E_plot                    1
+fig2_consensus_beds           1
+fig3_purity_metrics           1
+fig4_plot                     1
+fig5_metrics                  1
+fig6_complexity               1
+fig1_combined                 1
+fig2_consensus_fastas         1
+fig3_plot                     1
+fig5_heatmaps                 1
+fig6_classification           1
+fig2_entropy                  1
+fig2_purity                   1
+fig2_substring_motifs         1
+fig5_combined                 1
+fig6_annotate                 1
+fig2_filtered                 1
+fig2b_plot                    1
+fig2c_plot                    1
+fig6_confusion                1
+fig6_reference_metrics        1
+fig2_peptide_counts           1
+fig6_tpr_fpr                  1
+fig2a_plot                    1
+fig6_combined                 1
+fig6_plots                    1
+fig7_summaries                1
+fig7_plot                     1
+final_report                  1
+all                           1
+total                        45
+
+Select jobs to execute...
+Execute 3 jobs...
+[Tue Jul  7 16:34:29 2026]
+localrule prepare_bedtools_beds:
+    input: arabidopsis/bed_arabidopsis
+    output: arabidopsis/bed_bedtools_arabidopsis
+    jobid: 19
+    reason: Missing output files: arabidopsis/bed_bedtools_arabidopsis
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:34:29 2026]
+localrule fig1_extract_sequences:
+    input: arabidopsis/arabidopsis.fasta, arabidopsis/bed_arabidopsis
+    output: arabidopsis/dataforFig1/extracted_sequences, arabidopsis/dataforFig1/protein_lengths.tsv
+    jobid: 3
+    reason: Missing output files: arabidopsis/dataforFig1/protein_lengths.tsv, arabidopsis/dataforFig1/extracted_sequences
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:34:29 2026]
+localrule clean_fasta:
+    input: arabidopsis/arabidopsis.fasta
+    output: arabidopsis/arabidopsis_cleaned.fasta
+    jobid: 20
+    reason: Missing output files: arabidopsis/arabidopsis_cleaned.fasta
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:34:31 2026]
+Finished jobid: 20 (Rule: clean_fasta)
+1 of 45 steps (2%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Tue Jul  7 16:34:31 2026]
+localrule fig6_windows:
+    input: arabidopsis/arabidopsis_cleaned.fasta
+    output: arabidopsis/dataforFig6/ecoli_windows.bed
+    jobid: 39
+    reason: Missing output files: arabidopsis/dataforFig6/ecoli_windows.bed; Input files updated by another job: arabidopsis/arabidopsis_cleaned.fasta
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:34:34 2026]
+Finished jobid: 39 (Rule: fig6_windows)
+2 of 45 steps (4%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Tue Jul  7 16:34:34 2026]
+localrule fig6_complexity:
+    input: arabidopsis/arabidopsis_cleaned.fasta, arabidopsis/dataforFig6/ecoli_windows.bed
+    output: arabidopsis/dataforFig6/ecoli_windows_out.tsv
+    jobid: 38
+    reason: Missing output files: arabidopsis/dataforFig6/ecoli_windows_out.tsv; Input files updated by another job: arabidopsis/arabidopsis_cleaned.fasta, arabidopsis/dataforFig6/ecoli_windows.bed
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:34:38 2026]
+Finished jobid: 19 (Rule: prepare_bedtools_beds)
+3 of 45 steps (7%) done
+Select jobs to execute...
+Execute 3 jobs...
+[Tue Jul  7 16:34:38 2026]
+localrule fig3_fastas:
+    input: arabidopsis/bed_bedtools_arabidopsis, arabidopsis/arabidopsis_cleaned.fasta
+    output: arabidopsis/dataforFig3/01_fastas
+    jobid: 27
+    reason: Missing output files: arabidopsis/dataforFig3/01_fastas; Input files updated by another job: arabidopsis/arabidopsis_cleaned.fasta, arabidopsis/bed_bedtools_arabidopsis
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:34:38 2026]
+localrule fig2_multiinter:
+    input: arabidopsis/bed_bedtools_arabidopsis
+    output: arabidopsis/dataforFig2/multiinter.tsv
+    jobid: 18
+    reason: Missing output files: arabidopsis/dataforFig2/multiinter.tsv; Input files updated by another job: arabidopsis/bed_bedtools_arabidopsis
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:34:38 2026]
+localrule fig4_jaccard_matrix:
+    input: arabidopsis/bed_bedtools_arabidopsis
+    output: arabidopsis/dataforFig4/jaccard_matrix.tsv
+    jobid: 29
+    reason: Missing output files: arabidopsis/dataforFig4/jaccard_matrix.tsv; Input files updated by another job: arabidopsis/bed_bedtools_arabidopsis
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:34:48 2026]
+Finished jobid: 27 (Rule: fig3_fastas)
+4 of 45 steps (9%) done
+Select jobs to execute...
+Execute 2 jobs...
+[Tue Jul  7 16:34:49 2026]
+localrule fig5_metrics:
+    input: arabidopsis/dataforFig3/01_fastas
+    output: arabidopsis/dataforFig5/02_metrics
+    jobid: 31
+    reason: Missing output files: arabidopsis/dataforFig5/02_metrics; Input files updated by another job: arabidopsis/dataforFig3/01_fastas
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:34:49 2026]
+localrule fig3_purity_metrics:
+    input: arabidopsis/dataforFig3/01_fastas
+    output: arabidopsis/dataforFig3/02_metrics
+    jobid: 26
+    reason: Missing output files: arabidopsis/dataforFig3/02_metrics; Input files updated by another job: arabidopsis/dataforFig3/01_fastas
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:34:59 2026]
+Finished jobid: 18 (Rule: fig2_multiinter)
+5 of 45 steps (11%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Tue Jul  7 16:34:59 2026]
+localrule fig2_consensus_beds:
+    input: arabidopsis/dataforFig2/multiinter.tsv
+    output: arabidopsis/dataforFig2/02_consensus_beds
+    jobid: 17
+    reason: Missing output files: arabidopsis/dataforFig2/02_consensus_beds; Input files updated by another job: arabidopsis/dataforFig2/multiinter.tsv
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:35:04 2026]
+Finished jobid: 17 (Rule: fig2_consensus_beds)
+6 of 45 steps (13%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Tue Jul  7 16:35:04 2026]
+localrule fig2_consensus_fastas:
+    input: arabidopsis/dataforFig2/02_consensus_beds, arabidopsis/arabidopsis_cleaned.fasta
+    output: arabidopsis/dataforFig2/03_consensus_fastas
+    jobid: 16
+    reason: Missing output files: arabidopsis/dataforFig2/03_consensus_fastas; Input files updated by another job: arabidopsis/dataforFig2/02_consensus_beds, arabidopsis/arabidopsis_cleaned.fasta
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:35:10 2026]
+Finished jobid: 16 (Rule: fig2_consensus_fastas)
+7 of 45 steps (16%) done
+Select jobs to execute...
+Execute 3 jobs...
+[Tue Jul  7 16:35:10 2026]
+localrule fig2_entropy:
+    input: arabidopsis/dataforFig2/03_consensus_fastas
+    output: arabidopsis/dataforFig2/entropy.tsv
+    jobid: 22
+    reason: Missing output files: arabidopsis/dataforFig2/entropy.tsv; Input files updated by another job: arabidopsis/dataforFig2/03_consensus_fastas
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:35:10 2026]
+localrule fig2_substring_motifs:
+    input: arabidopsis/dataforFig2/03_consensus_fastas
+    output: arabidopsis/dataforFig2/04_substring_motifs
+    jobid: 15
+    reason: Missing output files: arabidopsis/dataforFig2/04_substring_motifs; Input files updated by another job: arabidopsis/dataforFig2/03_consensus_fastas
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:35:10 2026]
+localrule fig2_purity:
+    input: arabidopsis/dataforFig2/03_consensus_fastas
+    output: arabidopsis/dataforFig2/purity.tsv
+    jobid: 24
+    reason: Missing output files: arabidopsis/dataforFig2/purity.tsv; Input files updated by another job: arabidopsis/dataforFig2/03_consensus_fastas
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:35:39 2026]
+Finished jobid: 24 (Rule: fig2_purity)
+8 of 45 steps (18%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Tue Jul  7 16:35:39 2026]
+localrule fig2c_plot:
+    input: arabidopsis/dataforFig2/purity.tsv
+    output: arabidopsis/Fig_outputs/Fig2/Fig2C_Purity.png
+    jobid: 23
+    reason: Missing output files: arabidopsis/Fig_outputs/Fig2/Fig2C_Purity.png; Input files updated by another job: arabidopsis/dataforFig2/purity.tsv
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:35:41 2026]
+Finished jobid: 26 (Rule: fig3_purity_metrics)
+9 of 45 steps (20%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Tue Jul  7 16:35:41 2026]
+localrule fig3_plot:
+    input: arabidopsis/dataforFig3/02_metrics
+    output: arabidopsis/Fig_outputs/Fig3/Fig3_Purity.png
+    jobid: 25
+    reason: Missing output files: arabidopsis/Fig_outputs/Fig3/Fig3_Purity.png; Input files updated by another job: arabidopsis/dataforFig3/02_metrics
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:35:42 2026]
+Finished jobid: 22 (Rule: fig2_entropy)
+10 of 45 steps (22%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Tue Jul  7 16:35:43 2026]
+localrule fig2b_plot:
+    input: arabidopsis/dataforFig2/entropy.tsv
+    output: arabidopsis/Fig_outputs/Fig2/Fig2B_Entropy.png
+    jobid: 21
+    reason: Missing output files: arabidopsis/Fig_outputs/Fig2/Fig2B_Entropy.png; Input files updated by another job: arabidopsis/dataforFig2/entropy.tsv
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:35:52 2026]
+Finished jobid: 25 (Rule: fig3_plot)
+11 of 45 steps (24%) done
+[Tue Jul  7 16:35:56 2026]
+Finished jobid: 23 (Rule: fig2c_plot)
+12 of 45 steps (27%) done
+[Tue Jul  7 16:35:57 2026]
+Finished jobid: 21 (Rule: fig2b_plot)
+13 of 45 steps (29%) done
+[Tue Jul  7 16:36:15 2026]
+Finished jobid: 15 (Rule: fig2_substring_motifs)
+14 of 45 steps (31%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Tue Jul  7 16:36:15 2026]
+localrule fig2_filtered:
+    input: arabidopsis/dataforFig2/04_substring_motifs
+    output: arabidopsis/dataforFig2/05_filtered
+    jobid: 14
+    reason: Missing output files: arabidopsis/dataforFig2/05_filtered; Input files updated by another job: arabidopsis/dataforFig2/04_substring_motifs
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:36:24 2026]
+Finished jobid: 29 (Rule: fig4_jaccard_matrix)
+15 of 45 steps (33%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Tue Jul  7 16:36:24 2026]
+localrule fig4_plot:
+    input: arabidopsis/dataforFig4/jaccard_matrix.tsv
+    output: arabidopsis/Fig_outputs/Fig4/Fig4_Jaccard.png
+    jobid: 28
+    reason: Missing output files: arabidopsis/Fig_outputs/Fig4/Fig4_Jaccard.png; Input files updated by another job: arabidopsis/dataforFig4/jaccard_matrix.tsv
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:36:34 2026]
+Finished jobid: 28 (Rule: fig4_plot)
+16 of 45 steps (36%) done
+[Tue Jul  7 16:37:25 2026]
+Finished jobid: 3 (Rule: fig1_extract_sequences)
+17 of 45 steps (38%) done
+Select jobs to execute...
+Execute 4 jobs...
+[Tue Jul  7 16:37:26 2026]
+localrule fig1_coverage:
+    input: arabidopsis/dataforFig1/extracted_sequences, arabidopsis/dataforFig1/protein_lengths.tsv, arabidopsis/arabidopsis.fasta
+    output: arabidopsis/dataforFig1/LCR_Coverage
+    jobid: 5
+    reason: Missing output files: arabidopsis/dataforFig1/LCR_Coverage; Input files updated by another job: arabidopsis/dataforFig1/protein_lengths.tsv, arabidopsis/dataforFig1/extracted_sequences
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:37:26 2026]
+localrule fig1_entropy:
+    input: arabidopsis/dataforFig1/extracted_sequences
+    output: arabidopsis/dataforFig1/ShanonEntropy
+    jobid: 10
+    reason: Missing output files: arabidopsis/dataforFig1/ShanonEntropy; Input files updated by another job: arabidopsis/dataforFig1/extracted_sequences
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:37:26 2026]
+localrule fig1_aa_composition:
+    input: arabidopsis/dataforFig1/extracted_sequences
+    output: arabidopsis/dataforFig1/Amino_acid
+    jobid: 8
+    reason: Missing output files: arabidopsis/dataforFig1/Amino_acid; Input files updated by another job: arabidopsis/dataforFig1/extracted_sequences
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:37:26 2026]
+localrule fig1_length_counts:
+    input: arabidopsis/dataforFig1/extracted_sequences, arabidopsis/dataforFig1/protein_lengths.tsv
+    output: arabidopsis/dataforFig1/LCR_Length, arabidopsis/dataforFig1/LCR_Count
+    jobid: 2
+    reason: Missing output files: arabidopsis/dataforFig1/LCR_Length, arabidopsis/dataforFig1/LCR_Count; Input files updated by another job: arabidopsis/dataforFig1/protein_lengths.tsv, arabidopsis/dataforFig1/extracted_sequences; Set of input files has changed since last execution; Code has changed since last execution
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:37:40 2026]
+Finished jobid: 2 (Rule: fig1_length_counts)
+18 of 45 steps (40%) done
+Select jobs to execute...
+Execute 2 jobs...
+[Tue Jul  7 16:37:40 2026]
+localrule fig1A_plot:
+    input: arabidopsis/dataforFig1/LCR_Length
+    output: arabidopsis/Fig_outputs/Fig1/Figure1A_Length_Heatmap.png
+    jobid: 1
+    reason: Missing output files: arabidopsis/Fig_outputs/Fig1/Figure1A_Length_Heatmap.png; Input files updated by another job: arabidopsis/dataforFig1/LCR_Length
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:37:40 2026]
+localrule fig1C_plot:
+    input: arabidopsis/dataforFig1/LCR_Count
+    output: arabidopsis/Fig_outputs/Fig1/Figure1C_CountDistribution.png
+    jobid: 6
+    reason: Missing output files: arabidopsis/Fig_outputs/Fig1/Figure1C_CountDistribution.png; Input files updated by another job: arabidopsis/dataforFig1/LCR_Count
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:37:46 2026]
+Finished jobid: 6 (Rule: fig1C_plot)
+19 of 45 steps (42%) done
+[Tue Jul  7 16:37:50 2026]
+Finished jobid: 1 (Rule: fig1A_plot)
+20 of 45 steps (44%) done
+[Tue Jul  7 16:37:57 2026]
+Finished jobid: 8 (Rule: fig1_aa_composition)
+21 of 45 steps (47%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Tue Jul  7 16:37:57 2026]
+localrule fig1D_plot:
+    input: arabidopsis/dataforFig1/Amino_acid
+    output: arabidopsis/Fig_outputs/Fig1/Figure1D_AminoAcidComposition.png
+    jobid: 7
+    reason: Missing output files: arabidopsis/Fig_outputs/Fig1/Figure1D_AminoAcidComposition.png; Input files updated by another job: arabidopsis/dataforFig1/Amino_acid
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+RuleException:
+CalledProcessError in file "C:\Users\91892\Documents\Project_LCR\Snakefile", line 185:
+Command 'python ./Fig1/fig1D_aa_comp.py arabidopsis/dataforFig1/Amino_acid arabidopsis/Fig_outputs/Fig1' returned non-zero exit status 1.
+[Tue Jul  7 16:38:00 2026]
+Error in rule fig1D_plot:
+    message: None
+    jobid: 7
+    input: arabidopsis/dataforFig1/Amino_acid
+    output: arabidopsis/Fig_outputs/Fig1/Figure1D_AminoAcidComposition.png
+    shell:
+        python ./Fig1/fig1D_aa_comp.py arabidopsis/dataforFig1/Amino_acid arabidopsis/Fig_outputs/Fig1
+        (command exited with non-zero exit code)
+[Tue Jul  7 16:38:06 2026]
+Finished jobid: 10 (Rule: fig1_entropy)
+22 of 45 steps (49%) done
+[Tue Jul  7 16:39:18 2026]
+Finished jobid: 5 (Rule: fig1_coverage)
+23 of 45 steps (51%) done
+[Tue Jul  7 16:40:05 2026]
+Finished jobid: 14 (Rule: fig2_filtered)
+24 of 45 steps (53%) done
+[Tue Jul  7 16:40:25 2026]
+Finished jobid: 31 (Rule: fig5_metrics)
+25 of 45 steps (56%) done
+[Tue Jul  7 16:42:25 2026]
+Finished jobid: 38 (Rule: fig6_complexity)
+26 of 45 steps (58%) done
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look below for error messages
+[Tue Jul  7 16:42:25 2026]
+Error in rule fig1D_plot:
+    message: None
+    jobid: 7
+    input: arabidopsis/dataforFig1/Amino_acid
+    output: arabidopsis/Fig_outputs/Fig1/Figure1D_AminoAcidComposition.png
+    shell:
+        python ./Fig1/fig1D_aa_comp.py arabidopsis/dataforFig1/Amino_acid arabidopsis/Fig_outputs/Fig1
+        (command exited with non-zero exit code)
+Complete log(s): C:\Users\91892\Documents\Project_LCR\.snakemake\log\2026-07-07T163429.344126.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.

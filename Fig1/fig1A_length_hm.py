@@ -7,12 +7,11 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 # =====================================================
-# CONFIG
+# INPUTS
 # =====================================================
 
-INPUT_DIR = sys.argv[1]     # Categorized counts
-
-OUTPUT_DIR = sys.argv[2]    # Figure output directory
+INPUT_DIR = sys.argv[1]
+OUTPUT_DIR = sys.argv[2]
 
 Path(OUTPUT_DIR).mkdir(
     parents=True,
@@ -28,50 +27,15 @@ length_order = [
     "200+"
 ]
 
-tool_order = [
-    "alcor_mode1_masked",
-    "alcor_mode2_masked",
-    "dotplot",
-    "flps_default",
-    "flps_strict",
-    "flps2_default",
-    "flps2_strict",
-    "lcrfinder",
-    "seg",
-    "seg_intermediate",
-    "seg_strict",
-    "treks_clustalw",
-    "xstream_m1"
-]
-
-tool_labels = {
-    "alcor_mode1_masked": "AlcoR M1",
-    "alcor_mode2_masked": "AlcoR M2",
-    "dotplot": "Dotplot",
-    "flps_default": "fLPS",
-    "flps_strict": "fLPS Strict",
-    "flps2_default": "fLPS 2.0",
-    "flps2_strict": "fLPS 2.0 Strict",
-    "lcrfinder": "LCRFinder",
-    "seg": "SEG",
-    "seg_intermediate": "SEG Intermediate",
-    "seg_strict": "SEG Strict",
-    "treks_clustalw": "T-REKS",
-    "xstream_m1": "XSTREAM"
-}
-
 # =====================================================
 # LOAD FILES
 # =====================================================
 
 all_tools = []
 
-files = sorted(
-    Path(INPUT_DIR).glob("*.tsv")
-)
+files = sorted(Path(INPUT_DIR).glob("*.tsv"))
 
-if len(files) == 0:
-
+if not files:
     raise FileNotFoundError(
         f"No TSV files found in {INPUT_DIR}"
     )
@@ -85,33 +49,24 @@ for file in files:
         sep="\t"
     )
 
-    required = {
-        "Category",
-        "Count"
-    }
+    required = {"Category", "Count"}
 
     if not required.issubset(df.columns):
-
         print(
             f"Skipping {file.name} "
             f"(missing required columns)"
         )
         continue
 
+    # Tool name = filename without extension
     tool = file.stem.replace("_categorized", "")
-
-    # remove organism suffix automatically
-    parts = tool.split("_")
-
-    for i in range(len(parts), 0, -1):
-        candidate = "_".join(parts[:i])
-        if candidate in tool_order:
-            tool = candidate
-            break
 
     df["Tool"] = tool
 
     all_tools.append(df)
+
+if not all_tools:
+    raise ValueError("No valid TSV files found.")
 
 # =====================================================
 # COMBINE
@@ -128,40 +83,23 @@ heatmap_df = combined.pivot(
     values="Count"
 )
 
-# enforce category order
-
+# Keep category order
 heatmap_df = heatmap_df.reindex(
     columns=length_order,
     fill_value=0
 )
 
-# enforce tool order
-
-heatmap_df = heatmap_df.reindex(
-    tool_order
-)
-heatmap_df.index = [
-    tool_labels.get(x, x)
-    for x in heatmap_df.index
-]
-
-# remove tools not present
-
-heatmap_df = heatmap_df.dropna(
-    how="all"
-)
-
-# replace remaining NaN values
-
+# Fill missing values
 heatmap_df = heatmap_df.fillna(0)
+
+# Sort tools alphabetically
+heatmap_df = heatmap_df.sort_index()
 
 # =====================================================
 # PLOT
 # =====================================================
 
-plt.figure(
-    figsize=(12, 8)
-)
+plt.figure(figsize=(12, 8))
 
 sns.heatmap(
     heatmap_df,
@@ -171,26 +109,16 @@ sns.heatmap(
     linewidths=0.5
 )
 
-organism = files[0].stem.split("_")[-2]
+plt.title("Fig 1A")
 
-plt.title(
-    f"{organism.capitalize()} Fig 1A: LCR Length Distribution"
-)
-
-plt.xlabel(
-    "Length Category (aa)"
-)
-
-plt.ylabel(
-    "LCR Detection Tool"
-)
+plt.xlabel("Length Category (aa)")
+plt.ylabel("LCR Detection Tool")
 
 plt.tight_layout()
 
 output_file = (
     Path(OUTPUT_DIR)
-    /
-    "Figure1A_Length_Heatmap.png"
+    / "Figure1A_Length_Heatmap.png"
 )
 
 plt.savefig(
@@ -199,7 +127,6 @@ plt.savefig(
     bbox_inches="tight"
 )
 
-print(
-    f"\nSaved: {output_file}"
-)
+plt.close()
 
+print(f"\nSaved: {output_file}")

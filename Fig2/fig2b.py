@@ -56,7 +56,7 @@ ax.set_xticks(range(len(labels)))
 ax.set_xticklabels(labels)
 
 plt.title(
-    "E. coli : Shannon entropy distribution across consensus levels"
+    "Fig 2B: Shannon entropy distribution across consensus levels"
 )
 
 plt.tight_layout()

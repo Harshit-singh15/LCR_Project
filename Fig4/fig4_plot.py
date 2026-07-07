@@ -4,17 +4,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 from pathlib import Path
 import sys
+
 # ======================================================
 # Input / Output
 # ======================================================
 
-INPUT_FILE = Path(
-    sys.argv[1]
-)
+INPUT_FILE = Path(sys.argv[1])
 
-OUTPUT_DIR = Path(
-    sys.argv[2]
-)
+OUTPUT_DIR = Path(sys.argv[2])
 
 OUTPUT_DIR.mkdir(
     parents=True,
@@ -35,26 +32,12 @@ df = pd.read_csv(
 # Clean method names
 # ======================================================
 
-organisms = [
-    "_celegans",
-    "_mouse",
-    "_zebrafish",
-    "_human",
-    "_Fruitfly",
-    "_yeast",
-    "_arabidopsis",
-    "_ecoli"
-]
-
 def clean_name(name):
 
     name = str(name)
 
     name = name.replace(".bed", "")
     name = name.replace("_sorted", "")
-
-    for org in organisms:
-        name = name.replace(org, "")
 
     return name
 
@@ -93,7 +76,7 @@ sns.heatmap(
     fmt=".2f",
 
     annot_kws={
-        "size":8
+        "size": 8
     },
 
     square=True,
@@ -103,14 +86,13 @@ sns.heatmap(
     linecolor="white",
 
     cbar_kws={
-        "label":"Jaccard similarity"
+        "label": "Jaccard similarity"
     }
 
 )
 
 plt.title(
-    "Arabidopsis : Fig 4: Pairwise overlap among LCR detection methods",
-    fontsize=14
+    "Fig 4"
 )
 
 plt.xticks(
@@ -128,12 +110,14 @@ plt.tight_layout()
 # Save
 # ======================================================
 
+output_file = OUTPUT_DIR / "Fig4_Jaccard.png"
+
 plt.savefig(
-    OUTPUT_DIR/"Fig4_Jaccard.png",
+    output_file,
     dpi=600,
     bbox_inches="tight"
 )
 
 plt.close()
 
-print("Done.")
+print(f"Saved: {output_file}")

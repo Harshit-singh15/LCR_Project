@@ -1,18 +1,19 @@
 # figure1B_coverage_heatmap.py
-import sys
+
 from pathlib import Path
+import sys
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
 # =====================================================
-# CONFIG
+# INPUTS
 # =====================================================
 
-INPUT_DIR = sys.argv[1]     # Categorized counts
-OUTPUT_DIR = sys.argv[2]    # Figure output directory
+INPUT_DIR = Path(sys.argv[1])
+OUTPUT_DIR = Path(sys.argv[2])
 
-Path(OUTPUT_DIR).mkdir(
+OUTPUT_DIR.mkdir(
     parents=True,
     exist_ok=True
 )
@@ -25,37 +26,21 @@ coverage_order = [
     "80-100"
 ]
 
-tool_order = [
-    "alcor_mode1_masked",
-    "alcor_mode2_masked",
-    "dotplot",
-    "flps_default",
-    "flps_strict",
-    "flps2_default",
-    "flps2_strict",
-    "lcrfinder",
-    "seg",
-    "seg_intermediate",
-    "seg_strict",
-    "treks_clustalw",
-    "xstream_m1"
-]
+# =====================================================
+# CHECK INPUT DIRECTORY
+# =====================================================
 
-tool_labels = {
-    "alcor_mode1_masked":"AlcoR M1",
-    "alcor_mode2_masked":"AlcoR M2",
-    "dotplot":"Dotplot",
-    "flps_default":"fLPS",
-    "flps_strict":"fLPS Strict",
-    "flps2_default":"fLPS 2.0",
-    "flps2_strict":"fLPS 2.0 Strict",
-    "lcrfinder":"LCRFinder",
-    "seg":"SEG",
-    "seg_intermediate":"SEG Intermediate",
-    "seg_strict":"SEG Strict",
-    "treks_clustalw":"T-REKS",
-    "xstream_m1":"XSTREAM"
-}
+if not INPUT_DIR.exists():
+    raise FileNotFoundError(
+        f"Input directory does not exist:\n{INPUT_DIR}"
+    )
+
+files = sorted(INPUT_DIR.glob("*.tsv"))
+
+if not files:
+    raise FileNotFoundError(
+        f"No TSV files found in:\n{INPUT_DIR}"
+    )
 
 # =====================================================
 # LOAD FILES
@@ -63,52 +48,46 @@ tool_labels = {
 
 all_tools = []
 
-files = sorted(
-    Path(INPUT_DIR).glob("*.tsv")
-)
-
-if len(files) == 0:
-
-    raise FileNotFoundError(
-        f"No TSV files found in {INPUT_DIR}"
-    )
+required_columns = {
+    "Category",
+    "Count"
+}
 
 for file in files:
 
     print(f"Loading {file.name}")
 
-    df = pd.read_csv(
-        file,
-        sep="\t"
-    )
+    try:
+        df = pd.read_csv(
+            file,
+            sep="\t"
+        )
+    except Exception as e:
+        print(f"Skipping {file.name}: {e}")
+        continue
 
-    required = {
-        "Category",
-        "Count"
-    }
-
-    if not required.issubset(df.columns):
-
+    if not required_columns.issubset(df.columns):
         print(
-            f"Skipping {file.name}"
+            f"Skipping {file.name}: "
+            f"Missing columns "
+            f"{required_columns - set(df.columns)}"
         )
         continue
 
-    tool = file.stem.replace("_categorized", "")
+    tool = file.stem.replace(
+        "_categorized",
+        ""
+    )
 
-    # remove organism suffix automatically
-    parts = tool.split("_")
-
-    for i in range(len(parts), 0, -1):
-        candidate = "_".join(parts[:i])
-        if candidate in tool_order:
-            tool = candidate
-            break
-
-
+    df = df.copy()
     df["Tool"] = tool
 
     all_tools.append(df)
+
+if not all_tools:
+    raise ValueError(
+        "No valid TSV files were found."
+    )
 
 # =====================================================
 # COMBINE
@@ -119,39 +98,30 @@ combined = pd.concat(
     ignore_index=True
 )
 
-heatmap_df = combined.pivot(
+heatmap_df = combined.pivot_table(
     index="Tool",
     columns="Category",
-    values="Count"
+    values="Count",
+    aggfunc="sum",
+    fill_value=0
 )
+
+# Ensure category order
 
 heatmap_df = heatmap_df.reindex(
     columns=coverage_order,
     fill_value=0
 )
 
-heatmap_df = heatmap_df.reindex(
-    tool_order
-)
+# Alphabetical order of tools
 
-heatmap_df = heatmap_df.dropna(
-    how="all"
-)
-
-heatmap_df = heatmap_df.fillna(0)
-
-heatmap_df.index = [
-    tool_labels.get(x, x)
-    for x in heatmap_df.index
-]
+heatmap_df = heatmap_df.sort_index()
 
 # =====================================================
 # PLOT
 # =====================================================
 
-plt.figure(
-    figsize=(12,8)
-)
+plt.figure(figsize=(12, 8))
 
 sns.heatmap(
     heatmap_df,
@@ -161,27 +131,14 @@ sns.heatmap(
     linewidths=0.5
 )
 
-organism = files[0].stem.split("_")[-2]
+plt.title("Fig 1B")
 
-plt.title(
-    f"{organism.capitalize()} Fig 1B: LCR Coverage Distribution"
-)
-
-plt.xlabel(
-    "Coverage Category (%)"
-)
-
-plt.ylabel(
-    "LCR Detection Tool"
-)
+plt.xlabel("Coverage Category (%)")
+plt.ylabel("LCR Detection Tool")
 
 plt.tight_layout()
 
-output_file = (
-    Path(OUTPUT_DIR)
-    /
-    "Figure1B_Coverage_Heatmap.png"
-)
+output_file = OUTPUT_DIR / "Figure1B_Coverage_Heatmap.png"
 
 plt.savefig(
     output_file,
@@ -189,6 +146,6 @@ plt.savefig(
     bbox_inches="tight"
 )
 
-print(
-    f"\nSaved: {output_file}"
-)
+plt.close()
+
+print(f"\nSaved: {output_file}")

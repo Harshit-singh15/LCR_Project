@@ -8,7 +8,7 @@ import sys
 # Directories
 # ==========================================================
 
-INPUT_DIR = Path(sys.argv[1])     # Extracted Sequences
+INPUT_DIR = Path(sys.argv[1])     
 OUTPUT_DIR = Path(sys.argv[2])    # Shannon entropy
 
 OUTPUT_DIR.parent.mkdir(

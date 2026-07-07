@@ -1,0 +1,145 @@
+Assuming unrestricted shared filesystem usage.
+
+SNAKEMAKE
+=========
+  Date: 2026-07-07 16:51:05
+  Workflow ID: b542fbca-0b40-47f4-97d0-3aaf95a2c1aa
+  Platform: Windows-11-10.0.26200-SP0
+  Host: Harshit
+  User: 91892
+  Snakemake version: 9.23.1
+  Python version: 3.12.0 (tags/v3.12.0:0fb18b0, Oct  2 2023, 13:03:39) [MSC v.1935 64 bit (AMD64)]
+  Command: C:\Users\91892\AppData\Local\Programs\Python\Python312\Scripts\snakemake --cores all
+  Snakefile: C:\Users\91892\Documents\Project_LCR\Snakefile
+  Base directory: C:\Users\91892\Documents\Project_LCR
+  Run directory: C:\Users\91892\Documents\Project_LCR
+  Working directory: C:\Users\91892\Documents\Project_LCR
+  Config file(s): ['config.yaml']
+  Config MD5: 3e30a9687b3aa8bea9953c79ea088972
+
+Building DAG of jobs...
+Provided cores: 12
+Rules claiming more threads will be scaled down.
+Job stats:
+job                       count
+----------------------  -------
+fig1B_plot                    1
+fig1E_plot                    1
+fig1_aa_composition           1
+fig2_peptide_counts           1
+fig5_heatmaps                 1
+fig6_classification           1
+fig1D_plot                    1
+fig2a_plot                    1
+fig5_combined                 1
+fig6_annotate                 1
+fig1_combined                 1
+fig6_confusion                1
+fig6_reference_metrics        1
+fig6_tpr_fpr                  1
+fig6_combined                 1
+fig6_plots                    1
+fig7_summaries                1
+fig7_plot                     1
+final_report                  1
+all                           1
+total                        20
+
+Select jobs to execute...
+Execute 6 jobs...
+[Tue Jul  7 16:51:05 2026]
+localrule fig1E_plot:
+    input: arabidopsis/dataforFig1/ShanonEntropy
+    output: arabidopsis/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png
+    jobid: 9
+    reason: Missing output files: arabidopsis/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:51:05 2026]
+localrule fig1_aa_composition:
+    input: arabidopsis/dataforFig1/extracted_sequences
+    output: arabidopsis/dataforFig1/Amino_acid
+    jobid: 8
+    reason: Missing output files: arabidopsis/dataforFig1/Amino_acid
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:51:05 2026]
+localrule fig6_classification:
+    input: arabidopsis/dataforFig6/ecoli_windows_out.tsv
+    output: arabidopsis/dataforFig6/ecoli_windows_classified.tsv
+    jobid: 37
+    reason: Missing output files: arabidopsis/dataforFig6/ecoli_windows_classified.tsv
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:51:05 2026]
+localrule fig5_heatmaps:
+    input: arabidopsis/dataforFig5/02_metrics
+    output: arabidopsis/Fig_outputs/Fig5/Fig5_heatmaps_done.flag
+    jobid: 30
+    reason: Missing output files: arabidopsis/Fig_outputs/Fig5/Fig5_heatmaps_done.flag
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:51:05 2026]
+localrule fig2_peptide_counts:
+    input: arabidopsis/dataforFig2/05_filtered
+    output: arabidopsis/dataforFig2/06_peptide_counts
+    jobid: 13
+    reason: Missing output files: arabidopsis/dataforFig2/06_peptide_counts
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:51:05 2026]
+localrule fig1B_plot:
+    input: arabidopsis/dataforFig1/LCR_Coverage
+    output: arabidopsis/Fig_outputs/Fig1/Figure1B_Coverage_Heatmap.png
+    jobid: 4
+    reason: Missing output files: arabidopsis/Fig_outputs/Fig1/Figure1B_Coverage_Heatmap.png
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:51:10 2026]
+Finished jobid: 13 (Rule: fig2_peptide_counts)
+1 of 20 steps (5%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Tue Jul  7 16:51:11 2026]
+localrule fig2a_plot:
+    input: arabidopsis/dataforFig2/06_peptide_counts
+    output: arabidopsis/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png
+    jobid: 12
+    reason: Missing output files: arabidopsis/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png; Input files updated by another job: arabidopsis/dataforFig2/06_peptide_counts
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+RuleException:
+CalledProcessError in file "C:\Users\91892\Documents\Project_LCR\Snakefile", line 194:
+Command 'python ./Fig1/fig1E_entropybox.py arabidopsis/dataforFig1/ShanonEntropy arabidopsis/Fig_outputs/Fig1' returned non-zero exit status 1.
+[Tue Jul  7 16:51:13 2026]
+Error in rule fig1E_plot:
+    message: None
+    jobid: 9
+    input: arabidopsis/dataforFig1/ShanonEntropy
+    output: arabidopsis/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png
+    shell:
+        python ./Fig1/fig1E_entropybox.py arabidopsis/dataforFig1/ShanonEntropy arabidopsis/Fig_outputs/Fig1
+        (command exited with non-zero exit code)
+[Tue Jul  7 16:51:15 2026]
+Finished jobid: 4 (Rule: fig1B_plot)
+2 of 20 steps (10%) done
+[Tue Jul  7 16:51:18 2026]
+Finished jobid: 12 (Rule: fig2a_plot)
+3 of 20 steps (15%) done
+[Tue Jul  7 16:51:28 2026]
+Finished jobid: 8 (Rule: fig1_aa_composition)
+4 of 20 steps (20%) done
+[Tue Jul  7 16:51:57 2026]
+Finished jobid: 37 (Rule: fig6_classification)
+5 of 20 steps (25%) done
+Touching output file arabidopsis/Fig_outputs/Fig5/Fig5_heatmaps_done.flag.
+[Tue Jul  7 16:54:07 2026]
+Finished jobid: 30 (Rule: fig5_heatmaps)
+6 of 20 steps (30%) done
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look below for error messages
+[Tue Jul  7 16:54:07 2026]
+Error in rule fig1E_plot:
+    message: None
+    jobid: 9
+    input: arabidopsis/dataforFig1/ShanonEntropy
+    output: arabidopsis/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png
+    shell:
+        python ./Fig1/fig1E_entropybox.py arabidopsis/dataforFig1/ShanonEntropy arabidopsis/Fig_outputs/Fig1
+        (command exited with non-zero exit code)
+Complete log(s): C:\Users\91892\Documents\Project_LCR\.snakemake\log\2026-07-07T165104.975647.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.

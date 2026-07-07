@@ -1,0 +1,141 @@
+Assuming unrestricted shared filesystem usage.
+
+SNAKEMAKE
+=========
+  Date: 2026-07-07 16:59:31
+  Workflow ID: 47f8db13-6ce9-4e36-bb71-96d17759dcbd
+  Platform: Windows-11-10.0.26200-SP0
+  Host: Harshit
+  User: 91892
+  Snakemake version: 9.23.1
+  Python version: 3.12.0 (tags/v3.12.0:0fb18b0, Oct  2 2023, 13:03:39) [MSC v.1935 64 bit (AMD64)]
+  Command: C:\Users\91892\AppData\Local\Programs\Python\Python312\Scripts\snakemake --cores all
+  Snakefile: C:\Users\91892\Documents\Project_LCR\Snakefile
+  Base directory: C:\Users\91892\Documents\Project_LCR
+  Run directory: C:\Users\91892\Documents\Project_LCR
+  Working directory: C:\Users\91892\Documents\Project_LCR
+  Config file(s): ['config.yaml']
+  Config MD5: 3e30a9687b3aa8bea9953c79ea088972
+
+Building DAG of jobs...
+Provided cores: 12
+Rules claiming more threads will be scaled down.
+Job stats:
+job                       count
+----------------------  -------
+fig1D_plot                    1
+fig1_entropy                  1
+fig5_combined                 1
+fig6_annotate                 1
+fig1E_plot                    1
+fig6_confusion                1
+fig6_reference_metrics        1
+fig1_combined                 1
+fig6_tpr_fpr                  1
+fig6_combined                 1
+fig6_plots                    1
+fig7_summaries                1
+fig7_plot                     1
+final_report                  1
+all                           1
+total                        15
+
+Select jobs to execute...
+Execute 4 jobs...
+[Tue Jul  7 16:59:32 2026]
+localrule fig1_entropy:
+    input: arabidopsis/dataforFig1/extracted_sequences
+    output: arabidopsis/dataforFig1/ShanonEntropy
+    jobid: 10
+    reason: Missing output files: arabidopsis/dataforFig1/ShanonEntropy
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:59:32 2026]
+localrule fig6_annotate:
+    input: arabidopsis/dataforFig6/ecoli_windows_classified.tsv
+    output: arabidopsis/dataforFig6/ecoli_windows_real.bed
+    jobid: 36
+    reason: Missing output files: arabidopsis/dataforFig6/ecoli_windows_real.bed
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:59:32 2026]
+localrule fig5_combined:
+    input: arabidopsis/Fig_outputs/Fig5/Fig5_heatmaps_done.flag
+    output: arabidopsis/Fig_outputs/Fig5/Fig5_Combined.png
+    jobid: 32
+    reason: Missing output files: arabidopsis/Fig_outputs/Fig5/Fig5_Combined.png
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:59:32 2026]
+localrule fig1D_plot:
+    input: arabidopsis/dataforFig1/Amino_acid
+    output: arabidopsis/Fig_outputs/Fig1/Figure1D_AminoAcidComposition.png
+    jobid: 7
+    reason: Missing output files: arabidopsis/Fig_outputs/Fig1/Figure1D_AminoAcidComposition.png
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:59:36 2026]
+Finished jobid: 7 (Rule: fig1D_plot)
+1 of 15 steps (7%) done
+[Tue Jul  7 16:59:46 2026]
+Finished jobid: 36 (Rule: fig6_annotate)
+2 of 15 steps (13%) done
+Select jobs to execute...
+Execute 2 jobs...
+[Tue Jul  7 16:59:47 2026]
+localrule fig6_confusion:
+    input: arabidopsis/arabidopsis_cleaned.fasta, arabidopsis/dataforFig6/ecoli_windows_real.bed, arabidopsis/bed_bedtools_arabidopsis
+    output: arabidopsis/dataforFig6/protein_confusion.tsv
+    jobid: 40
+    reason: Missing output files: arabidopsis/dataforFig6/protein_confusion.tsv; Input files updated by another job: arabidopsis/dataforFig6/ecoli_windows_real.bed
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:59:47 2026]
+localrule fig6_reference_metrics:
+    input: arabidopsis/dataforFig6/ecoli_windows_real.bed, arabidopsis/arabidopsis_cleaned.fasta
+    output: arabidopsis/dataforFig6/reference_metrics.tsv
+    jobid: 35
+    reason: Missing output files: arabidopsis/dataforFig6/reference_metrics.tsv; Input files updated by another job: arabidopsis/dataforFig6/ecoli_windows_real.bed
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 16:59:53 2026]
+Finished jobid: 10 (Rule: fig1_entropy)
+3 of 15 steps (20%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Tue Jul  7 16:59:54 2026]
+localrule fig1E_plot:
+    input: arabidopsis/dataforFig1/ShanonEntropy
+    output: arabidopsis/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png
+    jobid: 9
+    reason: Missing output files: arabidopsis/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png; Input files updated by another job: arabidopsis/dataforFig1/ShanonEntropy
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+RuleException:
+CalledProcessError in file "C:\Users\91892\Documents\Project_LCR\Snakefile", line 194:
+Command 'python ./Fig1/fig1E_entropybox.py arabidopsis/dataforFig1/ShanonEntropy arabidopsis/Fig_outputs/Fig1' returned non-zero exit status 1.
+[Tue Jul  7 16:59:59 2026]
+Error in rule fig1E_plot:
+    message: None
+    jobid: 9
+    input: arabidopsis/dataforFig1/ShanonEntropy
+    output: arabidopsis/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png
+    shell:
+        python ./Fig1/fig1E_entropybox.py arabidopsis/dataforFig1/ShanonEntropy arabidopsis/Fig_outputs/Fig1
+        (command exited with non-zero exit code)
+[Tue Jul  7 17:00:11 2026]
+Finished jobid: 32 (Rule: fig5_combined)
+4 of 15 steps (27%) done
+[Tue Jul  7 17:00:32 2026]
+Finished jobid: 35 (Rule: fig6_reference_metrics)
+5 of 15 steps (33%) done
+[Tue Jul  7 17:00:53 2026]
+Finished jobid: 40 (Rule: fig6_confusion)
+6 of 15 steps (40%) done
+Shutting down, this might take some time.
+Exiting because a job execution failed. Look below for error messages
+[Tue Jul  7 17:00:53 2026]
+Error in rule fig1E_plot:
+    message: None
+    jobid: 9
+    input: arabidopsis/dataforFig1/ShanonEntropy
+    output: arabidopsis/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png
+    shell:
+        python ./Fig1/fig1E_entropybox.py arabidopsis/dataforFig1/ShanonEntropy arabidopsis/Fig_outputs/Fig1
+        (command exited with non-zero exit code)
+Complete log(s): C:\Users\91892\Documents\Project_LCR\.snakemake\log\2026-07-07T165931.518972.snakemake.log
+WorkflowError:
+At least one job did not complete successfully.

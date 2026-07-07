@@ -97,15 +97,25 @@ rule fig1_extract_sequences:
 
 # gen_len_counts_2.py
 # argv order: extracted_sequences_dir, length_out_dir, count_out_dir
+# gen_len_counts_2.py
+# argv order:
+# extracted_sequences_dir, protein_lengths.tsv, length_out_dir, count_out_dir
+
 rule fig1_length_counts:
     input:
-        extracted=f"{BASE}/dataforFig1/extracted_sequences"
+        extracted = f"{BASE}/dataforFig1/extracted_sequences",
+        protein_lengths = f"{BASE}/dataforFig1/protein_lengths.tsv"
     output:
-        length_dir=directory(f"{BASE}/dataforFig1/LCR_Length"),
-        count_dir=directory(f"{BASE}/dataforFig1/LCR_Count")
+        length_dir = directory(f"{BASE}/dataforFig1/LCR_Length"),
+        count_dir = directory(f"{BASE}/dataforFig1/LCR_Count")
     shell:
-        "python {S}/Fig1/gen_len_counts_2.py {input.extracted} {output.length_dir} {output.count_dir}"
-
+        """
+        python {S}/Fig1/gen_len_counts_2.py \
+            {input.extracted} \
+            {input.protein_lengths} \
+            {output.length_dir} \
+            {output.count_dir}
+        """
 # Gen_diversity_3.py
 # argv order: extracted_sequences_dir, entropy_out_dir
 rule fig1_entropy:

@@ -7,9 +7,7 @@ import sys
 # =====================================================
 
 FASTA_FILE = sys.argv[1]  # e.g., "ecoli/ecoli_proteome.fasta"
-
 BED_FOLDER = sys.argv[2]  # e.g., "ecoli/bed_files"
-
 OUTPUT_DIR = sys.argv[3]  # e.g., "ecoli/output"
 
 # =====================================================

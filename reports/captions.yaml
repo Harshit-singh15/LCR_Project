@@ -1,58 +1,63 @@
 figure1:
-  title: "Comparative summary of Low-Complexity Regions"
+  title: "Comparative Summary of Low-Complexity Regions"
   caption: "Illustrates a comparative summary of Low-Complexity Regions (LCRs) identified by various computational techniques."
 
 figure1a:
-  caption: "Shows a heatmap of counts across LCR length bins detected by each method across the proteome."
+  caption: "Heatmap of counts across LCR length bins detected by each method across the proteome, with the y-axis listing the methods and the x-axis showing the LCR length bins (0-10, 10-20, 20-50, 50-100, 100-200 and above 200)."
 
 figure1b:
-  caption: "Represents a heatmap of counts in percentage coverage bins."
+  caption: "Heatmap of counts in percentage coverage bins (LCR coverage of the total gene length), grouped as 0-20, 20-40, 40-60, 60-80 and 80-100 per cent."
 
 figure1c:
-  caption: "Shows a stacked barplot comparing the number of LCRs detected per protein."
+  caption: "Stacked bar plot comparing the number of LCRs detected per protein by each method, in categories of 0, 1-5, 6-10, 11-15 and above 15."
 
 figure1d:
-  caption: "Depicts the overall amino acid composition of LCRs."
+  caption: "Stacked bar plot of the overall amino acid composition of LCRs detected by each method."
 
 figure1e:
-  caption: "Shows boxplots comparing Shannon entropy."
+  caption: "Boxplot comparing the overall Shannon entropy of LCRs detected by each method."
 
 figure2:
-  title: "Compositional and sequence complexity characteristics of LCRs stratified by detection consensus"
-  caption: "Compositional and sequence complexity characteristics of LCRs stratified by detection consensus."
+  title: "Compositional and Sequence Complexity of LCRs by Detection Consensus Level"
+  caption: "Compositional and sequence complexity characteristics of LCRs stratified by detection consensus level."
 
 figure2a:
-  caption: "Shows peptide motif contributions across consensus levels."
+  caption: "Stacked bar plot showing the proportional contribution of peptide motifs across LCRs grouped by the number of methods (n) detecting each region (consensus level, n = 1-13). Motifs include mono-, di- and tri-peptide compositions, with colours representing specific amino acids or repeating sequence patterns and hatching indicating peptide type. Regions detected by fewer methods are enriched in diverse and heterogeneous motif compositions, whereas higher-consensus regions show increased dominance of specific low-complexity motifs, reflecting stronger compositional bias."
 
 figure2b:
-  caption: "Depicts Shannon entropy across consensus groups."
+  caption: "Boxplots of Shannon entropy for LCRs stratified by consensus level. Lower-consensus regions (detected by fewer methods) exhibit higher entropy, indicating greater sequence heterogeneity, while regions detected by multiple methods show progressively reduced entropy, consistent with increased repetitiveness and compositional constraint."
 
 figure2c:
-  caption: "Depicts compositional purity across consensus groups."
+  caption: "Boxplots of compositional purity across the same consensus groups. Purity increases with the number of detecting methods, indicating that high-consensus LCRs are more compositionally homogeneous and dominated by fewer amino acid types."
 
 figure3:
-  caption: "Purity distribution of LCRs detected by different computational methods."
+  title: "Purity Distribution of LCRs Across Detection Methods"
+  caption: "The x-axis represents the purity level, defined as the percentage of the most dominant amino acid within each LCR, while the y-axis denotes the proportion of total LCRs retained at or above each purity threshold. Each line corresponds to a different method, as indicated by the colour-coded legend. Steeper declines indicate methods that detect fewer highly pure (compositionally biased) regions, whereas gradual slopes reflect identification of more homogeneous LCRs. This comparison emphasises how algorithms vary in their sensitivity to amino acid repetitiveness."
 
 figure4:
-  caption: "Pairwise overlap and similarity between LCR detection methods."
+  title: "Pairwise Overlap and Similarity Between LCR Detection Methods"
+  caption: "Jaccard similarity index for each pair of methods, calculated as the intersection divided by the union of detected LCR sets. The colour gradient (white to red) denotes increasing similarity, with diagonal values (1.0) representing self-comparisons. Together, this quantifies the extent of agreement and divergence among the evaluated detection algorithms."
 
 figure5:
-  caption: "Relationship between amino acid composition and mutation percentage."
+  title: "Amino Acid Composition vs. Mutation Percentage in LCRs"
+  caption: "Each panel corresponds to one detection method and illustrates the joint distribution of amino acid composition bias and sequence mutation percentage. The x-axis represents mutation percentage (fraction of variable residues within the LCR), and the y-axis shows the percentage of the most frequent amino acid. The colour gradient indicates the number of LCRs within each bin, as shown by the colour key. The diagonal trend visible across most methods indicates that higher amino acid dominance is typically associated with lower mutation percentages, reflecting stronger compositional homogeneity in repetitive regions."
 
 figure6:
-  caption: "Evaluation of LCR detection performance."
+  title: "Evaluation of LCR Detection Performance Across Sequence and Compositional Parameters"
+  caption: "This figure assesses the performance of different tools in detecting an internally defined reference LCR set under varying conditions. True positive rate (TPR; left subpanels) and false positive rate (FPR; right subpanels) are plotted against four parameters (TPR/FPR reflect agreement with an operational internal reference, not biological truth). The x-axes represent increasing parameter values, while the y-axes show detection rates. Distinct colours denote individual tools, as indicated in the legend. Higher TPRs indicate more sensitive detection, whereas lower FPRs reflect higher specificity. These comparisons reveal how each method's performance varies with sequence length, LCR density, coverage, and compositional complexity."
 
 figure6a:
-  caption: "Gene length categories."
+  caption: "Distribution of LCRs across different gene length categories."
 
 figure6b:
-  caption: "Number of LCRs per gene."
+  caption: "Number of LCRs detected per gene."
 
 figure6c:
-  caption: "LCR coverage percentage."
+  caption: "LCR coverage percentage of the total gene length."
 
 figure6d:
   caption: "LCR-to-gene entropy ratio."
 
 figure7:
-  caption: "Summary of benchmarking results."
+  title: "Summary of Benchmarking Results"
+  caption: "Summary of benchmarking results across all evaluated LCR detection methods."

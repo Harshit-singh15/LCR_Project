@@ -24,18 +24,6 @@ for file in INPUT_DIR.glob(
 
     method = file.stem.replace("_purity", "")
 
-# Remove organism suffix
-    for organism in [
-        "_celegans",
-        "_mouse",
-        "_zebrafish",
-        "_human",
-        "_yeast",
-        "_Fruitfly",
-        "_arabidopsis",
-        "_ecoli"
-    ]:
-        method = method.replace(organism, "")
 
     if file.stat().st_size == 0:
         print(f"Skipping empty file: {file.name}")
@@ -80,7 +68,7 @@ plt.ylabel(
 )
 
 plt.title(
-    "Fig 3: E. coli : Purity distribution across LCR detection methods"
+    "Fig 3: Purity distribution across LCR detection methods"
 )
 
 plt.legend(

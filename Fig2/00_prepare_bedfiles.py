@@ -64,6 +64,7 @@ for bed in sorted(INPUT_DIR.glob("*.bed")):
     invalid = (df["Start"] >= df["End"]).sum()
 
     df = df[df["Start"] < df["End"]]
+    df = df.drop_duplicates()
 
     # --------------------------
     # sort

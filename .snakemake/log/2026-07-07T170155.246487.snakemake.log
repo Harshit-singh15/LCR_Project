@@ -1,0 +1,138 @@
+Assuming unrestricted shared filesystem usage.
+
+SNAKEMAKE
+=========
+  Date: 2026-07-07 17:01:55
+  Workflow ID: d198e210-756e-4dd6-8d75-442de60ed68e
+  Platform: Windows-11-10.0.26200-SP0
+  Host: Harshit
+  User: 91892
+  Snakemake version: 9.23.1
+  Python version: 3.12.0 (tags/v3.12.0:0fb18b0, Oct  2 2023, 13:03:39) [MSC v.1935 64 bit (AMD64)]
+  Command: C:\Users\91892\AppData\Local\Programs\Python\Python312\Scripts\snakemake --cores all
+  Snakefile: C:\Users\91892\Documents\Project_LCR\Snakefile
+  Base directory: C:\Users\91892\Documents\Project_LCR
+  Run directory: C:\Users\91892\Documents\Project_LCR
+  Working directory: C:\Users\91892\Documents\Project_LCR
+  Config file(s): ['config.yaml']
+  Config MD5: 3e30a9687b3aa8bea9953c79ea088972
+
+Building DAG of jobs...
+Provided cores: 12
+Rules claiming more threads will be scaled down.
+Job stats:
+job               count
+--------------  -------
+fig1E_plot            1
+fig6_tpr_fpr          1
+fig1_combined         1
+fig6_combined         1
+fig6_plots            1
+fig7_summaries        1
+fig7_plot             1
+final_report          1
+all                   1
+total                 9
+
+Select jobs to execute...
+Execute 2 jobs...
+[Tue Jul  7 17:01:55 2026]
+localrule fig6_tpr_fpr:
+    input: arabidopsis/dataforFig6/reference_metrics.tsv, arabidopsis/dataforFig6/protein_confusion.tsv
+    output: arabidopsis/dataforFig6/plot_tables
+    jobid: 34
+    reason: Missing output files: arabidopsis/dataforFig6/plot_tables
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 17:01:55 2026]
+localrule fig1E_plot:
+    input: arabidopsis/dataforFig1/ShanonEntropy
+    output: arabidopsis/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png
+    jobid: 9
+    reason: Missing output files: arabidopsis/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 17:01:58 2026]
+Finished jobid: 34 (Rule: fig6_tpr_fpr)
+1 of 9 steps (11%) done
+Select jobs to execute...
+Execute 3 jobs...
+[Tue Jul  7 17:01:58 2026]
+localrule fig6_combined:
+    input: arabidopsis/dataforFig6/plot_tables
+    output: arabidopsis/Fig_outputs/Fig6/Fig6_Combined.png
+    jobid: 41
+    reason: Missing output files: arabidopsis/Fig_outputs/Fig6/Fig6_Combined.png; Input files updated by another job: arabidopsis/dataforFig6/plot_tables
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 17:01:58 2026]
+localrule fig7_summaries:
+    input: arabidopsis/dataforFig6/plot_tables
+    output: arabidopsis/dataforFig7
+    jobid: 43
+    reason: Missing output files: arabidopsis/dataforFig7; Input files updated by another job: arabidopsis/dataforFig6/plot_tables
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 17:01:58 2026]
+localrule fig6_plots:
+    input: arabidopsis/dataforFig6/plot_tables
+    output: arabidopsis/Fig_outputs/Fig6/Fig6A_Genelength.png, arabidopsis/Fig_outputs/Fig6/Fig6B_LCRCount.png, arabidopsis/Fig_outputs/Fig6/Fig6C_Coverage.png, arabidopsis/Fig_outputs/Fig6/Fig6D_EntropyRatio.png
+    jobid: 33
+    reason: Missing output files: arabidopsis/Fig_outputs/Fig6/Fig6B_LCRCount.png, arabidopsis/Fig_outputs/Fig6/Fig6A_Genelength.png, arabidopsis/Fig_outputs/Fig6/Fig6C_Coverage.png, arabidopsis/Fig_outputs/Fig6/Fig6D_EntropyRatio.png; Input files updated by another job: arabidopsis/dataforFig6/plot_tables
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 17:01:59 2026]
+Finished jobid: 43 (Rule: fig7_summaries)
+2 of 9 steps (22%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Tue Jul  7 17:02:00 2026]
+localrule fig7_plot:
+    input: arabidopsis/dataforFig7
+    output: arabidopsis/Fig_outputs/Fig7/Fig7_summary.png
+    jobid: 42
+    reason: Missing output files: arabidopsis/Fig_outputs/Fig7/Fig7_summary.png; Input files updated by another job: arabidopsis/dataforFig7
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 17:02:09 2026]
+Finished jobid: 41 (Rule: fig6_combined)
+3 of 9 steps (33%) done
+[Tue Jul  7 17:02:09 2026]
+Finished jobid: 9 (Rule: fig1E_plot)
+4 of 9 steps (44%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Tue Jul  7 17:02:10 2026]
+localrule fig1_combined:
+    input: arabidopsis/Fig_outputs/Fig1/Figure1A_Length_Heatmap.png, arabidopsis/Fig_outputs/Fig1/Figure1B_Coverage_Heatmap.png, arabidopsis/Fig_outputs/Fig1/Figure1C_CountDistribution.png, arabidopsis/Fig_outputs/Fig1/Figure1D_AminoAcidComposition.png, arabidopsis/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png
+    output: arabidopsis/Fig_outputs/Fig1/Figure1_Combined.png
+    jobid: 11
+    reason: Missing output files: arabidopsis/Fig_outputs/Fig1/Figure1_Combined.png; Input files updated by another job: arabidopsis/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 17:02:10 2026]
+Finished jobid: 42 (Rule: fig7_plot)
+5 of 9 steps (56%) done
+[Tue Jul  7 17:02:10 2026]
+Finished jobid: 33 (Rule: fig6_plots)
+6 of 9 steps (67%) done
+[Tue Jul  7 17:02:12 2026]
+Finished jobid: 11 (Rule: fig1_combined)
+7 of 9 steps (78%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Tue Jul  7 17:02:12 2026]
+localrule final_report:
+    input: arabidopsis/Fig_outputs/Fig1/Figure1_Combined.png, arabidopsis/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png, arabidopsis/Fig_outputs/Fig2/Fig2B_Entropy.png, arabidopsis/Fig_outputs/Fig2/Fig2C_Purity.png, arabidopsis/Fig_outputs/Fig3/Fig3_Purity.png, arabidopsis/Fig_outputs/Fig4/Fig4_Jaccard.png, arabidopsis/Fig_outputs/Fig5/Fig5_Combined.png, arabidopsis/Fig_outputs/Fig6/Fig6_Combined.png, arabidopsis/Fig_outputs/Fig7/Fig7_summary.png
+    output: arabidopsis/reports/Benchmark_Report.pdf
+    jobid: 44
+    reason: Missing output files: arabidopsis/reports/Benchmark_Report.pdf; Input files updated by another job: arabidopsis/Fig_outputs/Fig1/Figure1_Combined.png, arabidopsis/Fig_outputs/Fig7/Fig7_summary.png, arabidopsis/Fig_outputs/Fig6/Fig6_Combined.png
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 17:03:05 2026]
+Finished jobid: 44 (Rule: final_report)
+8 of 9 steps (89%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Tue Jul  7 17:03:05 2026]
+localrule all:
+    input: arabidopsis/Fig_outputs/Fig1/Figure1A_Length_Heatmap.png, arabidopsis/Fig_outputs/Fig1/Figure1B_Coverage_Heatmap.png, arabidopsis/Fig_outputs/Fig1/Figure1C_CountDistribution.png, arabidopsis/Fig_outputs/Fig1/Figure1D_AminoAcidComposition.png, arabidopsis/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png, arabidopsis/Fig_outputs/Fig1/Figure1_Combined.png, arabidopsis/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png, arabidopsis/Fig_outputs/Fig2/Fig2B_Entropy.png, arabidopsis/Fig_outputs/Fig2/Fig2C_Purity.png, arabidopsis/Fig_outputs/Fig3/Fig3_Purity.png, arabidopsis/Fig_outputs/Fig4/Fig4_Jaccard.png, arabidopsis/Fig_outputs/Fig5/Fig5_heatmaps_done.flag, arabidopsis/Fig_outputs/Fig5/Fig5_Combined.png, arabidopsis/Fig_outputs/Fig6/Fig6A_Genelength.png, arabidopsis/Fig_outputs/Fig6/Fig6B_LCRCount.png, arabidopsis/Fig_outputs/Fig6/Fig6C_Coverage.png, arabidopsis/Fig_outputs/Fig6/Fig6D_EntropyRatio.png, arabidopsis/Fig_outputs/Fig6/Fig6_Combined.png, arabidopsis/Fig_outputs/Fig7/Fig7_summary.png, arabidopsis/reports/Benchmark_Report.pdf
+    jobid: 0
+    reason: Input files updated by another job: arabidopsis/Fig_outputs/Fig6/Fig6A_Genelength.png, arabidopsis/Fig_outputs/Fig1/Figure1_Combined.png, arabidopsis/Fig_outputs/Fig6/Fig6D_EntropyRatio.png, arabidopsis/Fig_outputs/Fig7/Fig7_summary.png, arabidopsis/reports/Benchmark_Report.pdf, arabidopsis/Fig_outputs/Fig6/Fig6_Combined.png, arabidopsis/Fig_outputs/Fig6/Fig6C_Coverage.png, arabidopsis/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png, arabidopsis/Fig_outputs/Fig6/Fig6B_LCRCount.png
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 17:03:05 2026]
+Finished jobid: 0 (Rule: all)
+9 of 9 steps (100%) done
+Complete log(s): C:\Users\91892\Documents\Project_LCR\.snakemake\log\2026-07-07T170155.246487.snakemake.log

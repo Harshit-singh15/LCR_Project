@@ -6,8 +6,11 @@ import sys
 # ==========================================
 
 INPUT_DIR = sys.argv[1]
-LENGTH_DIR = sys.argv[2]  # LCR length distribution
-COUNT_DIR  =  sys.argv[3]  # LCR counts per protein
+PROTEIN_LENGTH_FILE = sys.argv[2]
+LENGTH_DIR = sys.argv[3]
+COUNT_DIR = sys.argv[4]
+
+ # LCR counts per protein
 
 Path(LENGTH_DIR).mkdir(parents=True, exist_ok=True)
 Path(COUNT_DIR).mkdir(parents=True, exist_ok=True)
@@ -15,9 +18,8 @@ Path(COUNT_DIR).mkdir(parents=True, exist_ok=True)
 # ==========================================
 # TOTAL PROTEINS 
 # ==========================================
-
 protein_lengths = pd.read_csv(
-    r"ecoli\dataforFig1\protein_lengths.tsv",
+    PROTEIN_LENGTH_FILE,
     sep="\t"
 )
 

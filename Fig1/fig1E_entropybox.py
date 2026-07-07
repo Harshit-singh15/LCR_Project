@@ -2,54 +2,37 @@
 
 from pathlib import Path
 import sys
-
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
 # =====================================================
-# CONFIG
+# INPUTS
 # =====================================================
 
-INPUT_DIR = sys.argv[1]     # Shannon Entropy
-OUTPUT_DIR = sys.argv[2]    # Figure output directory
+INPUT_DIR = Path(sys.argv[1])
+OUTPUT_DIR = Path(sys.argv[2])
 
-Path(OUTPUT_DIR).mkdir(
+OUTPUT_DIR.mkdir(
     parents=True,
     exist_ok=True
 )
 
-tool_order = [
-    "alcor_mode1_masked",
-    "alcor_mode2_masked",
-    "dotplot",
-    "flps_default",
-    "flps_strict",
-    "flps2_default",
-    "flps2_strict",
-    "lcrfinder",
-    "seg",
-    "seg_intermediate",
-    "seg_strict",
-    "treks_clustalw",
-    "xstream_m1"
-]
+# =====================================================
+# CHECK INPUT DIRECTORY
+# =====================================================
 
-tool_labels = {
-    "alcor_mode1_masked": "AlcoR M1",
-    "alcor_mode2_masked": "AlcoR M2",
-    "dotplot": "Dotplot",
-    "flps_default": "fLPS",
-    "flps_strict": "fLPS Strict",
-    "flps2_default": "fLPS 2.0",
-    "flps2_strict": "fLPS 2.0 Strict",
-    "lcrfinder": "LCRFinder",
-    "seg": "SEG",
-    "seg_intermediate": "SEG Intermediate",
-    "seg_strict": "SEG Strict",
-    "treks_clustalw": "T-REKS",
-    "xstream_m1": "XSTREAM"
-}
+if not INPUT_DIR.exists():
+    raise FileNotFoundError(
+        f"Input directory does not exist:\n{INPUT_DIR}"
+    )
+
+files = sorted(INPUT_DIR.glob("*_SNS*.tsv"))
+
+if not files:
+    raise FileNotFoundError(
+        f"No Shannon entropy files found in:\n{INPUT_DIR}"
+    )
 
 # =====================================================
 # LOAD FILES
@@ -57,77 +40,38 @@ tool_labels = {
 
 all_tools = []
 
-files = sorted(
-    Path(INPUT_DIR).glob("*_SNS*")
-)
-
-if len(files) == 0:
-
-    raise FileNotFoundError(
-        f"No entropy files found in {INPUT_DIR}"
-    )
+required_column = "Shannon_Entropy"
 
 for file in files:
 
     print(f"Loading {file.name}")
 
-    # -------------------------------------------------
-# Robust tool name extraction
-# -------------------------------------------------
-
-    tool = file.stem.replace("_SNS", "")
-
-    organisms = {
-    "human",
-    "mouse",
-    "zebrafish",
-    "arabidopsis",
-    "celegans",
-    "ecoli",
-    "Fruitfly",
-    "yeast"
-    }
-
-    for org in organisms:
-        suffix = "_" + org
-        if tool.endswith(suffix):
-            tool = tool[:-len(suffix)]
-            break
-
-    print(f"Detected tool : {tool}")
-
     try:
-
         df = pd.read_csv(
             file,
             sep="\t"
         )
-
     except Exception as e:
-
-        print(
-            f"Skipping {file.name}: {e}"
-        )
-
+        print(f"Skipping {file.name}: {e}")
         continue
 
-    if "Shannon_Entropy" not in df.columns:
-
+    if required_column not in df.columns:
         print(
             f"Skipping {file.name}: "
-            f"Shannon_Entropy column missing"
+            f"'{required_column}' column not found."
         )
-
         continue
 
+    tool = file.stem.replace("_SNS", "")
+
+    df = df.copy()
     df["Tool"] = tool
 
     all_tools.append(df)
 
-if len(all_tools) == 0:
-
+if not all_tools:
     raise ValueError(
-        "No valid entropy files loaded."
+        "No valid Shannon entropy files were loaded."
     )
 
 # =====================================================
@@ -139,55 +83,30 @@ combined = pd.concat(
     ignore_index=True
 )
 
-# keep only tools present
+# Alphabetical ordering
 
-available = set(combined["Tool"].unique())
-
-tool_order_present = [
-    t for t in tool_order
-    if t in available
-]
-
-missing = sorted(
-    set(tool_order) - available
+tool_order = sorted(
+    combined["Tool"].unique()
 )
-
-if missing:
-    print("\nMissing tools:")
-    print(", ".join(missing))
-
-if len(tool_order_present) == 0:
-    raise ValueError(
-        "No recognised tools found."
-    )
 
 combined["Tool"] = pd.Categorical(
     combined["Tool"],
-    categories=tool_order_present,
+    categories=tool_order,
     ordered=True
 )
-
-combined["Tool_Label"] = combined[
-    "Tool"
-].map(tool_labels)
 
 # =====================================================
 # PLOT
 # =====================================================
 
-plt.figure(
-    figsize=(14, 8)
-)
+plt.figure(figsize=(14, 8))
 
 sns.boxplot(
     data=combined,
-    x="Tool_Label",
+    x="Tool",
     y="Shannon_Entropy",
-    hue="Tool_Label",
-    order=[
-        tool_labels[t]
-        for t in tool_order_present
-    ],
+    hue="Tool",
+    order=tool_order,
     palette="tab20",
     linewidth=1.2,
     medianprops={
@@ -195,34 +114,14 @@ sns.boxplot(
         "linewidth": 2
     },
     showfliers=False,
+    dodge=False,
     legend=False
 )
 
-organism = Path(INPUT_DIR).parent.parent.name
+plt.title("Fig 1E")
 
-pretty_name = {
-    "celegans": "C. elegans",
-    "mouse": "Mouse",
-    "human": "Human",
-    "zebrafish": "Zebrafish",
-    "arabidopsis": "Arabidopsis",
-    "Fruitfly": "Fruit Fly"
-}.get(
-    organism,
-    organism.capitalize()
-)
-
-plt.title(
-    f"{pretty_name} Fig 1E: Shannon Entropy Distribution"
-)
-
-plt.xlabel(
-    "LCR Detection Tool"
-)
-
-plt.ylabel(
-    "Shannon Entropy"
-)
+plt.xlabel("LCR Detection Tool")
+plt.ylabel("Shannon Entropy")
 
 plt.xticks(
     rotation=45,
@@ -231,13 +130,17 @@ plt.xticks(
 
 plt.tight_layout()
 
+output_file = (
+    OUTPUT_DIR /
+    "Figure1E_Entropy_Boxplot.png"
+)
+
 plt.savefig(
-    Path(OUTPUT_DIR) /
-    "Figure1E_Entropy_Boxplot.png",
+    output_file,
     dpi=600,
     bbox_inches="tight"
 )
 
-print(
-    "\nSaved Figure1E_Entropy_Boxplot.png"
-)
+plt.close()
+
+print(f"\nSaved: {output_file}")
