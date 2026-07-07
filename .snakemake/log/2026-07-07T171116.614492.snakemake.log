@@ -1,0 +1,53 @@
+Assuming unrestricted shared filesystem usage.
+
+SNAKEMAKE
+=========
+  Date: 2026-07-07 17:11:16
+  Workflow ID: 1aa337a0-b2f8-4429-807d-d955ca9f2f1b
+  Platform: Windows-11-10.0.26200-SP0
+  Host: Harshit
+  User: 91892
+  Snakemake version: 9.23.1
+  Python version: 3.12.0 (tags/v3.12.0:0fb18b0, Oct  2 2023, 13:03:39) [MSC v.1935 64 bit (AMD64)]
+  Command: C:\Users\91892\AppData\Local\Programs\Python\Python312\Scripts\snakemake --cores all
+  Snakefile: C:\Users\91892\Documents\Project_LCR\Snakefile
+  Base directory: C:\Users\91892\Documents\Project_LCR
+  Run directory: C:\Users\91892\Documents\Project_LCR
+  Working directory: C:\Users\91892\Documents\Project_LCR
+  Config file(s): ['config.yaml']
+  Config MD5: 88c96cf3d67344b7f0651382224675e3
+
+Building DAG of jobs...
+Provided cores: 12
+Rules claiming more threads will be scaled down.
+Job stats:
+job             count
+------------  -------
+final_report        1
+all                 1
+total               2
+
+Select jobs to execute...
+Execute 1 jobs...
+[Tue Jul  7 17:11:17 2026]
+localrule final_report:
+    input: celegans/Fig_outputs/Fig1/Figure1_Combined.png, celegans/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png, celegans/Fig_outputs/Fig2/Fig2B_Entropy.png, celegans/Fig_outputs/Fig2/Fig2C_Purity.png, celegans/Fig_outputs/Fig3/Fig3_Purity.png, celegans/Fig_outputs/Fig4/Fig4_Jaccard.png, celegans/Fig_outputs/Fig5/Fig5_Combined.png, celegans/Fig_outputs/Fig6/Fig6_Combined.png, celegans/Fig_outputs/Fig7/Fig7_summary.png
+    output: celegans/reports/Benchmark_Report.pdf
+    jobid: 44
+    reason: Missing output files: celegans/reports/Benchmark_Report.pdf
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 17:11:40 2026]
+Finished jobid: 44 (Rule: final_report)
+1 of 2 steps (50%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Tue Jul  7 17:11:40 2026]
+localrule all:
+    input: celegans/Fig_outputs/Fig1/Figure1A_Length_Heatmap.png, celegans/Fig_outputs/Fig1/Figure1B_Coverage_Heatmap.png, celegans/Fig_outputs/Fig1/Figure1C_CountDistribution.png, celegans/Fig_outputs/Fig1/Figure1D_AminoAcidComposition.png, celegans/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png, celegans/Fig_outputs/Fig1/Figure1_Combined.png, celegans/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png, celegans/Fig_outputs/Fig2/Fig2B_Entropy.png, celegans/Fig_outputs/Fig2/Fig2C_Purity.png, celegans/Fig_outputs/Fig3/Fig3_Purity.png, celegans/Fig_outputs/Fig4/Fig4_Jaccard.png, celegans/Fig_outputs/Fig5/Fig5_heatmaps_done.flag, celegans/Fig_outputs/Fig5/Fig5_Combined.png, celegans/Fig_outputs/Fig6/Fig6A_Genelength.png, celegans/Fig_outputs/Fig6/Fig6B_LCRCount.png, celegans/Fig_outputs/Fig6/Fig6C_Coverage.png, celegans/Fig_outputs/Fig6/Fig6D_EntropyRatio.png, celegans/Fig_outputs/Fig6/Fig6_Combined.png, celegans/Fig_outputs/Fig7/Fig7_summary.png, celegans/reports/Benchmark_Report.pdf
+    jobid: 0
+    reason: Input files updated by another job: celegans/reports/Benchmark_Report.pdf
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Tue Jul  7 17:11:40 2026]
+Finished jobid: 0 (Rule: all)
+2 of 2 steps (100%) done
+Complete log(s): C:\Users\91892\Documents\Project_LCR\.snakemake\log\2026-07-07T171116.614492.snakemake.log

@@ -1,8 +1,8 @@
 # Organism name — matches the folder name and file prefixes throughout
 # e.g. ecoli.fasta, bed_ecoli/, dataforFig1/, etc.
-organism: arabidopsis
+organism: zebrafish
 # Root folder for this organism's data (relative to the Snakefile, or absolute)
-base_dir: arabidopsis
+base_dir: zebrafish
 
 # Folder containing your converted Python scripts, organized same as before:
 scripts_dir: .
