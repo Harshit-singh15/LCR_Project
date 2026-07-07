@@ -4,8 +4,8 @@ import sys
 
 # Define your exact input file and desired output file paths
 # (You can replace "target_file.out" and "target_file.bed" with your actual filenames)
-input_file = Path(r"yeast\lcrbytools_yeast\yeast_baker_flps2_default.out")
-output_file = Path(r"yeast\bed_yeast\flps2_default_yeast")
+input_file = Path(r"mouse\lcrbytools\flps2_default_mouse.out")
+output_file = Path(r"mouse\bed_mouse\flps2_default_mouse.bed")
 
 # Ensure the parent directory for the output file exists
 output_file.parent.mkdir(parents=True, exist_ok=True)

@@ -6,15 +6,15 @@ import os
 # INPUT FILES
 # ==========================
 
-lcr_tsv = r"yeast\lcrbytools_yeast\5_06_yeast_UP000002311_559292_6049_lcrbylcr.tsv"
-proteome_fasta = r"yeast\yeast.fasta"
+lcr_tsv = r"mouse\lcrbytools\5_01_mouse_UP000000589_10090_21990_lcrbylcr.tsv"
+proteome_fasta = r"mouse\mouse.fasta"
 
 # ==========================
 # OUTPUT FILES
 # ==========================
 
-bed_out = r"yeast\bed_yeast\dotplot_yeast.bed"
-unmapped_out = r"yeast\unmapped_lcrs_yeast.tsv"
+bed_out = r"mouse\bed_mouse\dotplot_mouse.bed"
+unmapped_out = r"mouse\unmapped_lcrs_mouse.tsv"
 
 # ==========================
 # CREATE OUTPUT DIRECTORIES

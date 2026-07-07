@@ -5,8 +5,8 @@ print("[INFO] Running convert_trekes")
 
 # 1. PASTE YOUR EXACT PATHS HERE
 # Use absolute paths (e.g., r"C:\path\to\file.tsv") or relative paths.
-input_file = Path(r"yeast\lcrbytools_yeast\yeast_baker_treks_clustalw.tsv")
-output_file = Path(r"yeast\bed_yeast\treks_clustalw_yeast.bed")
+input_file = Path(r"mouse\lcrbytools\mouse_treks_clustalw.tsv")
+output_file = Path(r"mouse\bed_mouse\treks_clustalw_mouse.bed")
 
 # Ensure the parent directory for the output file exists
 output_file.parent.mkdir(parents=True, exist_ok=True)
