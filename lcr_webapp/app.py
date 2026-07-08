@@ -21,8 +21,9 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 
 # --- Configuration you may need to change ---
-# Absolute path to your existing Snakemake project (Snakefile + Fig1..Fig7 folders).
-LCR_PROJECT_DIR = Path("C:/Users/91892/Documents/Project_LCR")
+# ✅ FIXED: Dynamically finds the Project_LCR folder relative to this file
+# __file__ is 'app.py' -> .parent is 'lcr_webapp' -> .parent.parent is 'Project_LCR'
+LCR_PROJECT_DIR = Path(__file__).resolve().parent.parent
 
 # Folder where every submitted job gets its own subfolder. Lives next to this app.py.
 JOBS_DIR = Path(__file__).parent / "jobs"
