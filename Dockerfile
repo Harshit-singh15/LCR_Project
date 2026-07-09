@@ -1,5 +1,5 @@
 # Use a stable, official Python core image
-FROM python:3.10-slim
+FROM python:3.12-slim
 
 # Install core system packages required by Snakemake and SciPy compiling
 RUN apt-get update && apt-get install -y \
