@@ -15,6 +15,9 @@ import uuid
 from datetime import datetime
 from pathlib import Path
 import os
+import shutil
+import tempfile
+ 
 
 from flask import Flask, render_template, request, redirect, url_for, send_file
 from werkzeug.utils import secure_filename
@@ -85,6 +88,50 @@ RULE_LABELS = {
     "all": "Finishing up",
 }
 
+
+# --- Config: where your converter scripts live ---
+CONVERTER_SCRIPTS_DIR = LCR_PROJECT_DIR / "converter_to_bed"
+ 
+ 
+def run_converter(script_name, file_obj, cmd_args, output_filename):
+    """
+    script_name:     e.g. "convert_seg_alcor.py"
+    file_obj:        The uploaded Flask file object (e.g., f)
+    cmd_args:        List of extra CLI args to pass AFTER input/output paths if needed
+    output_filename: The name of the file expected to be created
+    """
+    # 1. Create the authoritative temp directory inside the helper
+    work_dir = Path(tempfile.mkdtemp(prefix="lcrbench_conv_"))
+    
+    # 2. Save the file right inside this newly created directory
+    input_file_path = work_dir / secure_filename(file_obj.filename)
+    file_obj.save(input_file_path)
+    
+    # 3. Establish the destination output path
+    output_path = work_dir / output_filename
+ 
+    # 4. Resolve the absolute path to your converter script
+    script_path = CONVERTER_SCRIPTS_DIR / script_name
+ 
+    # 5. Build your structural sys.argv mapping array:
+    # sys.argv[1] = input file path, sys.argv[2] = output file path
+    cmd = ["python", str(script_path), str(input_file_path), str(output_path)] + cmd_args
+ 
+    # Execute the command inside the working directory scope
+    result = subprocess.run(
+        cmd, cwd=str(work_dir),
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True,
+    )
+    
+    if result.returncode != 0:
+        shutil.rmtree(work_dir, ignore_errors=True)
+        raise RuntimeError(result.stderr or result.stdout or "Converter script failed.")
+ 
+    if not output_path.exists():
+        shutil.rmtree(work_dir, ignore_errors=True)
+        raise RuntimeError(f"Expected output '{output_filename}' was not created.")
+ 
+    return output_path, work_dir
 
 def has_allowed_extension(filename, allowed_extensions):
     return Path(filename).suffix.lower() in allowed_extensions
@@ -274,6 +321,75 @@ def job_log(job_id):
     if not log_path.exists():
         return "No log yet.", 404
     return f"<pre>{log_path.read_text()}</pre>"
+
+
+@app.route("/convert")
+def convert_page():
+    return render_template("convert.html")
+ 
+@app.route("/convert/seg_alcor", methods=["POST"])
+def convert_seg_alcor():
+    f = request.files.get("masked_fasta")
+    if not f or f.filename == "":
+        return "Error: upload a soft-masked FASTA file.", 400
+ 
+    output_name = "seg_alcor_output.bed"
+ 
+    try:
+        # Pass the script name, the raw file object, empty extra args list, and output name
+        output_path, _ = run_converter("convert_seg_alcor.py", f, [], output_name)
+    except RuntimeError as e:
+        return f"Conversion failed: {e}", 500
+ 
+    return send_file(output_path, as_attachment=True, download_name="seg_alcor.bed")
+
+@app.route("/convert/xstream", methods=["POST"])
+def convert_xstream():
+    f1 = request.files.get("xstream_html")
+    if not f1 or f1.filename == "":
+        return "Error: No file uploaded.", 400
+        
+    if not f1.filename.lower().endswith('.html'):
+        return "Error: Please upload a valid .html file.", 400
+ 
+    output_name = "xstream_output.bed"
+ 
+    try:
+        output_path, _ = run_converter("convert_xstream.py", f1, [], output_name)
+    except RuntimeError as e:
+        return f"Conversion failed: {e}", 500
+ 
+    return send_file(output_path, as_attachment=True, download_name="xstream.bed")
+
+@app.route("/convert/flps", methods=["POST"])
+def convert_flps():
+    f = request.files.get("flps_out")
+    if not f or f.filename == "":
+        return "Error: upload an fLPS .out file.", 400
+ 
+    output_name = "flps_output.bed"
+ 
+    try:
+        output_path, _ = run_converter("convert_flps.py", f, [], output_name)
+    except RuntimeError as e:
+        return f"Conversion failed: {e}", 500
+ 
+    return send_file(output_path, as_attachment=True, download_name="flps.bed")
+
+@app.route("/convert/treks", methods=["POST"])
+def convert_treks():
+    f = request.files.get("treks_tsv")
+    if not f or f.filename == "":
+        return "Error: upload a T-REKS .tsv file.", 400
+ 
+    output_name = "treks_output.bed"
+ 
+    try:
+        output_path, _ = run_converter("convert_treks.py", f, [], output_name)
+    except RuntimeError as e:
+        return f"Conversion failed: {e}", 500
+ 
+    return send_file(output_path, as_attachment=True, download_name="treks.bed")
 
 
 if __name__ == "__main__":
