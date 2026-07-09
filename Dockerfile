@@ -4,6 +4,7 @@ FROM python:3.12-slim
 # Install core system packages required by Snakemake and SciPy compiling
 RUN apt-get update && apt-get install -y \
     build-essential \
+    bedtools \
     graphviz \
     git \
     && rm -rf /var/lib/apt/lists/*
