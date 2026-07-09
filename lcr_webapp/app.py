@@ -179,6 +179,15 @@ def run_pipeline(job_root, config_path):
     update_status(job_root, state="running", current_rule=None,
                   current_label="Starting pipeline...")
 
+    # --- temporary debug ---
+    debug_msg = (
+        f"LCR_PROJECT_DIR={LCR_PROJECT_DIR} exists={LCR_PROJECT_DIR.exists()} | "
+        f"Snakefile exists={ (LCR_PROJECT_DIR / 'Snakefile').exists() }"
+    )
+    print(debug_msg, flush=True)
+    update_status(job_root, current_label=debug_msg)
+    # --- end debug ---
+
     # ✅ FIX 1: Dynamically set cores. Use 1 core on cloud hosting, 4 locally.
     # Render environments usually set standard cloud variables, or we can just default to 1 for safety.
     cores = "1" if os.environ.get("RENDER") else "4"
@@ -223,10 +232,9 @@ def run_pipeline(job_root, config_path):
         else:
             update_status(job_root, state="failed",
                           current_label="Pipeline failed — check log.txt inside your job folder")
-    except FileNotFoundError:
-        # Catches if 'snakemake' isn't installed properly in the environment path
-        update_status(job_root, state="failed", 
-                      current_label="Error: 'snakemake' command not found in this environment.")
+    except FileNotFoundError as e:
+        update_status(job_root, state="failed", current_label=f"Error: {e}")
+        
     except Exception as e:
         update_status(job_root, state="failed", current_label=f"Error launching pipeline: {e}")
 
