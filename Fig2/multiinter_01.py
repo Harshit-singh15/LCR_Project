@@ -9,13 +9,15 @@ import time
 # ==========================================================
 
 def windows_to_wsl(path: Path):
-
     path = path.resolve()
+    
+    # FIX: If there's no drive letter, we are already on Linux/Render
+    if not path.drive:
+        return path.as_posix()
 
+    # This part runs safely if a Windows drive letter (like C:) is found
     drive = path.drive[0].lower()
-
     rest = path.as_posix().split(":", 1)[1]
-
     return f"/mnt/{drive}{rest}"
 
 
