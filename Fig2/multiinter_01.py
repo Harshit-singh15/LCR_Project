@@ -2,6 +2,7 @@ from pathlib import Path
 import subprocess
 import sys
 import time
+import os
 
 
 # ==========================================================
@@ -26,15 +27,18 @@ def windows_to_wsl(path: Path):
 # BEDTools Multiinter
 # ==========================================================
 
-def run_multiinter(input_dir, output_dir):
+import os
+import subprocess
+import time
+from pathlib import Path
+import pandas as pd
 
+def run_multiinter(input_dir, output_dir):
     overall_start = time.perf_counter()
 
     print("\n" + "=" * 60)
     print("Figure 2 : BEDTools Multiinter")
     print("=" * 60)
-
-    project = Path.cwd()
 
     input_dir = Path(input_dir)
     output_dir = Path(output_dir)
@@ -57,23 +61,20 @@ def run_multiinter(input_dir, output_dir):
 
     print(f"\nFound {len(bed_files)} BED files.\n")
 
-    command = [
-        "wsl",
-        "bedtools",
-        "multiinter",
-        "-i"
-    ]
+    # FIX: Only include "wsl" if running on Windows
+    if os.name == 'nt':
+        command = ["wsl", "bedtools", "multiinter", "-i"]
+    else:
+        command = ["bedtools", "multiinter", "-i"]
 
     for bed in bed_files:
-
         if bed.stat().st_size == 0:
-
             print(f"Skipping empty file : {bed.name}")
-
             continue
 
+        # Convert path or leave it native depending on OS
         command.append(
-            windows_to_wsl(bed)
+            str(windows_to_wsl(bed)) if os.name == 'nt' else str(bed.resolve())
         )
 
     result = subprocess.run(
@@ -83,9 +84,7 @@ def run_multiinter(input_dir, output_dir):
     )
 
     if result.returncode != 0:
-
         print(result.stderr)
-
         raise RuntimeError(
             "BEDTools multiinter failed."
         )
@@ -95,11 +94,8 @@ def run_multiinter(input_dir, output_dir):
     elapsed = time.perf_counter() - overall_start
 
     print("Finished.\n")
-
     print(f"Output : {output_file}")
-
     print(f"Time   : {elapsed:.2f} sec")
-
     print("=" * 60)
 
     return output_file

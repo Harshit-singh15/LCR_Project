@@ -3,35 +3,36 @@ import subprocess
 import pandas as pd
 import time
 import sys
+import os
 
 # ==========================================================
 # Windows -> WSL
 # ==========================================================
 
 def windows_to_wsl(path: Path):
-
     path = path.resolve()
+    
+    # FIX: If there's no drive letter, we are already on Linux/Render
+    if not path.drive:
+        return path.as_posix()
 
+    # This part runs safely if a Windows drive letter (like C:) is found
     drive = path.drive[0].lower()
-
     rest = path.as_posix().split(":", 1)[1]
-
     return f"/mnt/{drive}{rest}"
-
 
 # ==========================================================
 # Compute Jaccard Matrix
 # ==========================================================
 
-def run_jaccard_matrix(input_dir, output_dir):
 
+
+def run_jaccard_matrix(input_dir, output_dir):
     overall_start = time.perf_counter()
 
     print("\n" + "=" * 60)
     print("Figure 4 : BEDTools Jaccard Matrix")
     print("=" * 60)
-
-    project = Path.cwd()
 
     input_dir = Path(input_dir)
     output_dir = Path(output_dir)
@@ -51,7 +52,6 @@ def run_jaccard_matrix(input_dir, output_dir):
         )
 
     names = [f.stem for f in bed_files]
-
     n = len(bed_files)
 
     matrix = pd.DataFrame(
@@ -61,62 +61,46 @@ def run_jaccard_matrix(input_dir, output_dir):
     )
 
     total_pairs = n * (n + 1) // 2
-
     current = 0
 
     for i in range(n):
-
         matrix.iloc[i, i] = 1.0
 
         for j in range(i + 1, n):
-
             current += 1
-
             print(
                 f"[{current}/{total_pairs}] "
                 f"{names[i]}  vs  {names[j]}"
             )
 
-            file1 = windows_to_wsl(bed_files[i])
-
-            file2 = windows_to_wsl(bed_files[j])
+            # FIX: Only format paths for WSL if we're on Windows
+            if os.name == 'nt':
+                file1 = str(windows_to_wsl(bed_files[i]))
+                file2 = str(windows_to_wsl(bed_files[j]))
+                base_cmd = ["wsl", "bedtools", "jaccard"]
+            else:
+                file1 = str(bed_files[i].resolve())
+                file2 = str(bed_files[j].resolve())
+                base_cmd = ["bedtools", "jaccard"]
 
             result = subprocess.run(
-                [
-                    "wsl",
-                    "bedtools",
-                    "jaccard",
-                    "-a",
-                    file1,
-                    "-b",
-                    file2
-                ],
+                base_cmd + ["-a", file1, "-b", file2],
                 capture_output=True,
                 text=True
             )
 
             if result.returncode != 0:
-
                 print(result.stderr)
-
                 value = 0
-
             else:
-
                 lines = result.stdout.strip().splitlines()
-
                 if len(lines) < 2:
-
                     value = 0
-
                 else:
-
                     cols = lines[-1].split()
-
                     value = float(cols[2])
 
             matrix.iloc[i, j] = value
-
             matrix.iloc[j, i] = value
 
     matrix.index.name = "Method"
