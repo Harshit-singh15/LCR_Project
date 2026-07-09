@@ -4,8 +4,8 @@ import sys
 
 # Define your exact input file and desired output file paths
 # (You can replace "target_file.out" and "target_file.bed" with your actual filenames)
-input_file = Path(r"mouse\lcrbytools\flps2_default_mouse.out")
-output_file = Path(r"mouse\bed_mouse\flps2_default_mouse.bed")
+input_file = Path(sys.argv[1])  # Get the input file path from command line argument
+output_file = Path(sys.argv[2])  # Get the output file path from command line argument
 
 # Ensure the parent directory for the output file exists
 output_file.parent.mkdir(parents=True, exist_ok=True)

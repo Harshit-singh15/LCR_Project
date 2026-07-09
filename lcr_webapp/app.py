@@ -6,7 +6,9 @@ Run this with:
 
 Then open http://127.0.0.1:5000 in your browser.
 """
-
+ 
+import io
+import zipfile
 import json
 import re
 import subprocess
@@ -160,6 +162,14 @@ def write_job_config(job_root, organism, base_dir):
     config_path.write_text(config_text)
     return config_path
 
+def find_organism_dir(job_id):
+    """Same lookup job_report() already uses — the one subfolder under jobs/<job_id>/."""
+    job_root = JOBS_DIR / job_id
+    if not job_root.exists():
+        return None
+    organism_dirs = [p for p in job_root.iterdir() if p.is_dir()]
+    return organism_dirs[0] if organism_dirs else None
+ 
 
 def run_pipeline(job_root, config_path):
     """Runs in a background thread: launches Snakemake, watches its output for
@@ -232,9 +242,11 @@ def index():
 def docs_page():
     return render_template("docs.html")
 
-@app.route("/results")
+'''@app.route("/results")
 def results_page():
-    return render_template("results.html")
+    return render_template("results.html")'''
+
+
 # ------------------------
 @app.route("/submit", methods=["POST"])
 def submit_job():
@@ -391,6 +403,135 @@ def convert_treks():
  
     return send_file(output_path, as_attachment=True, download_name="treks.bed")
 
+
+@app.route("/results")
+@app.route("/results/<job_id>")
+def results_page(job_id=None):
+    return render_template("results.html", job_id=job_id)
+ 
+ 
+@app.route("/download/figure/<job_id>/<int:fig_num>")
+def download_figure(job_id, fig_num):
+    organism_dir = find_organism_dir(job_id)
+    if organism_dir is None:
+        return "Job not found.", 404
+ 
+    fig_dir = organism_dir / "Fig_outputs" / f"Fig{fig_num}"
+    if not fig_dir.exists():
+        return f"No output found for Figure {fig_num}.", 404
+ 
+    pngs = sorted(fig_dir.glob("*.png"))
+    if not pngs:
+        return f"No PNGs found for Figure {fig_num}.", 404
+ 
+    if len(pngs) == 1:
+        return send_file(pngs[0], as_attachment=True, download_name=pngs[0].name)
+
+    # Preview requests (the <img> tag sends ?inline=1) get just the combined PNG,
+    # not a zip — pick the one with "combined" in its name, or fall back to the last one.
+    if request.args.get("inline"):
+        if fig_num in (1, 5):
+            combined = next((p for p in pngs if "combined" in p.name.lower()), pngs[0])
+        elif fig_num == 6:
+        # Takes the 2nd png in the folder, falling back to the 1st if fewer than 2 exist
+            combined = pngs[1] if len(pngs) > 1 else pngs[0]
+        else:
+            combined = pngs[0]
+        return send_file(combined, as_attachment=False, download_name=combined.name)
+        
+    # Real downloads still get every panel PNG for this figure, zipped.
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
+        for p in pngs:
+            zf.write(p, arcname=p.name)
+    buf.seek(0)
+    return send_file(buf, as_attachment=True, download_name=f"Fig{fig_num}.zip", mimetype="application/zip")
+ 
+@app.route("/download/figures/<job_id>")
+def download_all_figures(job_id):
+    organism_dir = find_organism_dir(job_id)
+    if organism_dir is None:
+        return "Job not found.", 404
+ 
+    fig_outputs = organism_dir / "Fig_outputs"
+    if not fig_outputs.exists():
+        return "No figures found for this job.", 404
+ 
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
+        for n in range(1, 8):
+            fig_dir = fig_outputs / f"Fig{n}"
+            if fig_dir.exists():
+                for p in fig_dir.glob("*.png"):
+                    zf.write(p, arcname=f"Fig{n}/{p.name}")
+    buf.seek(0)
+    return send_file(buf, as_attachment=True, download_name="LCRBench_figures.zip", mimetype="application/zip")
+ 
+ 
+@app.route("/download/intermediate/<job_id>")
+def download_intermediate(job_id):
+    organism_dir = find_organism_dir(job_id)
+    if organism_dir is None:
+        return "Job not found.", 404
+ 
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
+        found_any = False
+        for n in range(1, 8):
+            data_dir = organism_dir / f"dataforFig{n}"
+            if data_dir.exists():
+                for p in data_dir.rglob("*"):
+                    if p.is_file():
+                        zf.write(p, arcname=f"dataforFig{n}/{p.relative_to(data_dir)}")
+                        found_any = True
+        if not found_any:
+            buf.close()
+            return "No intermediate files found for this job.", 404
+    buf.seek(0)
+    return send_file(buf, as_attachment=True, download_name="LCRBench_intermediate_files.zip", mimetype="application/zip")
+ 
+ 
+@app.route("/download/complete/<job_id>")
+def download_complete(job_id):
+    """Report + all figures + all intermediate data + log + config, in one zip."""
+    organism_dir = find_organism_dir(job_id)
+    if organism_dir is None:
+        return "Job not found.", 404
+ 
+    job_root = JOBS_DIR / job_id
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as zf:
+        report_path = organism_dir / "reports" / "Benchmark_Report.pdf"
+        if report_path.exists():
+            zf.write(report_path, arcname="Benchmark_Report.pdf")
+ 
+        fig_outputs = organism_dir / "Fig_outputs"
+        for n in range(1, 8):
+            fig_dir = fig_outputs / f"Fig{n}"
+            if fig_dir.exists():
+                for p in fig_dir.glob("*.png"):
+                    zf.write(p, arcname=f"figures/Fig{n}/{p.name}")
+ 
+            data_dir = organism_dir / f"dataforFig{n}"
+            if data_dir.exists():
+                for p in data_dir.rglob("*"):
+                    if p.is_file():
+                        zf.write(p, arcname=f"intermediate/dataforFig{n}/{p.relative_to(data_dir)}")
+ 
+        log_path = job_root / "log.txt"
+        if log_path.exists():
+            zf.write(log_path, arcname="log.txt")
+ 
+        config_path = job_root / "config.yaml"
+        if config_path.exists():
+            zf.write(config_path, arcname="config.yaml")
+ 
+        status_path = job_root / "status.json"
+        if status_path.exists():
+            zf.write(status_path, arcname="status.json")
+ 
+    buf.seek(0)
+    return send_file(buf, as_attachment=True, download_name="LCRBench_complete_results.zip", mimetype="application/zip")
 
 if __name__ == "__main__":
     app.run(debug=True)

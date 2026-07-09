@@ -1,12 +1,13 @@
 from pathlib import Path
 import re
+import sys
 
 print("[INFO] Running FASTA to BED converter")
 
 # 1. PASTE YOUR EXACT PATHS HERE
 # Use absolute paths (e.g., r"C:\path\to\file.fa") or relative paths.
-input_file = Path(r"mouse\lcrbytools\mouse_alcor_mode2_masked.fa")
-output_file = Path(r"mouse\bed_mouse\alcor_mode2_masked_mouse.bed")
+input_file = Path(sys.argv[1])  # Get the input file path from command line argument
+output_file = Path(sys.argv[2])  # Get the output file path from command line argument
 
 # Ensure the parent directory for the output file exists
 output_file.parent.mkdir(parents=True, exist_ok=True)
