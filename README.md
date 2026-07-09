@@ -5,7 +5,7 @@ A pipeline for running multiple Low Complexity Region (LCR) detection tools on a
 Example organism used throughout: `ecoli`.
 
 ![Workflow diagram](Figures/lcr_benchmarking_workflow_overview.svg)
-![Workflow diagram](dag.pdf)
+![Workflow diagram](graphviz.svg)
 ---
 
 ## Table of Contents
