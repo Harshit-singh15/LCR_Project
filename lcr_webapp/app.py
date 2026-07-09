@@ -14,6 +14,7 @@ import threading
 import uuid
 from datetime import datetime
 from pathlib import Path
+import os
 
 from flask import Flask, render_template, request, redirect, url_for, send_file
 from werkzeug.utils import secure_filename
@@ -120,15 +121,20 @@ def run_pipeline(job_root, config_path):
     update_status(job_root, state="running", current_rule=None,
                   current_label="Starting pipeline...")
 
+    # ✅ FIX 1: Dynamically set cores. Use 1 core on cloud hosting, 4 locally.
+    # Render environments usually set standard cloud variables, or we can just default to 1 for safety.
+    cores = "1" if os.environ.get("RENDER") else "4"
+
     cmd = [
         "snakemake",
         "--snakefile", str(LCR_PROJECT_DIR / "Snakefile"),
         "--configfile", str(config_path),
-        "--cores", "4",
+        "--cores", cores,
     ]
 
     log_path = job_root / "log.txt"
-    rule_pattern = re.compile(r"^(?:local)?rule (\w+):")
+    # ✅ FIX 2: Refined regex pattern to match Snakemake's true terminal logging format
+    rule_pattern = re.compile(r"^(?:local)?rule\s+(\w+):")
 
     try:
         with open(log_path, "w") as log_file:
@@ -138,25 +144,33 @@ def run_pipeline(job_root, config_path):
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
                 text=True,
+                bufsize=1, # Line buffered so it reads stdout in real-time
             )
+            
+            # Read stdout line by line as it prints
             for line in process.stdout:
                 log_file.write(line)
                 log_file.flush()
-                match = rule_pattern.match(line.strip())
+                
+                match = rule_pattern.search(line.strip())
                 if match:
                     rule_name = match.group(1)
                     label = RULE_LABELS.get(rule_name, f"Running step: {rule_name}")
                     update_status(job_root, current_rule=rule_name, current_label=label)
+            
             process.wait()
 
         if process.returncode == 0:
             update_status(job_root, state="done", current_label="Pipeline complete")
         else:
             update_status(job_root, state="failed",
-                          current_label="Pipeline failed — check the log")
+                          current_label="Pipeline failed — check log.txt inside your job folder")
+    except FileNotFoundError:
+        # Catches if 'snakemake' isn't installed properly in the environment path
+        update_status(job_root, state="failed", 
+                      current_label="Error: 'snakemake' command not found in this environment.")
     except Exception as e:
         update_status(job_root, state="failed", current_label=f"Error launching pipeline: {e}")
-
 
 @app.route("/", methods=["GET"])
 def upload_form():
