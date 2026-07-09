@@ -19,6 +19,7 @@ from pathlib import Path
 import os
 import shutil
 import tempfile
+import sys
  
 
 from flask import Flask, render_template, request, redirect, url_for, send_file
@@ -183,7 +184,7 @@ def run_pipeline(job_root, config_path):
     cores = "1" if os.environ.get("RENDER") else "4"
 
     cmd = [
-        "snakemake",
+        sys.executable, "-m", "snakemake",
         "--snakefile", str(LCR_PROJECT_DIR / "Snakefile"),
         "--configfile", str(config_path),
         "--cores", cores,

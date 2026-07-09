@@ -16,6 +16,9 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
+# Fail the build now if snakemake isn't actually installed correctly
+RUN python -m snakemake --version
+
 # Copy the rest of your project directories (lcr_webapp, scripts, etc.)
 COPY . .
 
