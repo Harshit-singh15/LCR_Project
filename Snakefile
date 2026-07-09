@@ -93,7 +93,7 @@ rule fig1_extract_sequences:
         extracted=directory(f"{BASE}/dataforFig1/extracted_sequences"),
         lengths=f"{BASE}/dataforFig1/protein_lengths.tsv"
     shell:
-        "python {S}/Fig1/Run_pipeline_1.py {input.fasta} {input.bed_dir} {BASE}/dataforFig1"
+        "python {S}/Fig1/run_pipeline_1.py {input.fasta} {input.bed_dir} {BASE}/dataforFig1"
 
 # gen_len_counts_2.py
 # argv order: extracted_sequences_dir, length_out_dir, count_out_dir
@@ -124,7 +124,7 @@ rule fig1_entropy:
     output:
         directory(f"{BASE}/dataforFig1/ShanonEntropy")
     shell:
-        "python {S}/Fig1/Gen_diversity_3.py {input.extracted} {output}"
+        "python {S}/Fig1/gen_diversity_3.py {input.extracted} {output}"
 
 # Gen_coverage_4.py
 # argv order: extracted_sequences_dir, protein_lengths_tsv, out_dir, fasta
@@ -136,7 +136,7 @@ rule fig1_coverage:
     output:
         directory(f"{BASE}/dataforFig1/LCR_Coverage")
     shell:
-        "python {S}/Fig1/Gen_coverage_4.py {input.extracted} {input.lengths} {output} {input.fasta}"
+        "python {S}/Fig1/gen_coverage_4.py {input.extracted} {input.lengths} {output} {input.fasta}"
 
 # Aa_composition_5.py
 # argv order: extracted_sequences_dir, out_dir
@@ -204,7 +204,7 @@ rule fig1_combined:
     output:
         f"{BASE}/Fig_outputs/Fig1/Figure1_Combined.png"
     shell:
-        "python {S}/Fig1/Comb_fig1.py {input.a} {input.b} {input.c} {input.d} {input.e} {output}"
+        "python {S}/Fig1/comb_fig1.py {input.a} {input.b} {input.c} {input.d} {input.e} {output}"
 
 
 # ---------------------------------------------------------------------------
@@ -336,7 +336,7 @@ rule fig3_purity_metrics:
     output:
         directory(f"{BASE}/dataforFig3/02_metrics")
     shell:
-        "python {S}/Fig3/Purity_calculation.py {input} {output}"
+        "python {S}/Fig3/purity_calculation.py {input} {output}"
 
 # fig3_plot.py — argv order: metrics_dir, out_dir
 rule fig3_plot:
@@ -369,7 +369,7 @@ rule fig4_plot:
     output:
         f"{BASE}/Fig_outputs/Fig4/Fig4_Jaccard.png"
     shell:
-        "python {S}/Fig4/Fig4_plot.py {input} {BASE}/Fig_outputs/Fig4"
+        "python {S}/Fig4/fig4_plot.py {input} {BASE}/Fig_outputs/Fig4"
 
 
 # ---------------------------------------------------------------------------
@@ -455,7 +455,7 @@ rule fig6_confusion:
     output:
         f"{BASE}/dataforFig6/protein_confusion.tsv"
     shell:
-        "python {S}/Fig6/Protein_confusion.py {input.fasta} {input.reference} {input.tools} {output}"
+        "python {S}/Fig6/protein_confusion.py {input.fasta} {input.reference} {input.tools} {output}"
 
 # references_metrices.py — argv order: reference_bed, cleaned_fasta, out_tsv
 rule fig6_reference_metrics:
@@ -475,7 +475,7 @@ rule fig6_tpr_fpr:
     output:
         directory(f"{BASE}/dataforFig6/plot_tables")
     shell:
-        "python {S}/Fig6/Tpr_fpr.py {input.metrics} {input.confusion} {output}"
+        "python {S}/Fig6/tpr_fpr.py {input.metrics} {input.confusion} {output}"
 
 # Plot_fig6.py — argv order: plot_tables_dir, out_dir
 rule fig6_plots:
@@ -487,7 +487,7 @@ rule fig6_plots:
         c=f"{BASE}/Fig_outputs/Fig6/Fig6C_Coverage.png",
         d=f"{BASE}/Fig_outputs/Fig6/Fig6D_EntropyRatio.png"
     shell:
-        "python {S}/Fig6/Plot_fig6.py {input} {BASE}/Fig_outputs/Fig6"
+        "python {S}/Fig6/plot_fig6.py {input} {BASE}/Fig_outputs/Fig6"
 
 # Fig6_combined.py — argv order: plot_tables_dir, out_path  (optional)
 rule fig6_combined:
@@ -496,7 +496,7 @@ rule fig6_combined:
     output:
         f"{BASE}/Fig_outputs/Fig6/Fig6_Combined.png"
     shell:
-        "python {S}/Fig6/Fig6_combined.py {input} {output}"
+        "python {S}/Fig6/fig6_combined.py {input} {output}"
 
 
 # ---------------------------------------------------------------------------
@@ -519,7 +519,7 @@ rule fig7_plot:
     output:
         f"{BASE}/Fig_outputs/Fig7/Fig7_summary.png"
     shell:
-        "python {S}/Fig7/Plot_fig7.py {input} {BASE}/Fig_outputs/Fig7"
+        "python {S}/Fig7/plot_fig7.py {input} {BASE}/Fig_outputs/Fig7"
 
 ###########################################
 # Final Benchmark Report
