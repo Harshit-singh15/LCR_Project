@@ -1,15 +1,14 @@
 import os
 import pandas as pd
 import sys
+
 # =====================================================
 # INPUTS
 # =====================================================
 
-metrics_file = sys.argv[1]  # Input file with metrics
-
-confusion_file = sys.argv[2]  # Input file with confusion matrix
-
-output_dir = sys.argv[3]  # Output directory for TPR/FPR tables
+metrics_file = sys.argv[1]
+confusion_file = sys.argv[2]
+output_dir = sys.argv[3]
 
 # =====================================================
 
@@ -56,89 +55,59 @@ for parameter_name, column_name in parameter_map.items():
 
     print(f"\nProcessing {parameter_name}")
 
-    rows_tpr = []
-    rows_fpr = []
-
-    grouped = df.groupby(
-        ["Tool", column_name],
-        observed=False
+    grouped = (
+        df.groupby(
+            ["Tool", column_name],
+            observed=False,
+            as_index=False
+        )[["TP", "FP", "FN", "TN"]]
+        .sum()
     )
 
-    for (tool, category), group in grouped:
+    grouped["TPR"] = (
+        grouped["TP"] /
+        (grouped["TP"] + grouped["FN"])
+    ).fillna(0)
 
-        tp = group["TP"].sum()
-        fp = group["FP"].sum()
-        fn = group["FN"].sum()
-        tn = group["TN"].sum()
+    grouped["FPR"] = (
+        grouped["FP"] /
+        (grouped["FP"] + grouped["TN"])
+    ).fillna(0)
 
-        if (tp + fn) > 0:
-            tpr = tp / (tp + fn)
-        else:
-            tpr = 0
-
-        if (fp + tn) > 0:
-            fpr = fp / (fp + tn)
-        else:
-            fpr = 0
-
-        rows_tpr.append(
-            [
-                tool,
-                category,
-                tpr
-            ]
-        )
-
-        rows_fpr.append(
-            [
-                tool,
-                category,
-                fpr
-            ]
-        )
-
-    tpr_df = pd.DataFrame(
-        rows_tpr,
-        columns=[
-            "Tool",
-            "Category",
-            "TPR"
-        ]
+    tpr_df = grouped[
+        ["Tool", column_name, "TPR"]
+    ].rename(
+        columns={
+            column_name: "Category"
+        }
     )
 
-    fpr_df = pd.DataFrame(
-        rows_fpr,
-        columns=[
-            "Tool",
-            "Category",
-            "FPR"
-        ]
-    )
-
-    tpr_file = os.path.join(
-        output_dir,
-        f"{parameter_name}_tpr.tsv"
-    )
-
-    fpr_file = os.path.join(
-        output_dir,
-        f"{parameter_name}_fpr.tsv"
+    fpr_df = grouped[
+        ["Tool", column_name, "FPR"]
+    ].rename(
+        columns={
+            column_name: "Category"
+        }
     )
 
     tpr_df.to_csv(
-        tpr_file,
+        os.path.join(
+            output_dir,
+            f"{parameter_name}_tpr.tsv"
+        ),
         sep="\t",
         index=False
     )
 
     fpr_df.to_csv(
-        fpr_file,
+        os.path.join(
+            output_dir,
+            f"{parameter_name}_fpr.tsv"
+        ),
         sep="\t",
         index=False
     )
 
-    print(
-        f"Saved {parameter_name}"
-    )
+    print(f"Saved {parameter_name}")
 
 print("\nDone.")

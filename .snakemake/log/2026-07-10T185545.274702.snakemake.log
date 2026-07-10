@@ -1,0 +1,572 @@
+Assuming unrestricted shared filesystem usage.
+
+SNAKEMAKE
+=========
+  Date: 2026-07-10 18:55:45
+  Workflow ID: 9582da77-9180-4b1d-84bc-e369e500fe9c
+  Platform: Windows-11-10.0.26200-SP0
+  Host: Harshit
+  User: 91892
+  Snakemake version: 9.23.1
+  Python version: 3.12.0 (tags/v3.12.0:0fb18b0, Oct  2 2023, 13:03:39) [MSC v.1935 64 bit (AMD64)]
+  Command: C:\Users\91892\AppData\Local\Programs\Python\Python312\Scripts\snakemake --cores all
+  Snakefile: C:\Users\91892\Documents\Project_LCR\Snakefile
+  Base directory: C:\Users\91892\Documents\Project_LCR
+  Run directory: C:\Users\91892\Documents\Project_LCR
+  Working directory: C:\Users\91892\Documents\Project_LCR
+  Config file(s): ['config.yaml']
+  Config MD5: 062cdcb2ec4d72dc0afdb361d24e5a75
+
+Building DAG of jobs...
+Provided cores: 12
+Rules claiming more threads will be scaled down.
+Job stats:
+job                       count
+----------------------  -------
+fig1_extract_sequences        1
+fig6_windows                  1
+prepare_bedtools_beds         1
+fig1_aa_composition           1
+fig1_coverage                 1
+fig1_entropy                  1
+fig1_length_counts            1
+fig2_multiinter               1
+fig3_fastas                   1
+fig4_jaccard_matrix           1
+fig6_complexity               1
+fig1A_plot                    1
+fig1B_plot                    1
+fig1C_plot                    1
+fig1D_plot                    1
+fig1E_plot                    1
+fig2_consensus_beds           1
+fig3_purity_metrics           1
+fig4_plot                     1
+fig5_metrics                  1
+fig6_classification           1
+fig1_combined                 1
+fig2_consensus_fastas         1
+fig3_plot                     1
+fig5_heatmaps                 1
+fig6_annotate                 1
+fig2_entropy                  1
+fig2_purity                   1
+fig2_substring_motifs         1
+fig5_combined                 1
+fig6_confusion                1
+fig6_reference_metrics        1
+fig2_filtered                 1
+fig2b_plot                    1
+fig2c_plot                    1
+fig6_tpr_fpr                  1
+fig2_peptide_counts           1
+fig6_combined                 1
+fig6_plots                    1
+fig7_summaries                1
+fig2a_plot                    1
+fig7_plot                     1
+final_report                  1
+all                           1
+total                        44
+
+Select jobs to execute...
+Execute 3 jobs...
+[Fri Jul 10 18:55:45 2026]
+localrule fig6_windows:
+    input: yeast/yeast_cleaned.fasta
+    output: yeast/dataforFig6/ecoli_windows.bed
+    jobid: 39
+    reason: Missing output files: yeast/dataforFig6/ecoli_windows.bed
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:55:45 2026]
+localrule fig1_extract_sequences:
+    input: yeast/yeast.fasta, yeast/bed_yeast
+    output: yeast/dataforFig1/extracted_sequences, yeast/dataforFig1/protein_lengths.tsv
+    jobid: 3
+    reason: Missing output files: yeast/dataforFig1/protein_lengths.tsv, yeast/dataforFig1/extracted_sequences; Code has changed since last execution
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:55:45 2026]
+localrule prepare_bedtools_beds:
+    input: yeast/bed_yeast
+    output: yeast/bed_bedtools_yeast
+    jobid: 19
+    reason: Missing output files: yeast/bed_bedtools_yeast
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:55:46 2026]
+Finished jobid: 39 (Rule: fig6_windows)
+1 of 44 steps (2%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 18:55:47 2026]
+localrule fig6_complexity:
+    input: yeast/yeast_cleaned.fasta, yeast/dataforFig6/ecoli_windows.bed
+    output: yeast/dataforFig6/ecoli_windows_out.tsv
+    jobid: 38
+    reason: Missing output files: yeast/dataforFig6/ecoli_windows_out.tsv; Input files updated by another job: yeast/dataforFig6/ecoli_windows.bed
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:55:47 2026]
+Finished jobid: 3 (Rule: fig1_extract_sequences)
+2 of 44 steps (5%) done
+Select jobs to execute...
+Execute 4 jobs...
+[Fri Jul 10 18:55:47 2026]
+localrule fig1_aa_composition:
+    input: yeast/dataforFig1/extracted_sequences
+    output: yeast/dataforFig1/Amino_acid
+    jobid: 8
+    reason: Missing output files: yeast/dataforFig1/Amino_acid; Input files updated by another job: yeast/dataforFig1/extracted_sequences
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:55:47 2026]
+localrule fig1_length_counts:
+    input: yeast/dataforFig1/extracted_sequences, yeast/dataforFig1/protein_lengths.tsv
+    output: yeast/dataforFig1/LCR_Length, yeast/dataforFig1/LCR_Count
+    jobid: 2
+    reason: Missing output files: yeast/dataforFig1/LCR_Length, yeast/dataforFig1/LCR_Count; Input files updated by another job: yeast/dataforFig1/protein_lengths.tsv, yeast/dataforFig1/extracted_sequences
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:55:47 2026]
+localrule fig1_coverage:
+    input: yeast/dataforFig1/extracted_sequences, yeast/dataforFig1/protein_lengths.tsv, yeast/yeast.fasta
+    output: yeast/dataforFig1/LCR_Coverage
+    jobid: 5
+    reason: Missing output files: yeast/dataforFig1/LCR_Coverage; Input files updated by another job: yeast/dataforFig1/protein_lengths.tsv, yeast/dataforFig1/extracted_sequences
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:55:47 2026]
+localrule fig1_entropy:
+    input: yeast/dataforFig1/extracted_sequences
+    output: yeast/dataforFig1/ShanonEntropy
+    jobid: 10
+    reason: Missing output files: yeast/dataforFig1/ShanonEntropy; Input files updated by another job: yeast/dataforFig1/extracted_sequences
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:55:48 2026]
+Finished jobid: 19 (Rule: prepare_bedtools_beds)
+3 of 44 steps (7%) done
+Select jobs to execute...
+Execute 3 jobs...
+[Fri Jul 10 18:55:48 2026]
+localrule fig3_fastas:
+    input: yeast/bed_bedtools_yeast, yeast/yeast_cleaned.fasta
+    output: yeast/dataforFig3/01_fastas
+    jobid: 27
+    reason: Missing output files: yeast/dataforFig3/01_fastas; Input files updated by another job: yeast/bed_bedtools_yeast
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:55:48 2026]
+localrule fig4_jaccard_matrix:
+    input: yeast/bed_bedtools_yeast
+    output: yeast/dataforFig4/jaccard_matrix.tsv
+    jobid: 29
+    reason: Missing output files: yeast/dataforFig4/jaccard_matrix.tsv; Input files updated by another job: yeast/bed_bedtools_yeast
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:55:48 2026]
+localrule fig2_multiinter:
+    input: yeast/bed_bedtools_yeast
+    output: yeast/dataforFig2/multiinter.tsv
+    jobid: 18
+    reason: Missing output files: yeast/dataforFig2/multiinter.tsv; Input files updated by another job: yeast/bed_bedtools_yeast
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:55:50 2026]
+Finished jobid: 2 (Rule: fig1_length_counts)
+4 of 44 steps (9%) done
+Select jobs to execute...
+Execute 2 jobs...
+[Fri Jul 10 18:55:50 2026]
+localrule fig1C_plot:
+    input: yeast/dataforFig1/LCR_Count
+    output: yeast/Fig_outputs/Fig1/Figure1C_CountDistribution.png
+    jobid: 6
+    reason: Missing output files: yeast/Fig_outputs/Fig1/Figure1C_CountDistribution.png; Input files updated by another job: yeast/dataforFig1/LCR_Count
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:55:50 2026]
+localrule fig1A_plot:
+    input: yeast/dataforFig1/LCR_Length
+    output: yeast/Fig_outputs/Fig1/Figure1A_Length_Heatmap.png
+    jobid: 1
+    reason: Missing output files: yeast/Fig_outputs/Fig1/Figure1A_Length_Heatmap.png; Input files updated by another job: yeast/dataforFig1/LCR_Length
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:55:50 2026]
+Finished jobid: 27 (Rule: fig3_fastas)
+5 of 44 steps (11%) done
+Select jobs to execute...
+Execute 2 jobs...
+[Fri Jul 10 18:55:51 2026]
+localrule fig3_purity_metrics:
+    input: yeast/dataforFig3/01_fastas
+    output: yeast/dataforFig3/02_metrics
+    jobid: 26
+    reason: Missing output files: yeast/dataforFig3/02_metrics; Input files updated by another job: yeast/dataforFig3/01_fastas; Code has changed since last execution
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:55:51 2026]
+localrule fig5_metrics:
+    input: yeast/dataforFig3/01_fastas
+    output: yeast/dataforFig5/02_metrics
+    jobid: 31
+    reason: Missing output files: yeast/dataforFig5/02_metrics; Input files updated by another job: yeast/dataforFig3/01_fastas
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:55:51 2026]
+Finished jobid: 5 (Rule: fig1_coverage)
+6 of 44 steps (14%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 18:55:51 2026]
+localrule fig1B_plot:
+    input: yeast/dataforFig1/LCR_Coverage
+    output: yeast/Fig_outputs/Fig1/Figure1B_Coverage_Heatmap.png
+    jobid: 4
+    reason: Missing output files: yeast/Fig_outputs/Fig1/Figure1B_Coverage_Heatmap.png; Input files updated by another job: yeast/dataforFig1/LCR_Coverage
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:55:53 2026]
+Finished jobid: 8 (Rule: fig1_aa_composition)
+7 of 44 steps (16%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 18:55:54 2026]
+localrule fig1D_plot:
+    input: yeast/dataforFig1/Amino_acid
+    output: yeast/Fig_outputs/Fig1/Figure1D_AminoAcidComposition.png
+    jobid: 7
+    reason: Missing output files: yeast/Fig_outputs/Fig1/Figure1D_AminoAcidComposition.png; Input files updated by another job: yeast/dataforFig1/Amino_acid
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:55:55 2026]
+Finished jobid: 10 (Rule: fig1_entropy)
+8 of 44 steps (18%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 18:55:56 2026]
+localrule fig1E_plot:
+    input: yeast/dataforFig1/ShanonEntropy
+    output: yeast/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png
+    jobid: 9
+    reason: Missing output files: yeast/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png; Input files updated by another job: yeast/dataforFig1/ShanonEntropy
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:55:56 2026]
+Finished jobid: 6 (Rule: fig1C_plot)
+9 of 44 steps (20%) done
+[Fri Jul 10 18:56:00 2026]
+Finished jobid: 4 (Rule: fig1B_plot)
+10 of 44 steps (23%) done
+[Fri Jul 10 18:56:00 2026]
+Finished jobid: 7 (Rule: fig1D_plot)
+11 of 44 steps (25%) done
+[Fri Jul 10 18:56:00 2026]
+Finished jobid: 1 (Rule: fig1A_plot)
+12 of 44 steps (27%) done
+[Fri Jul 10 18:56:01 2026]
+Finished jobid: 26 (Rule: fig3_purity_metrics)
+13 of 44 steps (30%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 18:56:02 2026]
+localrule fig3_plot:
+    input: yeast/dataforFig3/02_metrics
+    output: yeast/Fig_outputs/Fig3/Fig3_purity.png
+    jobid: 25
+    reason: Missing output files: yeast/Fig_outputs/Fig3/Fig3_purity.png; Input files updated by another job: yeast/dataforFig3/02_metrics
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:56:07 2026]
+Finished jobid: 9 (Rule: fig1E_plot)
+14 of 44 steps (32%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 18:56:07 2026]
+localrule fig1_combined:
+    input: yeast/Fig_outputs/Fig1/Figure1A_Length_Heatmap.png, yeast/Fig_outputs/Fig1/Figure1B_Coverage_Heatmap.png, yeast/Fig_outputs/Fig1/Figure1C_CountDistribution.png, yeast/Fig_outputs/Fig1/Figure1D_AminoAcidComposition.png, yeast/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png
+    output: yeast/Fig_outputs/Fig1/Figure1_Combined.png
+    jobid: 11
+    reason: Missing output files: yeast/Fig_outputs/Fig1/Figure1_Combined.png; Input files updated by another job: yeast/Fig_outputs/Fig1/Figure1C_CountDistribution.png, yeast/Fig_outputs/Fig1/Figure1D_AminoAcidComposition.png, yeast/Fig_outputs/Fig1/Figure1A_Length_Heatmap.png, yeast/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png, yeast/Fig_outputs/Fig1/Figure1B_Coverage_Heatmap.png
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:56:08 2026]
+Finished jobid: 25 (Rule: fig3_plot)
+15 of 44 steps (34%) done
+[Fri Jul 10 18:56:08 2026]
+Finished jobid: 18 (Rule: fig2_multiinter)
+16 of 44 steps (36%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 18:56:08 2026]
+localrule fig2_consensus_beds:
+    input: yeast/dataforFig2/multiinter.tsv
+    output: yeast/dataforFig2/02_consensus_beds
+    jobid: 17
+    reason: Missing output files: yeast/dataforFig2/02_consensus_beds; Input files updated by another job: yeast/dataforFig2/multiinter.tsv
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:56:10 2026]
+Finished jobid: 11 (Rule: fig1_combined)
+17 of 44 steps (39%) done
+[Fri Jul 10 18:56:10 2026]
+Finished jobid: 17 (Rule: fig2_consensus_beds)
+18 of 44 steps (41%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 18:56:11 2026]
+localrule fig2_consensus_fastas:
+    input: yeast/dataforFig2/02_consensus_beds, yeast/yeast_cleaned.fasta
+    output: yeast/dataforFig2/03_consensus_fastas
+    jobid: 16
+    reason: Missing output files: yeast/dataforFig2/03_consensus_fastas; Input files updated by another job: yeast/dataforFig2/02_consensus_beds
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:56:12 2026]
+Finished jobid: 16 (Rule: fig2_consensus_fastas)
+19 of 44 steps (43%) done
+Select jobs to execute...
+Execute 3 jobs...
+[Fri Jul 10 18:56:12 2026]
+localrule fig2_purity:
+    input: yeast/dataforFig2/03_consensus_fastas
+    output: yeast/dataforFig2/purity.tsv
+    jobid: 24
+    reason: Missing output files: yeast/dataforFig2/purity.tsv; Input files updated by another job: yeast/dataforFig2/03_consensus_fastas
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:56:12 2026]
+localrule fig2_entropy:
+    input: yeast/dataforFig2/03_consensus_fastas
+    output: yeast/dataforFig2/entropy.tsv
+    jobid: 22
+    reason: Missing output files: yeast/dataforFig2/entropy.tsv; Input files updated by another job: yeast/dataforFig2/03_consensus_fastas
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:56:12 2026]
+localrule fig2_substring_motifs:
+    input: yeast/dataforFig2/03_consensus_fastas
+    output: yeast/dataforFig2/04_substring_motifs
+    jobid: 15
+    reason: Missing output files: yeast/dataforFig2/04_substring_motifs; Input files updated by another job: yeast/dataforFig2/03_consensus_fastas
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:56:16 2026]
+Finished jobid: 24 (Rule: fig2_purity)
+20 of 44 steps (45%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 18:56:16 2026]
+localrule fig2c_plot:
+    input: yeast/dataforFig2/purity.tsv
+    output: yeast/Fig_outputs/Fig2/Fig2C_purity.png
+    jobid: 23
+    reason: Missing output files: yeast/Fig_outputs/Fig2/Fig2C_purity.png; Input files updated by another job: yeast/dataforFig2/purity.tsv
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:56:16 2026]
+Finished jobid: 22 (Rule: fig2_entropy)
+21 of 44 steps (48%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 18:56:16 2026]
+localrule fig2b_plot:
+    input: yeast/dataforFig2/entropy.tsv
+    output: yeast/Fig_outputs/Fig2/Fig2B_Entropy.png
+    jobid: 21
+    reason: Missing output files: yeast/Fig_outputs/Fig2/Fig2B_Entropy.png; Input files updated by another job: yeast/dataforFig2/entropy.tsv
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:56:19 2026]
+Finished jobid: 15 (Rule: fig2_substring_motifs)
+22 of 44 steps (50%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 18:56:19 2026]
+localrule fig2_filtered:
+    input: yeast/dataforFig2/04_substring_motifs
+    output: yeast/dataforFig2/05_filtered
+    jobid: 14
+    reason: Missing output files: yeast/dataforFig2/05_filtered; Input files updated by another job: yeast/dataforFig2/04_substring_motifs
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:56:22 2026]
+Finished jobid: 14 (Rule: fig2_filtered)
+23 of 44 steps (52%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 18:56:22 2026]
+localrule fig2_peptide_counts:
+    input: yeast/dataforFig2/05_filtered
+    output: yeast/dataforFig2/06_peptide_counts
+    jobid: 13
+    reason: Missing output files: yeast/dataforFig2/06_peptide_counts; Input files updated by another job: yeast/dataforFig2/05_filtered
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:56:23 2026]
+Finished jobid: 23 (Rule: fig2c_plot)
+24 of 44 steps (55%) done
+[Fri Jul 10 18:56:24 2026]
+Finished jobid: 21 (Rule: fig2b_plot)
+25 of 44 steps (57%) done
+[Fri Jul 10 18:56:24 2026]
+Finished jobid: 13 (Rule: fig2_peptide_counts)
+26 of 44 steps (59%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 18:56:24 2026]
+localrule fig2a_plot:
+    input: yeast/dataforFig2/06_peptide_counts
+    output: yeast/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png
+    jobid: 12
+    reason: Missing output files: yeast/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png; Input files updated by another job: yeast/dataforFig2/06_peptide_counts
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:56:26 2026]
+Finished jobid: 31 (Rule: fig5_metrics)
+27 of 44 steps (61%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 18:56:26 2026]
+localrule fig5_heatmaps:
+    input: yeast/dataforFig5/02_metrics
+    output: yeast/Fig_outputs/Fig5/Fig5_heatmaps_done.flag
+    jobid: 30
+    reason: Missing output files: yeast/Fig_outputs/Fig5/Fig5_heatmaps_done.flag; Input files updated by another job: yeast/dataforFig5/02_metrics
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:56:34 2026]
+Finished jobid: 12 (Rule: fig2a_plot)
+28 of 44 steps (64%) done
+[Fri Jul 10 18:56:54 2026]
+Finished jobid: 29 (Rule: fig4_jaccard_matrix)
+29 of 44 steps (66%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 18:56:54 2026]
+localrule fig4_plot:
+    input: yeast/dataforFig4/jaccard_matrix.tsv
+    output: yeast/Fig_outputs/Fig4/Fig4_Jaccard.png
+    jobid: 28
+    reason: Missing output files: yeast/Fig_outputs/Fig4/Fig4_Jaccard.png; Input files updated by another job: yeast/dataforFig4/jaccard_matrix.tsv; Code has changed since last execution
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:56:59 2026]
+Finished jobid: 28 (Rule: fig4_plot)
+30 of 44 steps (68%) done
+[Fri Jul 10 18:56:59 2026]
+Finished jobid: 38 (Rule: fig6_complexity)
+31 of 44 steps (70%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 18:56:59 2026]
+localrule fig6_classification:
+    input: yeast/dataforFig6/ecoli_windows_out.tsv
+    output: yeast/dataforFig6/ecoli_windows_classified.tsv
+    jobid: 37
+    reason: Missing output files: yeast/dataforFig6/ecoli_windows_classified.tsv; Input files updated by another job: yeast/dataforFig6/ecoli_windows_out.tsv
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:57:05 2026]
+Finished jobid: 37 (Rule: fig6_classification)
+32 of 44 steps (73%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 18:57:05 2026]
+localrule fig6_annotate:
+    input: yeast/dataforFig6/ecoli_windows_classified.tsv
+    output: yeast/dataforFig6/ecoli_windows_real.bed
+    jobid: 36
+    reason: Missing output files: yeast/dataforFig6/ecoli_windows_real.bed; Input files updated by another job: yeast/dataforFig6/ecoli_windows_classified.tsv
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:57:08 2026]
+Finished jobid: 36 (Rule: fig6_annotate)
+33 of 44 steps (75%) done
+Select jobs to execute...
+Execute 2 jobs...
+[Fri Jul 10 18:57:09 2026]
+localrule fig6_reference_metrics:
+    input: yeast/dataforFig6/ecoli_windows_real.bed, yeast/yeast_cleaned.fasta
+    output: yeast/dataforFig6/reference_metrics.tsv
+    jobid: 35
+    reason: Missing output files: yeast/dataforFig6/reference_metrics.tsv; Input files updated by another job: yeast/dataforFig6/ecoli_windows_real.bed
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:57:09 2026]
+localrule fig6_confusion:
+    input: yeast/yeast_cleaned.fasta, yeast/dataforFig6/ecoli_windows_real.bed, yeast/bed_bedtools_yeast
+    output: yeast/dataforFig6/protein_confusion.tsv
+    jobid: 40
+    reason: Missing output files: yeast/dataforFig6/protein_confusion.tsv; Input files updated by another job: yeast/dataforFig6/ecoli_windows_real.bed, yeast/bed_bedtools_yeast; Code has changed since last execution
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:57:11 2026]
+Finished jobid: 35 (Rule: fig6_reference_metrics)
+34 of 44 steps (77%) done
+[Fri Jul 10 18:57:12 2026]
+Finished jobid: 40 (Rule: fig6_confusion)
+35 of 44 steps (80%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 18:57:13 2026]
+localrule fig6_tpr_fpr:
+    input: yeast/dataforFig6/reference_metrics.tsv, yeast/dataforFig6/protein_confusion.tsv
+    output: yeast/dataforFig6/plot_tables
+    jobid: 34
+    reason: Missing output files: yeast/dataforFig6/plot_tables; Input files updated by another job: yeast/dataforFig6/protein_confusion.tsv, yeast/dataforFig6/reference_metrics.tsv
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:57:14 2026]
+Finished jobid: 34 (Rule: fig6_tpr_fpr)
+36 of 44 steps (82%) done
+Select jobs to execute...
+Execute 3 jobs...
+[Fri Jul 10 18:57:14 2026]
+localrule fig7_summaries:
+    input: yeast/dataforFig6/plot_tables
+    output: yeast/dataforFig7
+    jobid: 43
+    reason: Missing output files: yeast/dataforFig7; Input files updated by another job: yeast/dataforFig6/plot_tables
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:57:14 2026]
+localrule fig6_plots:
+    input: yeast/dataforFig6/plot_tables
+    output: yeast/Fig_outputs/Fig6/Fig6A_Genelength.png, yeast/Fig_outputs/Fig6/Fig6B_LCRCount.png, yeast/Fig_outputs/Fig6/Fig6C_Coverage.png, yeast/Fig_outputs/Fig6/Fig6D_EntropyRatio.png
+    jobid: 33
+    reason: Missing output files: yeast/Fig_outputs/Fig6/Fig6A_Genelength.png, yeast/Fig_outputs/Fig6/Fig6B_LCRCount.png, yeast/Fig_outputs/Fig6/Fig6C_Coverage.png, yeast/Fig_outputs/Fig6/Fig6D_EntropyRatio.png; Input files updated by another job: yeast/dataforFig6/plot_tables
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:57:14 2026]
+localrule fig6_combined:
+    input: yeast/dataforFig6/plot_tables
+    output: yeast/Fig_outputs/Fig6/Fig6_Combined.png
+    jobid: 41
+    reason: Missing output files: yeast/Fig_outputs/Fig6/Fig6_Combined.png; Input files updated by another job: yeast/dataforFig6/plot_tables
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:57:16 2026]
+Finished jobid: 43 (Rule: fig7_summaries)
+37 of 44 steps (84%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 18:57:16 2026]
+localrule fig7_plot:
+    input: yeast/dataforFig7
+    output: yeast/Fig_outputs/Fig7/Fig7_summary.png
+    jobid: 42
+    reason: Missing output files: yeast/Fig_outputs/Fig7/Fig7_summary.png; Input files updated by another job: yeast/dataforFig7
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Touching output file yeast/Fig_outputs/Fig5/Fig5_heatmaps_done.flag.
+[Fri Jul 10 18:57:16 2026]
+Finished jobid: 30 (Rule: fig5_heatmaps)
+38 of 44 steps (86%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 18:57:17 2026]
+localrule fig5_combined:
+    input: yeast/Fig_outputs/Fig5/Fig5_heatmaps_done.flag
+    output: yeast/Fig_outputs/Fig5/Fig5_Combined.png
+    jobid: 32
+    reason: Missing output files: yeast/Fig_outputs/Fig5/Fig5_Combined.png; Input files updated by another job: yeast/Fig_outputs/Fig5/Fig5_heatmaps_done.flag
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:57:23 2026]
+Finished jobid: 41 (Rule: fig6_combined)
+39 of 44 steps (89%) done
+[Fri Jul 10 18:57:23 2026]
+Finished jobid: 42 (Rule: fig7_plot)
+40 of 44 steps (91%) done
+[Fri Jul 10 18:57:24 2026]
+Finished jobid: 33 (Rule: fig6_plots)
+41 of 44 steps (93%) done
+[Fri Jul 10 18:57:54 2026]
+Finished jobid: 32 (Rule: fig5_combined)
+42 of 44 steps (95%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 18:57:54 2026]
+localrule final_report:
+    input: yeast/Fig_outputs/Fig1/Figure1_Combined.png, yeast/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png, yeast/Fig_outputs/Fig2/Fig2B_Entropy.png, yeast/Fig_outputs/Fig2/Fig2C_purity.png, yeast/Fig_outputs/Fig3/Fig3_purity.png, yeast/Fig_outputs/Fig4/Fig4_Jaccard.png, yeast/Fig_outputs/Fig5/Fig5_Combined.png, yeast/Fig_outputs/Fig6/Fig6_Combined.png, yeast/Fig_outputs/Fig7/Fig7_summary.png
+    output: yeast/reports/Benchmark_Report.pdf
+    jobid: 44
+    reason: Missing output files: yeast/reports/Benchmark_Report.pdf; Input files updated by another job: yeast/Fig_outputs/Fig1/Figure1_Combined.png, yeast/Fig_outputs/Fig2/Fig2B_Entropy.png, yeast/Fig_outputs/Fig3/Fig3_purity.png, yeast/Fig_outputs/Fig5/Fig5_Combined.png, yeast/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png, yeast/Fig_outputs/Fig7/Fig7_summary.png, yeast/Fig_outputs/Fig4/Fig4_Jaccard.png, yeast/Fig_outputs/Fig2/Fig2C_purity.png, yeast/Fig_outputs/Fig6/Fig6_Combined.png
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:58:17 2026]
+Finished jobid: 44 (Rule: final_report)
+43 of 44 steps (98%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 18:58:17 2026]
+localrule all:
+    input: yeast/Fig_outputs/Fig1/Figure1A_Length_Heatmap.png, yeast/Fig_outputs/Fig1/Figure1B_Coverage_Heatmap.png, yeast/Fig_outputs/Fig1/Figure1C_CountDistribution.png, yeast/Fig_outputs/Fig1/Figure1D_AminoAcidComposition.png, yeast/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png, yeast/Fig_outputs/Fig1/Figure1_Combined.png, yeast/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png, yeast/Fig_outputs/Fig2/Fig2B_Entropy.png, yeast/Fig_outputs/Fig2/Fig2C_purity.png, yeast/Fig_outputs/Fig3/Fig3_purity.png, yeast/Fig_outputs/Fig4/Fig4_Jaccard.png, yeast/Fig_outputs/Fig5/Fig5_heatmaps_done.flag, yeast/Fig_outputs/Fig5/Fig5_Combined.png, yeast/Fig_outputs/Fig6/Fig6A_Genelength.png, yeast/Fig_outputs/Fig6/Fig6B_LCRCount.png, yeast/Fig_outputs/Fig6/Fig6C_Coverage.png, yeast/Fig_outputs/Fig6/Fig6D_EntropyRatio.png, yeast/Fig_outputs/Fig6/Fig6_Combined.png, yeast/Fig_outputs/Fig7/Fig7_summary.png, yeast/reports/Benchmark_Report.pdf
+    jobid: 0
+    reason: Input files updated by another job: yeast/Fig_outputs/Fig1/Figure1_Combined.png, yeast/Fig_outputs/Fig2/Fig2B_Entropy.png, yeast/Fig_outputs/Fig6/Fig6C_Coverage.png, yeast/Fig_outputs/Fig5/Fig5_Combined.png, yeast/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png, yeast/Fig_outputs/Fig7/Fig7_summary.png, yeast/Fig_outputs/Fig4/Fig4_Jaccard.png, yeast/Fig_outputs/Fig6/Fig6D_EntropyRatio.png, yeast/Fig_outputs/Fig1/Figure1A_Length_Heatmap.png, yeast/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png, yeast/Fig_outputs/Fig6/Fig6B_LCRCount.png, yeast/Fig_outputs/Fig6/Fig6_Combined.png, yeast/Fig_outputs/Fig1/Figure1B_Coverage_Heatmap.png, yeast/Fig_outputs/Fig3/Fig3_purity.png, yeast/Fig_outputs/Fig6/Fig6A_Genelength.png, yeast/reports/Benchmark_Report.pdf, yeast/Fig_outputs/Fig1/Figure1C_CountDistribution.png, yeast/Fig_outputs/Fig1/Figure1D_AminoAcidComposition.png, yeast/Fig_outputs/Fig5/Fig5_heatmaps_done.flag, yeast/Fig_outputs/Fig2/Fig2C_purity.png
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 18:58:17 2026]
+Finished jobid: 0 (Rule: all)
+44 of 44 steps (100%) done
+Complete log(s): C:\Users\91892\Documents\Project_LCR\.snakemake\log\2026-07-10T185545.274702.snakemake.log

@@ -1,47 +1,47 @@
 from pathlib import Path
-import pandas as pd
 from Bio import SeqIO
+import pandas as pd
+import gc
 import sys
+
 # =====================================================
 # CONFIG
 # =====================================================
 
-EXTRACT_DIR = Path(sys.argv[1])     #Extracted Sequences
-PROTEIN_LENGTHS = Path(sys.argv[2])  # Protein lengths    
-OUTPUT_DIR = Path(sys.argv[3])    # Coverage distribution
-FASTA_FILE = Path(sys.argv[4])  # Proteome FASTA file
-
-TOTAL_PROTEINS = len(pd.read_csv(PROTEIN_LENGTHS, sep="\t"))
+EXTRACT_DIR = Path(sys.argv[1])
+PROTEIN_LENGTHS = Path(sys.argv[2])
+OUTPUT_DIR = Path(sys.argv[3])
+FASTA_FILE = Path(sys.argv[4])
 
 Path(OUTPUT_DIR).mkdir(parents=True, exist_ok=True)
 
 # =====================================================
 # LOAD PROTEIN LENGTHS
-
+# =====================================================
 
 lengths_df = pd.read_csv(
     PROTEIN_LENGTHS,
-    sep="\t"
+    sep="\t",
+    usecols=["Protein_ID"],
+    dtype={"Protein_ID": "string"}
 )
 
-# canonical proteins
-all_proteins = set(
-    lengths_df["Protein_ID"]
-)
+TOTAL_PROTEINS = len(lengths_df)
 
-# lookup dictionary
+all_proteins = set(lengths_df["Protein_ID"])
+
+# =====================================================
+# LOAD FASTA LENGTH LOOKUP
+# =====================================================
+
 length_dict = {}
 
-for record in SeqIO.parse(
-    FASTA_FILE,
-    "fasta"
-):
+for record in SeqIO.parse(FASTA_FILE, "fasta"):
 
     full_id = record.description.split()[0]
 
     length = len(record.seq)
 
-    # full id
     length_dict[full_id] = length
 
     if "|" in full_id:
@@ -51,11 +51,9 @@ for record in SeqIO.parse(
         if len(parts) >= 3:
 
             accession = parts[1]
-
             entry_name = parts[2]
 
             length_dict[accession] = length
-
             length_dict[entry_name] = length
 
             if "_" in entry_name:
@@ -67,46 +65,34 @@ for record in SeqIO.parse(
 print(f"Loaded {len(length_dict)} protein identifiers")
 
 # =====================================================
-# CANONICAL PROTEIN SET
-# =====================================================
-
-all_proteins = set(lengths_df["Protein_ID"])
-
-# =====================================================
-# INTERVAL MERGING
+# MERGE INTERVALS
 # =====================================================
 
 def merged_length(intervals):
 
-    if len(intervals) == 0:
+    if not intervals:
         return 0
 
-    intervals = sorted(intervals)
-
-    merged = [list(intervals[0])]
-
-    for start, end in intervals[1:]:
-
-        last_start, last_end = merged[-1]
-
-        if start <= last_end + 1:
-
-            merged[-1][1] = max(
-                last_end,
-                end
-            )
-
-        else:
-
-            merged.append(
-                [start, end]
-            )
+    intervals.sort()
 
     total = 0
 
-    for start, end in merged:
+    cur_start, cur_end = intervals[0]
 
-        total += end - start + 1
+    for start, end in intervals[1:]:
+
+        if start <= cur_end + 1:
+
+            if end > cur_end:
+                cur_end = end
+
+        else:
+
+            total += cur_end - cur_start + 1
+
+            cur_start, cur_end = start, end
+
+    total += cur_end - cur_start + 1
 
     return total
 
@@ -114,41 +100,49 @@ def merged_length(intervals):
 # PROCESS FILES
 # =====================================================
 
-for file in Path(EXTRACT_DIR).glob("*_lcrs.tsv"):
+for file in EXTRACT_DIR.glob("*_lcrs.tsv"):
 
     print(f"\nProcessing {file.name}")
 
     df = pd.read_csv(
         file,
-        sep="\t"
+        sep="\t",
+        usecols=["Protein_ID", "Start", "End"],
+        dtype={
+            "Protein_ID": "string",
+            "Start": "int32",
+            "End": "int32"
+        }
     )
-
-    # ----------------------------------------------
-    # Build interval list per protein
-    # ----------------------------------------------
 
     intervals = {}
 
-    for _, row in df.iterrows():
-
-        pid = str(row["Protein_ID"])
+    for row in df.itertuples(index=False):
 
         intervals.setdefault(
-            pid,
+            row.Protein_ID,
             []
         ).append(
             (
-                int(row["Start"]),
-                int(row["End"])
+                row.Start,
+                row.End
             )
         )
 
-    coverage_values = []
+    proteins_with_lcr = set(intervals.keys())
 
     missing_ids = 0
 
+    bin_counts = {
+        "0-20": 0,
+        "20-40": 0,
+        "40-60": 0,
+        "60-80": 0,
+        "80-100": 0
+    }
+
     # ----------------------------------------------
-    # Proteins with LCRs
+    # Proteins with LCR
     # ----------------------------------------------
 
     for pid, ivals in intervals.items():
@@ -156,99 +150,55 @@ for file in Path(EXTRACT_DIR).glob("*_lcrs.tsv"):
         if pid not in length_dict:
 
             print(f"Missing length: {pid}")
+
             missing_ids += 1
+
             continue
 
-        protein_length = length_dict[pid]
-
-        covered_residues = merged_length(
-            ivals
-        )
-
         coverage = (
-            covered_residues /
-            protein_length
+            merged_length(ivals)
+            /
+            length_dict[pid]
         ) * 100
 
-        coverage_values.append(
-            coverage
-        )
+        if coverage < 20:
+
+            bin_counts["0-20"] += 1
+
+        elif coverage < 40:
+
+            bin_counts["20-40"] += 1
+
+        elif coverage < 60:
+
+            bin_counts["40-60"] += 1
+
+        elif coverage < 80:
+
+            bin_counts["60-80"] += 1
+
+        else:
+
+            bin_counts["80-100"] += 1
 
     # ----------------------------------------------
-    # Proteins without LCRs
+    # Proteins without LCR
     # ----------------------------------------------
 
-    proteins_with_lcr = set(intervals.keys())
-
-    proteins_without_lcr = (
-        all_proteins -
-        proteins_with_lcr
+    bin_counts["0-20"] += (
+        TOTAL_PROTEINS -
+        len(proteins_with_lcr)
     )
 
-    coverage_values.extend(
-        [0.0] *
-        len(proteins_without_lcr)
-    )
+    counts = [
 
-    coverage_series = pd.Series(
-        coverage_values
-    )
+        ["0-20", bin_counts["0-20"]],
+        ["20-40", bin_counts["20-40"]],
+        ["40-60", bin_counts["40-60"]],
+        ["60-80", bin_counts["60-80"]],
+        ["80-100", bin_counts["80-100"]]
 
-    # ----------------------------------------------
-    # Bin coverage
-    # ----------------------------------------------
-
-    counts = []
-
-    counts.append([
-        "0-20",
-        int(
-            (
-                (coverage_series >= 0) &
-                (coverage_series < 20)
-            ).sum()
-        )
-    ])
-
-    counts.append([
-        "20-40",
-        int(
-            (
-                (coverage_series >= 20) &
-                (coverage_series < 40)
-            ).sum()
-        )
-    ])
-
-    counts.append([
-        "40-60",
-        int(
-            (
-                (coverage_series >= 40) &
-                (coverage_series < 60)
-            ).sum()
-        )
-    ])
-
-    counts.append([
-        "60-80",
-        int(
-            (
-                (coverage_series >= 60) &
-                (coverage_series < 80)
-            ).sum()
-        )
-    ])
-
-    counts.append([
-        "80-100",
-        int(
-            (
-                (coverage_series >= 80) &
-                (coverage_series <= 100)
-            ).sum()
-        )
-    ])
+    ]
 
     out_df = pd.DataFrame(
         counts,
@@ -258,19 +208,11 @@ for file in Path(EXTRACT_DIR).glob("*_lcrs.tsv"):
         ]
     )
 
-    # ----------------------------------------------
-    # Validation
-    # ----------------------------------------------
-
     total = out_df["Count"].sum()
 
-    print(
-        f"Proteins counted: {total}"
-    )
+    print(f"Proteins counted: {total}")
 
-    print(
-        f"Missing IDs: {missing_ids}"
-    )
+    print(f"Missing IDs: {missing_ids}")
 
     if total != TOTAL_PROTEINS:
 
@@ -278,12 +220,9 @@ for file in Path(EXTRACT_DIR).glob("*_lcrs.tsv"):
             f"WARNING: expected {TOTAL_PROTEINS}, got {total}"
         )
 
-    # ----------------------------------------------
-    # Save
-    # ----------------------------------------------
-
     output_file = (
-        Path(OUTPUT_DIR) /
+        OUTPUT_DIR
+        /
         f"{file.stem.replace('_lcrs','')}_categorized.tsv"
     )
 
@@ -292,5 +231,11 @@ for file in Path(EXTRACT_DIR).glob("*_lcrs.tsv"):
         sep="\t",
         index=False
     )
+
+    del df
+    del intervals
+    del proteins_with_lcr
+    del out_df
+    gc.collect()
 
 print("\nCoverage calculation complete.")

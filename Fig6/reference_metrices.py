@@ -1,27 +1,30 @@
 import pandas as pd
-import numpy as np
 import math
 from collections import Counter
 from Bio import SeqIO
 import sys
 from pathlib import Path
-# ===== EDIT THESE =====
 
-reference_bed = Path(sys.argv[1])  # Reference BED file with LCR annotations
+# =====================================================
+# INPUTS
+# =====================================================
 
-proteome_fasta = Path(sys.argv[2])  # Proteome FASTA file
+reference_bed = Path(sys.argv[1])      # Reference BED file
+proteome_fasta = Path(sys.argv[2])     # Proteome FASTA
+output_file = Path(sys.argv[3])        # Output metrics file
 
-output_file = Path(sys.argv[3])  # Output file for metrics
-
-# ======================
 output_file.parent.mkdir(
     parents=True,
     exist_ok=True
 )
 
+# =====================================================
+# FUNCTIONS
+# =====================================================
+
 def shannon_entropy(sequence):
 
-    if len(sequence) == 0:
+    if not sequence:
         return 0.0
 
     counts = Counter(sequence)
@@ -33,16 +36,22 @@ def shannon_entropy(sequence):
         for count in counts.values()
     )
 
+# =====================================================
+# LOAD PROTEOME
+# =====================================================
 
 print("Loading proteome...")
 
-proteins = {}
-
-for record in SeqIO.parse(proteome_fasta, "fasta"):
-
-    proteins[record.id] = str(record.seq)
+proteins = {
+    record.id: str(record.seq)
+    for record in SeqIO.parse(proteome_fasta, "fasta")
+}
 
 print(f"Loaded {len(proteins):,} proteins")
+
+# =====================================================
+# LOAD REFERENCE BED
+# =====================================================
 
 print("Loading reference BED...")
 
@@ -51,39 +60,44 @@ df = pd.read_csv(
     sep="\t"
 )
 
-# Keep only LCR regions
-
 lcr_df = df[
     df["Classification"] == "LCR"
 ].copy()
 
 print(f"LCR regions: {len(lcr_df):,}")
 
+# =====================================================
+# GROUP ONCE (Huge CPU improvement)
+# =====================================================
+
+grouped_regions = {
+    protein: group
+    for protein, group in lcr_df.groupby("Protein_ID")
+}
+
+# =====================================================
+# PROCESS PROTEINS
+# =====================================================
+
 results = []
 
-protein_ids = set(proteins.keys())
-
-for protein_id in protein_ids:
-
-    sequence = proteins[protein_id]
+for protein_id, sequence in proteins.items():
 
     protein_length = len(sequence)
 
     protein_entropy = shannon_entropy(sequence)
 
-    regions = lcr_df[
-        lcr_df["Protein_ID"] == protein_id
-    ]
+    regions = grouped_regions.get(protein_id)
 
-    lcr_count = len(regions)
+    if regions is None:
 
-    if lcr_count == 0:
-
+        lcr_count = 0
         coverage_percent = 0.0
-
         entropy_ratio = 0.0
 
     else:
+
+        lcr_count = len(regions)
 
         lcr_length = (
             regions["End_Position"]
@@ -92,24 +106,21 @@ for protein_id in protein_ids:
         ).sum()
 
         coverage_percent = (
-            lcr_length
-            / protein_length
+            lcr_length / protein_length
         ) * 100
 
         lcr_sequence = []
 
-        for _, row in regions.iterrows():
-
-            start = int(row["Start_Position"])
-            end = int(row["End_Position"])
+        for row in regions.itertuples(index=False):
 
             lcr_sequence.append(
-                sequence[start - 1:end]
+                sequence[
+                    row.Start_Position - 1:
+                    row.End_Position
+                ]
             )
 
-        lcr_sequence = "".join(
-            lcr_sequence
-        )
+        lcr_sequence = "".join(lcr_sequence)
 
         lcr_entropy = shannon_entropy(
             lcr_sequence
@@ -136,6 +147,10 @@ for protein_id in protein_ids:
         ]
     )
 
+# =====================================================
+# DATAFRAME
+# =====================================================
+
 metrics = pd.DataFrame(
     results,
     columns=[
@@ -147,20 +162,20 @@ metrics = pd.DataFrame(
     ]
 )
 
-# --------------------
-# Length bins (1-10)
-# --------------------
+# =====================================================
+# LENGTH BINS
+# =====================================================
 
 metrics["Length_Bin"] = pd.qcut(
     metrics["Protein_Length"],
     q=10,
-    labels=[str(i) for i in range(1,11)],
+    labels=[str(i) for i in range(1, 11)],
     duplicates="drop"
 )
 
-# --------------------
-# LCR count bins
-# --------------------
+# =====================================================
+# LCR COUNT BINS
+# =====================================================
 
 def count_bin(x):
 
@@ -173,9 +188,9 @@ metrics["Count_Bin"] = metrics[
     "LCR_Count"
 ].apply(count_bin)
 
-# --------------------
-# Coverage bins
-# --------------------
+# =====================================================
+# COVERAGE BINS
+# =====================================================
 
 def coverage_bin(x):
 
@@ -198,9 +213,9 @@ metrics["Coverage_Bin"] = metrics[
     "Coverage_Percent"
 ].apply(coverage_bin)
 
-# --------------------
-# Entropy bins
-# --------------------
+# =====================================================
+# ENTROPY BINS
+# =====================================================
 
 def entropy_bin(x):
 
@@ -222,6 +237,10 @@ def entropy_bin(x):
 metrics["Entropy_Bin"] = metrics[
     "Entropy_Ratio"
 ].apply(entropy_bin)
+
+# =====================================================
+# SAVE
+# =====================================================
 
 metrics.to_csv(
     output_file,

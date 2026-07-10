@@ -5,6 +5,7 @@ import pandas as pd
 import math
 import re
 import sys
+
 # ======================================================
 # Configuration
 # ======================================================
@@ -32,17 +33,15 @@ header_pattern = re.compile(
 # Shannon entropy
 # ======================================================
 
-def shannon_entropy(seq):
+def shannon_entropy(counts, length):
 
-    counts = Counter(seq)
+    inv_len = 1.0 / length
 
-    length = len(seq)
-
-    entropy = 0
+    entropy = 0.0
 
     for count in counts.values():
 
-        p = count / length
+        p = count * inv_len
 
         entropy -= p * math.log2(p)
 
@@ -68,15 +67,7 @@ def mutations_to_repeat(seq, k):
 
     for pos in range(k):
 
-        column = []
-
-        i = pos
-
-        while i < n:
-
-            column.append(seq[i])
-
-            i += k
+        column = seq[pos::k]
 
         counts = Counter(column)
 
@@ -103,7 +94,9 @@ for fasta in sorted(INPUT_DIR.glob("*.fa")):
 
         seq = str(record.seq).upper()
 
-        if len(seq) == 0:
+        length = len(seq)
+
+        if length == 0:
             continue
 
         # ------------------------------------------
@@ -119,25 +112,12 @@ for fasta in sorted(INPUT_DIR.glob("*.fa")):
         else:
 
             protein = record.id
-
             start = ""
-
             end = ""
 
         # ------------------------------------------
-        # Length
-        # ------------------------------------------
-
-        length = len(seq)
-
-        # ------------------------------------------
-        # Entropy
-        # ------------------------------------------
-
-        entropy = shannon_entropy(seq)
-
-        # ------------------------------------------
         # Amino-acid composition
+        # (Counter used for both purity and entropy)
         # ------------------------------------------
 
         counts = Counter(seq)
@@ -149,17 +129,24 @@ for fasta in sorted(INPUT_DIR.glob("*.fa")):
         ) * 100
 
         # ------------------------------------------
+        # Shannon entropy
+        # ------------------------------------------
+
+        entropy = shannon_entropy(
+            counts,
+            length
+        )
+
+        # ------------------------------------------
         # Mutation %
         # ------------------------------------------
 
-        best_k = None
-
+        best_k = 1
         best_mut = length
 
-        for k in range(
-            1,
-            min(MAX_K, length) + 1
-        ):
+        max_k = min(MAX_K, length)
+
+        for k in range(1, max_k + 1):
 
             mut = mutations_to_repeat(
                 seq,
@@ -169,7 +156,6 @@ for fasta in sorted(INPUT_DIR.glob("*.fa")):
             if mut < best_mut:
 
                 best_mut = mut
-
                 best_k = k
 
         mutation_percent = (
@@ -215,13 +201,9 @@ for fasta in sorted(INPUT_DIR.glob("*.fa")):
     )
 
     df.to_csv(
-
         outfile,
-
         sep="\t",
-
         index=False
-
     )
 
     print(

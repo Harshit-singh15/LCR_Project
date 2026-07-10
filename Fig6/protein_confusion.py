@@ -1,204 +1,169 @@
+import csv
 import os
 import sys
 from pathlib import Path
-import pandas as pd
 from Bio import SeqIO
+
 # =====================================================
-# EDIT PATHS
+# INPUTS
 # =====================================================
 
-proteome_fasta = Path(sys.argv[1])  # Proteome FASTA file
-
-reference_bed = Path(sys.argv[2])  # Reference BED file with LCR annotations
-
-tool_folder = Path(sys.argv[3])  # Folder containing tool BED files
-
-output_file = Path(sys.argv[4])  # Output file for confusion matrix
+proteome_fasta = Path(sys.argv[1])
+reference_bed = Path(sys.argv[2])
+tool_folder = Path(sys.argv[3])
+output_file = Path(sys.argv[4])
 
 output_file.parent.mkdir(
     parents=True,
     exist_ok=True
 )
-# =====================================================
 
+# =====================================================
+# LOAD PROTEIN LENGTHS
+# =====================================================
 
 print("Loading proteome lengths...")
 
-protein_lengths = {}
-
-for record in SeqIO.parse(proteome_fasta, "fasta"):
-    protein_lengths[record.id] = len(record.seq)
+protein_lengths = {
+    record.id: len(record.seq)
+    for record in SeqIO.parse(proteome_fasta, "fasta")
+}
 
 print(f"Loaded {len(protein_lengths):,} proteins")
 
-
 # =====================================================
-# REFERENCE LCR POSITIONS
+# LOAD REFERENCE LCRS
 # =====================================================
 
 print("Loading reference LCR annotations...")
 
-ref_df = pd.read_csv(
-    reference_bed,
-    sep=r"\s+",
-    engine="python"
-)
-
-ref_df = ref_df[
-    ref_df["Classification"] == "LCR"
-]
-
 reference_positions = {}
 
-for protein in protein_lengths:
-    reference_positions[protein] = set()
+with open(reference_bed, newline="") as f:
 
-for _, row in ref_df.iterrows():
+    reader = csv.DictReader(f, delimiter="\t")
 
-    protein = row["Protein_ID"]
+    for row in reader:
 
-    start = int(row["Start_Position"])
-    end = int(row["End_Position"])
+        if row["Classification"] != "LCR":
+            continue
 
-    if protein not in reference_positions:
-        reference_positions[protein] = set()
+        protein = row["Protein_ID"]
 
-    reference_positions[protein].update(
-        range(start, end + 1)
-    )
+        start = int(row["Start_Position"])
+        end = int(row["End_Position"])
+
+        if protein not in reference_positions:
+            reference_positions[protein] = set()
+
+        reference_positions[protein].update(
+            range(start, end + 1)
+        )
 
 print("Reference positions loaded")
 
-
 # =====================================================
-# PROCESS TOOLS
+# TOOL FILES
 # =====================================================
-
-results = []
 
 tool_files = sorted(
-    [
-        f for f in os.listdir(tool_folder)
-        if f.endswith(".bed")
-    ]
+    f for f in os.listdir(tool_folder)
+    if f.endswith(".bed")
 )
 
 print(f"Found {len(tool_files)} tool files")
 
+# =====================================================
+# OUTPUT
+# =====================================================
 
-for tool_file in tool_files:
+with open(output_file, "w", newline="") as out:
 
-    print(f"\nProcessing {tool_file}")
-
-    tool_path = os.path.join(
-        tool_folder,
-        tool_file
+    writer = csv.writer(
+        out,
+        delimiter="\t"
     )
 
-    tool_df = pd.read_csv(
-        tool_path,
-        sep=r"\s+",
-        header=None,
-        names=[
+    writer.writerow(
+        [
             "Protein_ID",
-            "Start",
-            "End"
-        ],
-        engine="python"
+            "Tool",
+            "TP",
+            "FP",
+            "FN",
+            "TN"
+        ]
     )
 
-    tool_positions = {}
+    # =====================================================
+    # PROCESS EACH TOOL
+    # =====================================================
 
-    for protein in protein_lengths:
-        tool_positions[protein] = set()
+    for tool_file in tool_files:
 
-    for _, row in tool_df.iterrows():
+        print(f"\nProcessing {tool_file}")
 
-        protein = row["Protein_ID"]
+        tool_positions = {}
 
-        start = int(row["Start"])
-        end = int(row["End"])
+        tool_path = tool_folder / tool_file
 
-        if protein not in tool_positions:
-            tool_positions[protein] = set()
+        with open(tool_path) as f:
 
-        tool_positions[protein].update(
-            range(start, end + 1)
-        )
+            reader = csv.reader(
+                f,
+                delimiter="\t"
+            )
 
-    for protein in protein_lengths:
+            for row in reader:
 
-        length = protein_lengths[protein]
+                if len(row) < 3:
+                    continue
 
-        ref = reference_positions.get(
-            protein,
-            set()
-        )
+                protein = row[0]
 
-        pred = tool_positions.get(
-            protein,
-            set()
-        )
+                start = int(row[1])
+                end = int(row[2])
 
-        tp = len(
-            ref & pred
-        )
+                if protein not in tool_positions:
+                    tool_positions[protein] = set()
 
-        fp = len(
-            pred - ref
-        )
+                tool_positions[protein].update(
+                    range(start, end + 1)
+                )
 
-        fn = len(
-            ref - pred
-        )
+        tool_name = tool_file.replace(".bed", "")
 
-        tn = (
-            length
-            - tp
-            - fp
-            - fn
-        )
+        for protein, length in protein_lengths.items():
 
-        if tn < 0:
-            tn = 0
-
-        results.append(
-            [
+            ref = reference_positions.get(
                 protein,
-                tool_file.replace(".bed", ""),
-                tp,
-                fp,
-                fn,
-                tn
-            ]
-        )
+                set()
+            )
 
+            pred = tool_positions.get(
+                protein,
+                set()
+            )
 
-# =====================================================
-# SAVE
-# =====================================================
+            tp = len(ref & pred)
+            fp = len(pred - ref)
+            fn = len(ref - pred)
 
-out_df = pd.DataFrame(
-    results,
-    columns=[
-        "Protein_ID",
-        "Tool",
-        "TP",
-        "FP",
-        "FN",
-        "TN"
-    ]
-)
+            tn = length - tp - fp - fn
 
-out_df.to_csv(
-    output_file,
-    sep="\t",
-    index=False
-)
+            if tn < 0:
+                tn = 0
+
+            writer.writerow(
+                [
+                    protein,
+                    tool_name,
+                    tp,
+                    fp,
+                    fn,
+                    tn
+                ]
+            )
 
 print("\nSaved:")
 print(output_file)
-
-print(
-    f"\nRows: {len(out_df):,}"
-)

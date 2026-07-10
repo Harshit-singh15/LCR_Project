@@ -1,13 +1,15 @@
 from pathlib import Path
 from collections import Counter
 import pandas as pd
+import gc
 import sys
+
 # =====================================================
 # CONFIG
 # =====================================================
 
-INPUT_DIR = sys.argv[1]     #Extracted Sequences
-OUTPUT_DIR = sys.argv[2]    # Amino acid composition
+INPUT_DIR = sys.argv[1]      # Extracted Sequences
+OUTPUT_DIR = sys.argv[2]     # Amino acid composition
 
 Path(OUTPUT_DIR).mkdir(
     parents=True,
@@ -30,7 +32,9 @@ for file in Path(INPUT_DIR).glob("*_lcrs.tsv"):
 
     df = pd.read_csv(
         file,
-        sep="\t"
+        sep="\t",
+        usecols=["Sequence"],
+        dtype={"Sequence": "string"}
     )
 
     aa_counts = Counter()
@@ -47,6 +51,8 @@ for file in Path(INPUT_DIR).glob("*_lcrs.tsv"):
 
     records = []
 
+    proportion_sum = 0.0
+
     for aa in AA_ORDER:
 
         count = aa_counts.get(
@@ -55,11 +61,12 @@ for file in Path(INPUT_DIR).glob("*_lcrs.tsv"):
         )
 
         proportion = (
-            count /
-            total_residues
+            count / total_residues
             if total_residues > 0
             else 0
         )
+
+        proportion_sum += proportion
 
         records.append(
             [
@@ -84,7 +91,7 @@ for file in Path(INPUT_DIR).glob("*_lcrs.tsv"):
 
     print(
         f"Sum proportions: "
-        f"{out_df['Proportion'].sum():.6f}"
+        f"{proportion_sum:.6f}"
     )
 
     out_file = (
@@ -98,5 +105,9 @@ for file in Path(INPUT_DIR).glob("*_lcrs.tsv"):
         sep="\t",
         index=False
     )
+
+    del df
+    del out_df
+    gc.collect()
 
 print("\nAA composition complete.")
