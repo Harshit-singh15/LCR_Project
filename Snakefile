@@ -136,7 +136,7 @@ rule fig1_coverage:
     output:
         directory(f"{BASE}/dataforFig1/LCR_Coverage")
     shell:
-        "python {S}/Fig1/gen_coverage_4.py {input.extracted} {input.lengths} {output} {input.fasta}"
+        "python {S}/Fig1/Gen_coverage_4.py {input.extracted} {input.lengths} {output} {input.fasta}"
 
 # Aa_composition_5.py
 # argv order: extracted_sequences_dir, out_dir
