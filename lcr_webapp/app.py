@@ -14,7 +14,7 @@ import re
 import subprocess
 import threading
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 import os
 import shutil
@@ -147,9 +147,11 @@ def update_status(job_root, **fields):
     if status_path.exists():
         status = json.loads(status_path.read_text())
     status.update(fields)
-    status["updated_at"] = datetime.now().strftime("%H:%M:%S")
+    
+    # Generate a timezone-aware UTC timestamp and format as a standard ISO string
+    status["updated_at"] = datetime.now(timezone.utc).isoformat()
+    
     status_path.write_text(json.dumps(status, indent=2))
-
 
 def write_job_config(job_root, organism, base_dir):
     """Write a per-job config.yaml Snakemake will use, with absolute paths."""
