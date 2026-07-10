@@ -1,0 +1,602 @@
+Config file config.yaml is extended by additional config specified via the command line.
+Assuming unrestricted shared filesystem usage.
+
+SNAKEMAKE
+=========
+  Date: 2026-07-10 16:26:53
+  Workflow ID: 6b22dff6-c989-4591-80d7-e3bfccee06dd
+  Platform: Windows-11-10.0.26200-SP0
+  Host: Harshit
+  User: 91892
+  Snakemake version: 9.23.1
+  Python version: 3.12.0 (tags/v3.12.0:0fb18b0, Oct  2 2023, 13:03:39) [MSC v.1935 64 bit (AMD64)]
+  Command: C:\Users\91892\AppData\Local\Programs\Python\Python312\Lib\site-packages\snakemake\__main__.py --snakefile C:\Users\91892\Documents\Project_LCR\Snakefile --configfile C:\Users\91892\Documents\Project_LCR\lcr_webapp\jobs\8ca493c965\config.yaml --cores 4
+  Snakefile: C:\Users\91892\Documents\Project_LCR\Snakefile
+  Base directory: C:\Users\91892\Documents\Project_LCR
+  Run directory: C:\Users\91892\Documents\Project_LCR
+  Working directory: C:\Users\91892\Documents\Project_LCR
+  Config file(s): [WindowsPath('C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/config.yaml'), 'config.yaml']
+  Config MD5: aec06becd4b885a92dddf3b5b92c1bde
+
+Building DAG of jobs...
+Provided cores: 4
+Rules claiming more threads will be scaled down.
+Job stats:
+job                       count
+----------------------  -------
+clean_fasta                   1
+fig1_extract_sequences        1
+prepare_bedtools_beds         1
+fig1_aa_composition           1
+fig1_coverage                 1
+fig1_entropy                  1
+fig1_length_counts            1
+fig2_multiinter               1
+fig3_fastas                   1
+fig4_jaccard_matrix           1
+fig6_windows                  1
+fig1A_plot                    1
+fig1B_plot                    1
+fig1C_plot                    1
+fig1D_plot                    1
+fig1E_plot                    1
+fig2_consensus_beds           1
+fig3_purity_metrics           1
+fig4_plot                     1
+fig5_metrics                  1
+fig6_complexity               1
+fig1_combined                 1
+fig2_consensus_fastas         1
+fig3_plot                     1
+fig5_heatmaps                 1
+fig6_classification           1
+fig2_entropy                  1
+fig2_purity                   1
+fig2_substring_motifs         1
+fig5_combined                 1
+fig6_annotate                 1
+fig2_filtered                 1
+fig2b_plot                    1
+fig2c_plot                    1
+fig6_confusion                1
+fig6_reference_metrics        1
+fig2_peptide_counts           1
+fig6_tpr_fpr                  1
+fig2a_plot                    1
+fig6_combined                 1
+fig6_plots                    1
+fig7_summaries                1
+fig7_plot                     1
+final_report                  1
+all                           1
+total                        45
+
+Select jobs to execute...
+Execute 3 jobs...
+[Fri Jul 10 16:26:54 2026]
+localrule prepare_bedtools_beds:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/bed_yeast
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/bed_bedtools_yeast
+    jobid: 19
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/bed_bedtools_yeast
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 16:26:54 2026]
+localrule fig1_extract_sequences:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/yeast.fasta, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/bed_yeast
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/extracted_sequences, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/protein_lengths.tsv
+    jobid: 3
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/extracted_sequences, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/protein_lengths.tsv
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 16:26:54 2026]
+localrule clean_fasta:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/yeast.fasta
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/yeast_cleaned.fasta
+    jobid: 20
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/yeast_cleaned.fasta
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 16:26:55 2026]
+Finished jobid: 20 (Rule: clean_fasta)
+1 of 45 steps (2%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 16:26:55 2026]
+localrule fig6_windows:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/yeast_cleaned.fasta
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig6/ecoli_windows.bed
+    jobid: 39
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig6/ecoli_windows.bed; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/yeast_cleaned.fasta
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 16:26:56 2026]
+Finished jobid: 39 (Rule: fig6_windows)
+2 of 45 steps (4%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 16:26:56 2026]
+localrule fig6_complexity:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/yeast_cleaned.fasta, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig6/ecoli_windows.bed
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig6/ecoli_windows_out.tsv
+    jobid: 38
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig6/ecoli_windows_out.tsv; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig6/ecoli_windows.bed, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/yeast_cleaned.fasta
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 16:26:56 2026]
+Finished jobid: 19 (Rule: prepare_bedtools_beds)
+3 of 45 steps (7%) done
+Select jobs to execute...
+Execute 2 jobs...
+[Fri Jul 10 16:26:56 2026]
+localrule fig2_multiinter:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/bed_bedtools_yeast
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/multiinter.tsv
+    jobid: 18
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/multiinter.tsv; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/bed_bedtools_yeast
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 16:26:56 2026]
+localrule fig3_fastas:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/bed_bedtools_yeast, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/yeast_cleaned.fasta
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig3/01_fastas
+    jobid: 27
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig3/01_fastas; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/bed_bedtools_yeast, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/yeast_cleaned.fasta
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul 10 16:26:58 2026]
+Finished jobid: 27 (Rule: fig3_fastas)
+4 of 45 steps (9%) done
+Execute 1 jobs...
+[Fri Jul 10 16:26:58 2026]
+localrule fig3_purity_metrics:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig3/01_fastas
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig3/02_metrics
+    jobid: 26
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig3/02_metrics; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig3/01_fastas
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul 10 16:27:04 2026]
+Finished jobid: 26 (Rule: fig3_purity_metrics)
+5 of 45 steps (11%) done
+Execute 1 jobs...
+[Fri Jul 10 16:27:04 2026]
+localrule fig3_plot:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig3/02_metrics
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig3/Fig3_purity.png
+    jobid: 25
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig3/Fig3_purity.png; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig3/02_metrics
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul 10 16:27:07 2026]
+Finished jobid: 18 (Rule: fig2_multiinter)
+6 of 45 steps (13%) done
+Execute 1 jobs...
+[Fri Jul 10 16:27:07 2026]
+localrule fig2_consensus_beds:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/multiinter.tsv
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/02_consensus_beds
+    jobid: 17
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/02_consensus_beds; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/multiinter.tsv
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul 10 16:27:09 2026]
+Finished jobid: 17 (Rule: fig2_consensus_beds)
+7 of 45 steps (16%) done
+Execute 1 jobs...
+[Fri Jul 10 16:27:09 2026]
+localrule fig2_consensus_fastas:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/02_consensus_beds, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/yeast_cleaned.fasta
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/03_consensus_fastas
+    jobid: 16
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/03_consensus_fastas; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/02_consensus_beds, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/yeast_cleaned.fasta
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 16:27:09 2026]
+Finished jobid: 25 (Rule: fig3_plot)
+8 of 45 steps (18%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 16:27:09 2026]
+localrule fig5_metrics:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig3/01_fastas
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig5/02_metrics
+    jobid: 31
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig5/02_metrics; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig3/01_fastas
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul 10 16:27:10 2026]
+Finished jobid: 16 (Rule: fig2_consensus_fastas)
+9 of 45 steps (20%) done
+Execute 1 jobs...
+[Fri Jul 10 16:27:10 2026]
+localrule fig2_entropy:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/03_consensus_fastas
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/entropy.tsv
+    jobid: 22
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/entropy.tsv; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/03_consensus_fastas
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul 10 16:27:10 2026]
+Finished jobid: 3 (Rule: fig1_extract_sequences)
+10 of 45 steps (22%) done
+Execute 1 jobs...
+[Fri Jul 10 16:27:10 2026]
+localrule fig1_coverage:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/extracted_sequences, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/protein_lengths.tsv, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/yeast.fasta
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/LCR_Coverage
+    jobid: 5
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/LCR_Coverage; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/extracted_sequences, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/protein_lengths.tsv
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul 10 16:27:12 2026]
+Finished jobid: 22 (Rule: fig2_entropy)
+11 of 45 steps (24%) done
+Execute 1 jobs...
+[Fri Jul 10 16:27:12 2026]
+localrule fig1_aa_composition:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/extracted_sequences
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/Amino_acid
+    jobid: 8
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/Amino_acid; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/extracted_sequences
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul 10 16:27:15 2026]
+Finished jobid: 8 (Rule: fig1_aa_composition)
+12 of 45 steps (27%) done
+Execute 1 jobs...
+[Fri Jul 10 16:27:15 2026]
+localrule fig2_substring_motifs:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/03_consensus_fastas
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/04_substring_motifs
+    jobid: 15
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/04_substring_motifs; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/03_consensus_fastas
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul 10 16:27:18 2026]
+Finished jobid: 15 (Rule: fig2_substring_motifs)
+13 of 45 steps (29%) done
+Execute 1 jobs...
+[Fri Jul 10 16:27:19 2026]
+localrule fig1_entropy:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/extracted_sequences
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/ShanonEntropy
+    jobid: 10
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/ShanonEntropy; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/extracted_sequences
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul 10 16:27:21 2026]
+Finished jobid: 5 (Rule: fig1_coverage)
+14 of 45 steps (31%) done
+Execute 1 jobs...
+[Fri Jul 10 16:27:21 2026]
+localrule fig1B_plot:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/LCR_Coverage
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1B_Coverage_Heatmap.png
+    jobid: 4
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1B_Coverage_Heatmap.png; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/LCR_Coverage
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul 10 16:27:22 2026]
+Finished jobid: 10 (Rule: fig1_entropy)
+15 of 45 steps (33%) done
+Execute 1 jobs...
+[Fri Jul 10 16:27:22 2026]
+localrule fig1E_plot:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/ShanonEntropy
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png
+    jobid: 9
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/ShanonEntropy
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul 10 16:27:26 2026]
+Finished jobid: 4 (Rule: fig1B_plot)
+16 of 45 steps (36%) done
+Execute 1 jobs...
+[Fri Jul 10 16:27:26 2026]
+localrule fig2_purity:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/03_consensus_fastas
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/purity.tsv
+    jobid: 24
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/purity.tsv; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/03_consensus_fastas
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul 10 16:27:27 2026]
+Finished jobid: 9 (Rule: fig1E_plot)
+17 of 45 steps (38%) done
+Execute 1 jobs...
+[Fri Jul 10 16:27:27 2026]
+localrule fig1_length_counts:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/extracted_sequences, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/protein_lengths.tsv
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/LCR_Length, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/LCR_Count
+    jobid: 2
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/LCR_Length, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/LCR_Count; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/extracted_sequences, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/protein_lengths.tsv
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul 10 16:27:28 2026]
+Finished jobid: 24 (Rule: fig2_purity)
+18 of 45 steps (40%) done
+Execute 1 jobs...
+[Fri Jul 10 16:27:28 2026]
+localrule fig2c_plot:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/purity.tsv
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig2/Fig2C_purity.png
+    jobid: 23
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig2/Fig2C_purity.png; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/purity.tsv
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul 10 16:27:29 2026]
+Finished jobid: 2 (Rule: fig1_length_counts)
+19 of 45 steps (42%) done
+Execute 1 jobs...
+[Fri Jul 10 16:27:29 2026]
+localrule fig1A_plot:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/LCR_Length
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1A_Length_Heatmap.png
+    jobid: 1
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1A_Length_Heatmap.png; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/LCR_Length
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul 10 16:27:33 2026]
+Finished jobid: 23 (Rule: fig2c_plot)
+20 of 45 steps (44%) done
+Execute 1 jobs...
+[Fri Jul 10 16:27:33 2026]
+localrule fig1C_plot:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/LCR_Count
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1C_CountDistribution.png
+    jobid: 6
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1C_CountDistribution.png; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/LCR_Count
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul 10 16:27:33 2026]
+Finished jobid: 1 (Rule: fig1A_plot)
+21 of 45 steps (47%) done
+Execute 1 jobs...
+[Fri Jul 10 16:27:33 2026]
+localrule fig1D_plot:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/Amino_acid
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1D_AminoAcidComposition.png
+    jobid: 7
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1D_AminoAcidComposition.png; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig1/Amino_acid
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul 10 16:27:36 2026]
+Finished jobid: 6 (Rule: fig1C_plot)
+22 of 45 steps (49%) done
+Execute 1 jobs...
+[Fri Jul 10 16:27:36 2026]
+localrule fig4_jaccard_matrix:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/bed_bedtools_yeast
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig4/jaccard_matrix.tsv
+    jobid: 29
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig4/jaccard_matrix.tsv; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/bed_bedtools_yeast
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul 10 16:27:36 2026]
+Finished jobid: 7 (Rule: fig1D_plot)
+23 of 45 steps (51%) done
+Execute 1 jobs...
+[Fri Jul 10 16:27:36 2026]
+localrule fig1_combined:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1A_Length_Heatmap.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1B_Coverage_Heatmap.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1C_CountDistribution.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1D_AminoAcidComposition.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1_Combined.png
+    jobid: 11
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1_Combined.png; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1A_Length_Heatmap.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1B_Coverage_Heatmap.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1D_AminoAcidComposition.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1C_CountDistribution.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul 10 16:27:40 2026]
+Finished jobid: 11 (Rule: fig1_combined)
+24 of 45 steps (53%) done
+Execute 1 jobs...
+[Fri Jul 10 16:27:40 2026]
+localrule fig2b_plot:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/entropy.tsv
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig2/Fig2B_Entropy.png
+    jobid: 21
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig2/Fig2B_Entropy.png; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/entropy.tsv
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+Select jobs to execute...
+[Fri Jul 10 16:27:48 2026]
+Finished jobid: 21 (Rule: fig2b_plot)
+25 of 45 steps (56%) done
+Execute 1 jobs...
+[Fri Jul 10 16:27:48 2026]
+localrule fig2_filtered:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/04_substring_motifs
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/05_filtered
+    jobid: 14
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/05_filtered; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/04_substring_motifs
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 16:28:00 2026]
+Finished jobid: 31 (Rule: fig5_metrics)
+26 of 45 steps (58%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 16:28:00 2026]
+localrule fig5_heatmaps:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig5/02_metrics
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig5/Fig5_heatmaps_done.flag
+    jobid: 30
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig5/Fig5_heatmaps_done.flag; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig5/02_metrics
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 16:28:05 2026]
+Finished jobid: 38 (Rule: fig6_complexity)
+27 of 45 steps (60%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 16:28:05 2026]
+localrule fig6_classification:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig6/ecoli_windows_out.tsv
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig6/ecoli_windows_classified.tsv
+    jobid: 37
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig6/ecoli_windows_classified.tsv; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig6/ecoli_windows_out.tsv
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 16:28:06 2026]
+Finished jobid: 14 (Rule: fig2_filtered)
+28 of 45 steps (62%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 16:28:06 2026]
+localrule fig2_peptide_counts:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/05_filtered
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/06_peptide_counts
+    jobid: 13
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/06_peptide_counts; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/05_filtered
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 16:28:08 2026]
+Finished jobid: 13 (Rule: fig2_peptide_counts)
+29 of 45 steps (64%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 16:28:08 2026]
+localrule fig2a_plot:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/06_peptide_counts
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png
+    jobid: 12
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig2/06_peptide_counts
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 16:28:09 2026]
+Finished jobid: 29 (Rule: fig4_jaccard_matrix)
+30 of 45 steps (67%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 16:28:10 2026]
+localrule fig4_plot:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig4/jaccard_matrix.tsv
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig4/Fig4_Jaccard.png
+    jobid: 28
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig4/Fig4_Jaccard.png; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig4/jaccard_matrix.tsv
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 16:28:13 2026]
+Finished jobid: 37 (Rule: fig6_classification)
+31 of 45 steps (69%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 16:28:13 2026]
+localrule fig6_annotate:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig6/ecoli_windows_classified.tsv
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig6/ecoli_windows_real.bed
+    jobid: 36
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig6/ecoli_windows_real.bed; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig6/ecoli_windows_classified.tsv
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 16:28:16 2026]
+Finished jobid: 28 (Rule: fig4_plot)
+32 of 45 steps (71%) done
+[Fri Jul 10 16:28:16 2026]
+Finished jobid: 36 (Rule: fig6_annotate)
+33 of 45 steps (73%) done
+Select jobs to execute...
+Execute 2 jobs...
+[Fri Jul 10 16:28:16 2026]
+localrule fig6_reference_metrics:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig6/ecoli_windows_real.bed, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/yeast_cleaned.fasta
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig6/reference_metrics.tsv
+    jobid: 35
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig6/reference_metrics.tsv; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/yeast_cleaned.fasta, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig6/ecoli_windows_real.bed
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 16:28:16 2026]
+localrule fig6_confusion:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/yeast_cleaned.fasta, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig6/ecoli_windows_real.bed, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/bed_bedtools_yeast
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig6/protein_confusion.tsv
+    jobid: 40
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig6/protein_confusion.tsv; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/bed_bedtools_yeast, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/yeast_cleaned.fasta, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig6/ecoli_windows_real.bed
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 16:28:18 2026]
+Finished jobid: 12 (Rule: fig2a_plot)
+34 of 45 steps (76%) done
+[Fri Jul 10 16:28:21 2026]
+Finished jobid: 35 (Rule: fig6_reference_metrics)
+35 of 45 steps (78%) done
+[Fri Jul 10 16:28:32 2026]
+Finished jobid: 40 (Rule: fig6_confusion)
+36 of 45 steps (80%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 16:28:33 2026]
+localrule fig6_tpr_fpr:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig6/reference_metrics.tsv, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig6/protein_confusion.tsv
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig6/plot_tables
+    jobid: 34
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig6/plot_tables; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig6/protein_confusion.tsv, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig6/reference_metrics.tsv
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 16:28:34 2026]
+Finished jobid: 34 (Rule: fig6_tpr_fpr)
+37 of 45 steps (82%) done
+Select jobs to execute...
+Execute 3 jobs...
+[Fri Jul 10 16:28:34 2026]
+localrule fig6_combined:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig6/plot_tables
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig6/Fig6_Combined.png
+    jobid: 41
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig6/Fig6_Combined.png; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig6/plot_tables
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 16:28:34 2026]
+localrule fig7_summaries:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig6/plot_tables
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig7
+    jobid: 43
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig7; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig6/plot_tables
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 16:28:34 2026]
+localrule fig6_plots:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig6/plot_tables
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig6/Fig6A_Genelength.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig6/Fig6B_LCRCount.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig6/Fig6C_Coverage.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig6/Fig6D_EntropyRatio.png
+    jobid: 33
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig6/Fig6B_LCRCount.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig6/Fig6D_EntropyRatio.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig6/Fig6A_Genelength.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig6/Fig6C_Coverage.png; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig6/plot_tables
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 16:28:35 2026]
+Finished jobid: 43 (Rule: fig7_summaries)
+38 of 45 steps (84%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 16:28:35 2026]
+localrule fig7_plot:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig7
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig7/Fig7_summary.png
+    jobid: 42
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig7/Fig7_summary.png; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/dataforFig7
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 16:28:41 2026]
+Finished jobid: 41 (Rule: fig6_combined)
+39 of 45 steps (87%) done
+[Fri Jul 10 16:28:42 2026]
+Finished jobid: 33 (Rule: fig6_plots)
+40 of 45 steps (89%) done
+[Fri Jul 10 16:28:42 2026]
+Finished jobid: 42 (Rule: fig7_plot)
+41 of 45 steps (91%) done
+Touching output file C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig5/Fig5_heatmaps_done.flag.
+[Fri Jul 10 16:29:04 2026]
+Finished jobid: 30 (Rule: fig5_heatmaps)
+42 of 45 steps (93%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 16:29:04 2026]
+localrule fig5_combined:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig5/Fig5_heatmaps_done.flag
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig5/Fig5_Combined.png
+    jobid: 32
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig5/Fig5_Combined.png; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig5/Fig5_heatmaps_done.flag
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 16:29:30 2026]
+Finished jobid: 32 (Rule: fig5_combined)
+43 of 45 steps (96%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 16:29:30 2026]
+localrule final_report:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1_Combined.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig2/Fig2B_Entropy.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig2/Fig2C_purity.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig3/Fig3_purity.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig4/Fig4_Jaccard.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig5/Fig5_Combined.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig6/Fig6_Combined.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig7/Fig7_summary.png
+    output: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/reports/Benchmark_Report.pdf
+    jobid: 44
+    reason: Missing output files: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/reports/Benchmark_Report.pdf; Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig5/Fig5_Combined.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig3/Fig3_purity.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig2/Fig2B_Entropy.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig7/Fig7_summary.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig4/Fig4_Jaccard.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig2/Fig2C_purity.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1_Combined.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig6/Fig6_Combined.png
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 16:29:59 2026]
+Finished jobid: 44 (Rule: final_report)
+44 of 45 steps (98%) done
+Select jobs to execute...
+Execute 1 jobs...
+[Fri Jul 10 16:29:59 2026]
+localrule all:
+    input: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1A_Length_Heatmap.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1B_Coverage_Heatmap.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1C_CountDistribution.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1D_AminoAcidComposition.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1_Combined.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig2/Fig2B_Entropy.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig2/Fig2C_purity.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig3/Fig3_purity.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig4/Fig4_Jaccard.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig5/Fig5_heatmaps_done.flag, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig5/Fig5_Combined.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig6/Fig6A_Genelength.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig6/Fig6B_LCRCount.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig6/Fig6C_Coverage.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig6/Fig6D_EntropyRatio.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig6/Fig6_Combined.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig7/Fig7_summary.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/reports/Benchmark_Report.pdf
+    jobid: 0
+    reason: Input files updated by another job: C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig5/Fig5_Combined.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig6/Fig6A_Genelength.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1A_Length_Heatmap.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig6/Fig6B_LCRCount.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig6/Fig6D_EntropyRatio.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1E_Entropy_Boxplot.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig6/Fig6_Combined.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1_Combined.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1B_Coverage_Heatmap.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/reports/Benchmark_Report.pdf, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig7/Fig7_summary.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig4/Fig4_Jaccard.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig6/Fig6C_Coverage.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig2/Fig2C_purity.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1D_AminoAcidComposition.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig3/Fig3_purity.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig2/Fig2B_Entropy.png, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig5/Fig5_heatmaps_done.flag, C:/Users/91892/Documents/Project_LCR/lcr_webapp/jobs/8ca493c965/yeast/Fig_outputs/Fig1/Figure1C_CountDistribution.png
+    resources: tmpdir=C:\Users\91892\AppData\Local\Temp
+[Fri Jul 10 16:29:59 2026]
+Finished jobid: 0 (Rule: all)
+45 of 45 steps (100%) done
+Complete log(s): C:\Users\91892\Documents\Project_LCR\.snakemake\log\2026-07-10T162653.696144.snakemake.log
