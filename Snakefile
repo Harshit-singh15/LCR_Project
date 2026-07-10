@@ -309,7 +309,7 @@ rule fig2c_plot:
     input:
         f"{BASE}/dataforFig2/purity.tsv"
     output:
-        f"{BASE}/Fig_outputs/Fig2/Fig2C_Purity.png"
+        f"{BASE}/Fig_outputs/Fig2/Fig2C_purity.png"
     shell:
         "python {S}/Fig2/fig2c.py {input} {BASE}/Fig_outputs/Fig2"
 
