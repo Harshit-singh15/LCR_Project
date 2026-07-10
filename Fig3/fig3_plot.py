@@ -86,7 +86,7 @@ output_path = Path(sys.argv[2])
 output_path.parent.mkdir(parents=True, exist_ok=True)
 
 plt.savefig(
-    output_path/"Fig3_Purity.png",
+    output_path/"Fig3_purity.png",
     dpi=600,
     bbox_inches="tight"
 )

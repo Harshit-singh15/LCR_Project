@@ -40,8 +40,8 @@ rule all:
         (f"{BASE}/Fig_outputs/Fig1/Figure1_Combined.png" if COMBINED else []),
         f"{BASE}/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png",
         f"{BASE}/Fig_outputs/Fig2/Fig2B_Entropy.png",
-        f"{BASE}/Fig_outputs/Fig2/Fig2C_Purity.png",
-        f"{BASE}/Fig_outputs/Fig3/Fig3_Purity.png",
+        f"{BASE}/Fig_outputs/Fig2/Fig2C_purity.png",
+        f"{BASE}/Fig_outputs/Fig3/Fig3_purity.png",
         f"{BASE}/Fig_outputs/Fig4/Fig4_Jaccard.png",
         (f"{BASE}/Fig_outputs/Fig5/Fig5_heatmaps_done.flag"),
         (f"{BASE}/Fig_outputs/Fig5/Fig5_Combined.png" if COMBINED else []),
@@ -343,7 +343,7 @@ rule fig3_plot:
     input:
         (f"{BASE}/dataforFig3/02_metrics")
     output:
-        f"{BASE}/Fig_outputs/Fig3/Fig3_Purity.png"
+        f"{BASE}/Fig_outputs/Fig3/Fig3_purity.png"
     shell:
         "python {S}/Fig3/fig3_plot.py {input} {BASE}/Fig_outputs/Fig3"
 
@@ -529,8 +529,8 @@ rule final_report:
         fig1 = f"{BASE}/Fig_outputs/Fig1/Figure1_Combined.png",
         fig2 = f"{BASE}/Fig_outputs/Fig2/Fig2A_PeptideMotifs.png",
         fig2b = f"{BASE}/Fig_outputs/Fig2/Fig2B_Entropy.png",
-        fig2c = f"{BASE}/Fig_outputs/Fig2/Fig2C_Purity.png",
-        fig3 = f"{BASE}/Fig_outputs/Fig3/Fig3_Purity.png",
+        fig2c = f"{BASE}/Fig_outputs/Fig2/Fig2C_purity.png",
+        fig3 = f"{BASE}/Fig_outputs/Fig3/Fig3_purity.png",
         fig4 = f"{BASE}/Fig_outputs/Fig4/Fig4_Jaccard.png",
         fig5 = f"{BASE}/Fig_outputs/Fig5/Fig5_Combined.png",
         fig6 = f"{BASE}/Fig_outputs/Fig6/Fig6_Combined.png",

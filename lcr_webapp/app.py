@@ -253,11 +253,6 @@ def index():
 def docs_page():
     return render_template("docs.html")
 
-'''@app.route("/results")
-def results_page():
-    return render_template("results.html")'''
-
-
 # ------------------------
 @app.route("/submit", methods=["POST"])
 def submit_job():
@@ -308,6 +303,16 @@ def job_status(job_id):
         return "Job not found.", 404
     status = json.loads(status_path.read_text())
     return render_template("status.html", job_id=job_id, status=status)
+
+@app.route("/status.json/<job_id>")
+def job_status_json(job_id):
+    job_root = JOBS_DIR / job_id
+    status_path = job_root / "status.json"
+    if not status_path.exists():
+        return {"error": "Job not found."}, 404
+    
+    status = json.loads(status_path.read_text())
+    return status  # Flask returns this dictionary automatically as JSON
 
 
 @app.route("/retry/<job_id>", methods=["POST"])
