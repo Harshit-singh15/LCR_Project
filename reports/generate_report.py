@@ -318,7 +318,12 @@ for s_idx, (main_key, items) in enumerate(SECTIONS):
 
         block.append(scaled_image(img_path, MAX_IMG_WIDTH, panel_max_h))
 
-        panel_caption = CAP.get(item_key, {}).get("caption", "")
+        # Avoid duplicating captions for single-figure sections: the
+        # section-level caption (meta) is already rendered above. Only
+        # add the panel/item caption if it's a distinct item.
+        panel_caption = ""
+        if item_key != main_key:
+            panel_caption = CAP.get(item_key, {}).get("caption", "")
         if panel_caption:
             block.append(Paragraph(panel_caption, panel_caption_style))
         else:
