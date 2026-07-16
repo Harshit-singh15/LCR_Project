@@ -1,3 +1,7 @@
+if you want to clone this repo without large files 
+use this - GIT_LFS_SKIP_SMUDGE=1 git clone https://github.com/your-username/your-repo-name.git
+it skips all the files that are tracked by git-lfs. and includes the scripts that are required run the workflow and web application.
+
 # Benchmarking Workflow of LCR Detection Tools
 
 A pipeline for running multiple Low Complexity Region (LCR) detection tools on a proteome, converting their outputs to a common BED format, and generating comparative figures (Fig 1–Fig 8) that benchmark tool performance, motif composition, entropy/purity, overlap, and agreement against a reference (windowed and DisProt/SIFTS-derived) definition of LCRs.
