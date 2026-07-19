@@ -141,7 +141,6 @@ Place the resulting `lcrfinder.bed` inside your `bed_<organism>/` folder alongsi
 
   `![Command sheet](docs/command_sheet.png)`
 
-  *(placeholder — add your image at `docs/command_sheet.png`)*
 
 - **Workflow DAG (PDF)** — the Snakemake DAG graph showing how all rules/figures connect:
 
@@ -279,12 +278,10 @@ A hosted version of the web app is available here:
 The full project/internship report is included in this repository. Add a relative link to it once it's in place, for example:
 
 ```markdown
-[Project Report (PDF)](docs/report.pdf)
+[Project Report (PDF)](LCR_Benchmarking_Internship_Report.pdf)
 ```
 
-GitHub will render this as a clickable link that opens/downloads the file directly from the repo — no external hosting needed. If the report is tracked via Git LFS, make sure to mention that readers may need to run `git lfs pull` first if they cloned without LFS objects.
-
-`[Project Report (PDF)](<PATH_TO_REPORT_IN_REPO>)`
+GitHub will render this as a clickable link that opens/downloads the file directly from the repo — no external hosting needed.
 
 ---
 
