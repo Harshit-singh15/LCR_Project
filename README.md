@@ -139,12 +139,12 @@ Place the resulting `lcrfinder.bed` inside your `bed_<organism>/` folder alongsi
 
 - **Command sheet (PNG)** — a quick-reference image of the commands used to run each detection tool:
 
-  `![Command sheet](cheatsheet.png)`
+  ![Command sheet](cheatsheet.png)
 
 
 - **Workflow DAG (PDF)** — the Snakemake DAG graph showing how all rules/figures connect:
 
-  `[Workflow DAG](dag.pdf)`
+  [Workflow DAG](dag.pdf)
 
 ### Step 5 — Edit `config.yaml`
 
@@ -277,9 +277,8 @@ A hosted version of the web app is available here:
 
 The full project/internship report is included in this repository. Add a relative link to it once it's in place, for example:
 
-```markdown
+
 [Project Report (PDF)](LCR_Benchmarking_Internship_Report.pdf)
-```
 
 GitHub will render this as a clickable link that opens/downloads the file directly from the repo — no external hosting needed.
 
