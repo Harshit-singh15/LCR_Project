@@ -139,7 +139,7 @@ Place the resulting `lcrfinder.bed` inside your `bed_<organism>/` folder alongsi
 
 - **Command sheet (PNG)** — a quick-reference image of the commands used to run each detection tool:
 
-  `![Command sheet](docs/command_sheet.png)`
+  `![Command sheet](cheatsheet.png)`
 
 
 - **Workflow DAG (PDF)** — the Snakemake DAG graph showing how all rules/figures connect:
