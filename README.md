@@ -144,7 +144,7 @@ Place the resulting `lcrfinder.bed` inside your `bed_<organism>/` folder alongsi
 
 - **Workflow DAG (PDF)** — the Snakemake DAG graph showing how all rules/figures connect:
 
-  `[Workflow DAG](docs/workflow_dag.pdf)`
+  `[Workflow DAG](dag.pdf)`
 
 ### Step 5 — Edit `config.yaml`
 
